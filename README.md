@@ -48,11 +48,11 @@ Pour vérifier que Node est là, tape `node -v` dans un terminal : il doit affic
 Ouvre un terminal et tape, l'une après l'autre :
 
 ```bash
-git clone https://github.com/sami136kwe/deepstash.git
+git clone https://github.com/sami136kwe/deepstatsh.git
 ```
 
 ```bash
-cd deepstash
+cd deepstatsh
 ```
 
 ```bash
