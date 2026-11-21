@@ -83,7 +83,7 @@ export function LoginForm({ next, initialMode, authError }: Props) {
         <span className="h-px flex-1 bg-line" />
       </div>
 
-      <form onSubmit={onSubmit} className="flex flex-col gap-4" noValidate={false}>
+      <form method="post" onSubmit={onSubmit} className="flex flex-col gap-4">
         <label className="flex flex-col gap-1.5 text-sm font-medium">
           {t.auth.email}
           <input

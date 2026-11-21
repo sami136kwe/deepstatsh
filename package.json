@@ -19,12 +19,16 @@
     "db:reset": "supabase db reset",
     "db:types": "supabase gen types typescript --local > types/database.ts",
     "db:types:remote": "supabase gen types typescript --project-id \"$SUPABASE_PROJECT_ID\" > types/database.ts",
-    "test:db": "vitest run --config vitest.integration.config.mts"
+    "test:db": "vitest run --config vitest.integration.config.mts",
+    "tts:kokoro": "cd tts-server && ./venv/bin/python kokoro_server.py",
+    "tts:kokoro:setup": "cd tts-server && python3 -m venv venv && ./venv/bin/pip install -r requirements.txt",
+    "setup": "node scripts/setup.mjs"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^1.12.0",
     "@supabase/ssr": "^0.12.7",
     "@supabase/supabase-js": "^2.119.2",
+    "edge-tts-universal": "^1.4.0",
     "next": "16.4.6",
     "react": "19.3.0",
     "react-dom": "19.3.0",

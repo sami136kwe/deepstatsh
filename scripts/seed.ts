@@ -30,9 +30,9 @@ const MAX_BOOK_ATTEMPTS = 3;
 
 async function publishedCount(db: ScriptDb, categoryIds: string[], language: "fr" | "en"): Promise<number> {
   const { count, error } = await db
-    .from("cards")
-    .select("id", { count: "exact", head: true })
-    .in("category_id", categoryIds)
+    .from("card_translations")
+    .select("id, cards!inner(category_id)", { count: "exact", head: true })
+    .in("cards.category_id", categoryIds)
     .eq("language", language)
     .eq("status", "published");
   if (error) throw new Error(error.message);

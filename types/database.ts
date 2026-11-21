@@ -69,6 +69,32 @@ isOneToOne: false
       referencedColumns: ["id"]
     }
                   ]
+                },"card_translations": {
+                  Row: {
+                    "action_step": string,"body": string,"card_id": string,"content_hash": string,"created_at": string,"embedding": string | null,"id": string,"language": string,"quote": string | null,"quote_author": string | null,"rejection_reason": string | null,"search": unknown,"status": string,"style_score": number | null,"title": string
+                  }
+                  ComputedFields: never
+                  Insert: {
+                    "action_step": string,"body": string,"card_id": string,"content_hash": string,"created_at"?: string,"embedding"?: string | null,"id"?: string,"language": string,"quote"?: string | null,"quote_author"?: string | null,"rejection_reason"?: string | null,"search"?: never,"status"?: string,"style_score"?: number | null,"title": string
+                  }
+                  Update: {
+                    "action_step"?: string,"body"?: string,"card_id"?: string,"content_hash"?: string,"created_at"?: string,"embedding"?: string | null,"id"?: string,"language"?: string,"quote"?: string | null,"quote_author"?: string | null,"rejection_reason"?: string | null,"search"?: never,"status"?: string,"style_score"?: number | null,"title"?: string
+                  }
+                  Relationships: [
+                    {
+      foreignKeyName: "card_translations_card_id_fkey"
+      columns: ["card_id"]
+isOneToOne: false
+      referencedRelation: "card_details"
+      referencedColumns: ["id"]
+    },{
+      foreignKeyName: "card_translations_card_id_fkey"
+      columns: ["card_id"]
+isOneToOne: false
+      referencedRelation: "cards"
+      referencedColumns: ["id"]
+    }
+                  ]
                 },"card_views": {
                   Row: {
                     "action": string,"card_id": string,"created_at": string,"id": number,"user_id": string
@@ -97,14 +123,14 @@ isOneToOne: false
                   ]
                 },"cards": {
                   Row: {
-                    "action_step": string,"body": string,"book_id": string | null,"category_id": string,"content_hash": string,"created_at": string,"difficulty": number,"embedding": string | null,"human_reviewed": boolean,"id": string,"ingestion_run_id": string | null,"language": string,"quality_score": number | null,"quote": string | null,"quote_author": string | null,"rejection_reason": string | null,"search": unknown,"source_type": string,"stash_count": number,"status": string,"style_score": number | null,"title": string
+                    "book_id": string | null,"category_id": string,"created_at": string,"difficulty": number,"human_reviewed": boolean,"id": string,"ingestion_run_id": string | null,"quality_score": number | null,"rejection_reason": string | null,"source_type": string,"stash_count": number,"status": string
                   }
                   ComputedFields: never
                   Insert: {
-                    "action_step": string,"body": string,"book_id"?: string | null,"category_id": string,"content_hash": string,"created_at"?: string,"difficulty"?: number,"embedding"?: string | null,"human_reviewed"?: boolean,"id"?: string,"ingestion_run_id"?: string | null,"language": string,"quality_score"?: number | null,"quote"?: string | null,"quote_author"?: string | null,"rejection_reason"?: string | null,"search"?: never,"source_type"?: string,"stash_count"?: number,"status"?: string,"style_score"?: number | null,"title": string
+                    "book_id"?: string | null,"category_id": string,"created_at"?: string,"difficulty"?: number,"human_reviewed"?: boolean,"id"?: string,"ingestion_run_id"?: string | null,"quality_score"?: number | null,"rejection_reason"?: string | null,"source_type"?: string,"stash_count"?: number,"status"?: string
                   }
                   Update: {
-                    "action_step"?: string,"body"?: string,"book_id"?: string | null,"category_id"?: string,"content_hash"?: string,"created_at"?: string,"difficulty"?: number,"embedding"?: string | null,"human_reviewed"?: boolean,"id"?: string,"ingestion_run_id"?: string | null,"language"?: string,"quality_score"?: number | null,"quote"?: string | null,"quote_author"?: string | null,"rejection_reason"?: string | null,"search"?: never,"source_type"?: string,"stash_count"?: number,"status"?: string,"style_score"?: number | null,"title"?: string
+                    "book_id"?: string | null,"category_id"?: string,"created_at"?: string,"difficulty"?: number,"human_reviewed"?: boolean,"id"?: string,"ingestion_run_id"?: string | null,"quality_score"?: number | null,"rejection_reason"?: string | null,"source_type"?: string,"stash_count"?: number,"status"?: string
                   }
                   Relationships: [
                     {
@@ -147,6 +173,46 @@ isOneToOne: false
       referencedColumns: ["id"]
     }
                   ]
+                },"daily_deck": {
+                  Row: {
+                    "card_id": string,"deck_date": string,"position": number,"seen_at": string | null,"user_id": string
+                  }
+                  ComputedFields: never
+                  Insert: {
+                    "card_id": string,"deck_date": string,"position": number,"seen_at"?: string | null,"user_id": string
+                  }
+                  Update: {
+                    "card_id"?: string,"deck_date"?: string,"position"?: number,"seen_at"?: string | null,"user_id"?: string
+                  }
+                  Relationships: [
+                    {
+      foreignKeyName: "daily_deck_card_id_fkey"
+      columns: ["card_id"]
+isOneToOne: false
+      referencedRelation: "card_details"
+      referencedColumns: ["id"]
+    },{
+      foreignKeyName: "daily_deck_card_id_fkey"
+      columns: ["card_id"]
+isOneToOne: false
+      referencedRelation: "cards"
+      referencedColumns: ["id"]
+    }
+                  ]
+                },"daily_deck_state": {
+                  Row: {
+                    "current_position": number,"deck_date": string,"updated_at": string,"user_id": string
+                  }
+                  ComputedFields: never
+                  Insert: {
+                    "current_position"?: number,"deck_date": string,"updated_at"?: string,"user_id": string
+                  }
+                  Update: {
+                    "current_position"?: number,"deck_date"?: string,"updated_at"?: string,"user_id"?: string
+                  }
+                  Relationships: [
+                    
+                  ]
                 },"ingestion_queries": {
                   Row: {
                     "category_id": string,"created_at": string,"id": string,"last_run_at": string | null,"query_text": string
@@ -183,14 +249,14 @@ isOneToOne: false
                   ]
                 },"profiles": {
                   Row: {
-                    "created_at": string,"daily_goal": number,"display_name": string | null,"id": string,"interests": (string)[],"language": string,"last_active_date": string | null,"longest_streak": number,"onboarded": boolean,"streak_count": number,"updated_at": string
+                    "created_at": string,"daily_goal": number,"daily_limit": string,"display_name": string | null,"id": string,"include_reread": boolean,"interests": (string)[],"language": string,"last_active_date": string | null,"longest_streak": number,"onboarded": boolean,"reread_ratio": number,"streak_count": number,"timezone": string,"updated_at": string
                   }
                   ComputedFields: never
                   Insert: {
-                    "created_at"?: string,"daily_goal"?: number,"display_name"?: string | null,"id": string,"interests"?: (string)[],"language"?: string,"last_active_date"?: string | null,"longest_streak"?: number,"onboarded"?: boolean,"streak_count"?: number,"updated_at"?: string
+                    "created_at"?: string,"daily_goal"?: number,"daily_limit"?: string,"display_name"?: string | null,"id": string,"include_reread"?: boolean,"interests"?: (string)[],"language"?: string,"last_active_date"?: string | null,"longest_streak"?: number,"onboarded"?: boolean,"reread_ratio"?: number,"streak_count"?: number,"timezone"?: string,"updated_at"?: string
                   }
                   Update: {
-                    "created_at"?: string,"daily_goal"?: number,"display_name"?: string | null,"id"?: string,"interests"?: (string)[],"language"?: string,"last_active_date"?: string | null,"longest_streak"?: number,"onboarded"?: boolean,"streak_count"?: number,"updated_at"?: string
+                    "created_at"?: string,"daily_goal"?: number,"daily_limit"?: string,"display_name"?: string | null,"id"?: string,"include_reread"?: boolean,"interests"?: (string)[],"language"?: string,"last_active_date"?: string | null,"longest_streak"?: number,"onboarded"?: boolean,"reread_ratio"?: number,"streak_count"?: number,"timezone"?: string,"updated_at"?: string
                   }
                   Relationships: [
                     
@@ -221,12 +287,38 @@ isOneToOne: false
       referencedColumns: ["id"]
     }
                   ]
+                },"user_card_state": {
+                  Row: {
+                    "card_id": string,"first_read_at": string,"is_stashed": boolean,"last_read_at": string,"read_count": number,"user_id": string
+                  }
+                  ComputedFields: never
+                  Insert: {
+                    "card_id": string,"first_read_at"?: string,"is_stashed"?: boolean,"last_read_at"?: string,"read_count"?: number,"user_id": string
+                  }
+                  Update: {
+                    "card_id"?: string,"first_read_at"?: string,"is_stashed"?: boolean,"last_read_at"?: string,"read_count"?: number,"user_id"?: string
+                  }
+                  Relationships: [
+                    {
+      foreignKeyName: "user_card_state_card_id_fkey"
+      columns: ["card_id"]
+isOneToOne: false
+      referencedRelation: "card_details"
+      referencedColumns: ["id"]
+    },{
+      foreignKeyName: "user_card_state_card_id_fkey"
+      columns: ["card_id"]
+isOneToOne: false
+      referencedRelation: "cards"
+      referencedColumns: ["id"]
+    }
+                  ]
                 }
           }
           Views: {
             "card_details": {
                   Row: {
-                    "action_step": string,"body": string,"book_author": string | null,"book_cover_url": string | null,"book_id": string | null,"book_info_link": string | null,"book_title": string | null,"category_icon": string | null,"category_id": string,"category_name_en": string,"category_name_fr": string,"category_slug": string,"created_at": string,"difficulty": number,"id": string,"language": string,"main_category_id": string | null,"quality_score": number | null,"quote": string | null,"quote_author": string | null,"source_type": string,"stash_count": number,"status": string,"style_score": number | null,"title": string
+                    "action_step": string,"body": string,"book_author": string | null,"book_cover_url": string | null,"book_id": string | null,"book_info_link": string | null,"book_title": string | null,"category_icon": string | null,"category_id": string,"category_name_en": string,"category_name_fr": string,"category_slug": string,"created_at": string,"difficulty": number,"id": string,"language": string,"main_category_id": string | null,"quality_score": number | null,"quote": string | null,"quote_author": string | null,"source_type": string,"stash_count": number,"status": string,"style_score": number | null,"title": string,"translation_id": string
                   }
                   ComputedFields: never
                   Relationships: [
@@ -283,7 +375,8 @@ isOneToOne: false
 "stash_count": number,
 "status": string,
 "style_score": number | null,
-"title": string
+"title": string,
+"translation_id": string
             }[]
                           SetofOptions: {
         from: "*"
@@ -296,6 +389,11 @@ isOneToOne: false
               "id": string,"main_category_id": string,"rank_score": number
             }[]
                            },
+"history_cards":
+{ Args: { "p_category"?: string,"p_from"?: string,"p_language": string,"p_limit"?: number,"p_offset"?: number,"p_q"?: string,"p_stashed"?: boolean,"p_sub"?: string,"p_to"?: string }; Returns: {
+              "card_id": string,"first_read_at": string,"is_stashed": boolean,"last_read_at": string,"read_count": number,"total_count": number
+            }[]
+                           },
 "match_cards":
 { Args: { "match_count"?: number,"match_language": string,"match_threshold"?: number,"query_embedding": string }; Returns: {
               "id": string,"similarity": number,"title": string
@@ -304,6 +402,11 @@ isOneToOne: false
 "record_activity":
 { Args: { "p_day": string }; Returns: {
               "last_active_date": string,"longest_streak": number,"streak_count": number
+            }[]
+                           },
+"reread_candidates":
+{ Args: { "p_category"?: string,"p_exclude"?: (string)[],"p_language": string,"p_limit"?: number,"p_mode"?: string }; Returns: {
+              "card_id": string,"last_read_at": string,"read_count": number
             }[]
                            }
           }

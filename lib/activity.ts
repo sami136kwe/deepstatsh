@@ -10,3 +10,8 @@ export async function recordActivity(db: SupabaseClient<Database>, day: string) 
   }
   return data[0] ?? null;
 }
+
+/** Only new cards and challenges count towards the streak: re-reading is a bonus. */
+export function countsForStreak(action: "seen" | "skipped" | "completed" | "reread"): boolean {
+  return action !== "reread";
+}

@@ -8,6 +8,36 @@ import { AdminReview, RerunForm, type ReviewCard } from "./AdminClient";
 export const metadata: Metadata = { title: "Admin", robots: { index: false } };
 
 const SAMPLE_SIZE = 20;
+const REVIEW_FIELDS = "id, card_id, title, body, action_step, language, status, style_score, rejection_reason, created_at";
+
+type TranslationRow = {
+  id: string;
+  card_id: string;
+  title: string;
+  body: string;
+  action_step: string;
+  language: string;
+  status: string;
+  style_score: number | null;
+  rejection_reason: string | null;
+  cards: { quality_score: number | null; status: string };
+};
+
+/** One review item per translation; decisions apply to the whole card. */
+function toReviewCard(row: TranslationRow): ReviewCard {
+  return {
+    id: row.card_id,
+    translationId: row.id,
+    title: row.title,
+    body: row.body,
+    action_step: row.action_step,
+    language: row.language,
+    status: row.cards.status,
+    quality_score: row.cards.quality_score,
+    style_score: row.style_score,
+    rejection_reason: row.rejection_reason,
+  };
+}
 
 function shuffle<T>(items: T[]): T[] {
   const a = [...items];
@@ -30,11 +60,11 @@ export default async function AdminPage() {
     db.rpc("category_card_counts"),
     db.from("categories").select("id, slug, name_fr, name_en, icon").is("parent_id", null).order("sort_order"),
     db
-      .from("cards")
-      .select("id, title, body, action_step, language, status, quality_score, style_score, rejection_reason, created_at")
-      .eq("status", "draft")
+      .from("card_translations")
+      .select(`${REVIEW_FIELDS}, cards!inner(quality_score, status)`)
+      .eq("cards.status", "draft")
       .order("created_at", { ascending: false })
-      .limit(50),
+      .limit(100),
   ]);
   for (const r of [runs, counts, categories, drafts]) if (r.error) throw new Error(r.error.message);
 
@@ -42,13 +72,13 @@ export default async function AdminPage() {
   let sample: ReviewCard[] = [];
   if (latestRun) {
     const { data, error } = await db
-      .from("cards")
-      .select("id, title, body, action_step, language, status, quality_score, style_score, rejection_reason, created_at")
-      .eq("ingestion_run_id", latestRun.id)
-      .eq("human_reviewed", false)
-      .limit(300);
+      .from("card_translations")
+      .select(`${REVIEW_FIELDS}, cards!inner(quality_score, status, ingestion_run_id, human_reviewed)`)
+      .eq("cards.ingestion_run_id", latestRun.id)
+      .eq("cards.human_reviewed", false)
+      .limit(400);
     if (error) throw new Error(error.message);
-    sample = shuffle(data).slice(0, SAMPLE_SIZE);
+    sample = shuffle(data.map(toReviewCard)).slice(0, SAMPLE_SIZE);
   }
 
   const name = (c: { name_fr: string; name_en: string }) => (locale === "fr" ? c.name_fr : c.name_en);
@@ -135,7 +165,7 @@ export default async function AdminPage() {
 
       <section className="flex flex-col gap-3">
         <h2 className="text-xl font-semibold">{t.admin.drafts}</h2>
-        <AdminReview cards={drafts.data!} />
+        <AdminReview cards={drafts.data!.map(toReviewCard)} />
       </section>
     </div>
   );

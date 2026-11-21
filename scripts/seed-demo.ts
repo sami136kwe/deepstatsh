@@ -41,29 +41,56 @@ async function main() {
       bookId = book.id;
     }
 
-    for (const language of ["fr", "en"] as const) {
-      const v = card[language];
-      const { error: cardError } = await db.from("cards").upsert(
-        {
-          category_id: categoryId,
-          book_id: bookId,
-          title: v.title,
-          body: v.body,
-          action_step: v.action_step,
-          difficulty: card.difficulty,
-          language,
-          status: "published",
-          source_type: "manual",
-          human_reviewed: true,
-          content_hash: contentHash(language, v.title, v.body),
-        },
-        { onConflict: "content_hash", ignoreDuplicates: true },
-      );
-      if (cardError) throw new Error(`${v.title}: ${cardError.message}`);
+    const hashes = {
+      fr: contentHash("fr", card.fr.title, card.fr.body),
+      en: contentHash("en", card.en.title, card.en.body),
+    };
+    const { data: existing, error: existingError } = await db
+      .from("card_translations")
+      .select("card_id")
+      .in("content_hash", [hashes.fr, hashes.en]);
+    if (existingError) throw new Error(existingError.message);
+    const existingIds = [...new Set(existing.map((e) => e.card_id))];
+    // Already stored as one card with both versions: nothing to do.
+    if (existing.length === 2 && existingIds.length === 1) {
       inserted += 1;
+      continue;
     }
+    // Older single-language rows (before translations existed) are rebuilt as a pair.
+    if (existingIds.length > 0) await db.from("cards").delete().in("id", existingIds);
+
+    const { data: row, error: cardError } = await db
+      .from("cards")
+      .insert({
+        category_id: categoryId,
+        book_id: bookId,
+        difficulty: card.difficulty,
+        status: "published",
+        source_type: "manual",
+        human_reviewed: true,
+      })
+      .select("id")
+      .single();
+    if (cardError) throw new Error(`${card.fr.title}: ${cardError.message}`);
+
+    const { error: translationError } = await db.from("card_translations").insert(
+      (["fr", "en"] as const).map((language) => ({
+        card_id: row.id,
+        language,
+        title: card[language].title,
+        body: card[language].body,
+        action_step: card[language].action_step,
+        status: "published",
+        content_hash: hashes[language],
+      })),
+    );
+    if (translationError) {
+      await db.from("cards").delete().eq("id", row.id);
+      throw new Error(`${card.fr.title}: ${translationError.message}`);
+    }
+    inserted += 1;
   }
-  console.log(`Demo cards ready: ${inserted} (fr + en)`);
+  console.log(`Demo cards ready: ${inserted} (each with a French and an English version)`);
 }
 
 main().catch((error) => {

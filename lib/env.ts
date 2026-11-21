@@ -18,6 +18,8 @@ const serverSchema = z.object({
   ANTHROPIC_FALLBACKS: z.enum(["default", "off"]).default("default"),
   GOOGLE_BOOKS_API_KEY: z.string().optional(),
   EMBEDDING_FUNCTION_URL: z.url().optional(),
+  /** Local Kokoro TTS server (npm run tts:kokoro), e.g. http://127.0.0.1:8788 */
+  KOKORO_URL: z.url().optional(),
   EMBEDDING_FUNCTION_SECRET: z.string().min(8).optional(),
   CRON_SECRET: z.string().min(16).optional(),
   ADMIN_EMAILS: z.string().default(""),

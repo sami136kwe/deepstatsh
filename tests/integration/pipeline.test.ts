@@ -138,13 +138,15 @@ beforeAll(async () => {
 
 afterAll(async () => {
   vi.unstubAllGlobals();
-  await db.from("cards").delete().like("title", `%${tag}%`);
+  const { data: books } = await db.from("books").select("id").eq("author", "Ada Tester");
+  const bookIds = (books ?? []).map((b) => b.id);
+  if (bookIds.length) await db.from("cards").delete().in("book_id", bookIds); // translations cascade
   await db.from("books").delete().eq("author", "Ada Tester");
   for (const id of runIds) await db.from("ingestion_runs").delete().eq("id", id);
 });
 
 describe("processBook", () => {
-  it("publishes good cards in both languages and rejects bad ones with reasons", async () => {
+  it("publishes a good card with both versions and rejects a bad one with reasons", async () => {
     const book = await insertBook(`Perception ${tag}`);
     const model = fakeModel([GOOD, BAD], "biais-cognitifs");
     const runId = await startRun(db, "manual", { test: true });
@@ -152,20 +154,28 @@ describe("processBook", () => {
     const counters = newCounters();
 
     const result = await processBook(deps(model, fakeEmbedder()), counters, runId, book, psychology, subs);
-    expect(result).toEqual({ created: 2, rejected: 2 });
+    expect(result).toEqual({ created: 1, rejected: 1 });
     expect(model.generate).toHaveBeenCalledOnce();
     expect(model.rewrite).toHaveBeenCalledOnce();
     expect(model.score).toHaveBeenCalledOnce();
 
-    const { data: cards } = await db.from("cards").select("title, status, language, rejection_reason, style_score, category_id").eq("book_id", book.id);
+    const { data: cards } = await db.from("cards").select("id, status, category_id, rejection_reason, quality_score").eq("book_id", book.id);
+    expect(cards).toHaveLength(2);
     const published = cards!.filter((c) => c.status === "published");
-    expect(published.map((c) => c.language).sort()).toEqual(["en", "fr"]);
-    expect(published.every((c) => Number(c.style_score) === 8)).toBe(true);
+    expect(published).toHaveLength(1);
     expect(published[0]!.category_id).toBe(subs.find((s) => s.slug === "biais-cognitifs")!.id);
 
-    const rejected = cards!.filter((c) => c.status === "rejected");
-    expect(rejected).toHaveLength(2);
-    expect(rejected.every((c) => /banned_(phrase|word)/.test(c.rejection_reason ?? ""))).toBe(true);
+    // The published card has exactly two published translations, fr and en.
+    const { data: versions } = await db.from("card_translations").select("language, status, style_score, content_hash").eq("card_id", published[0]!.id);
+    expect(versions!.map((v) => v.language).sort()).toEqual(["en", "fr"]);
+    expect(versions!.every((v) => v.status === "published" && Number(v.style_score) === 8)).toBe(true);
+
+    // The rejected card keeps its reasons (per language) and both translations are marked rejected.
+    const rejected = cards!.find((c) => c.status === "rejected")!;
+    expect(rejected.rejection_reason).toMatch(/fr:banned_(phrase|word)/);
+    expect(rejected.rejection_reason).toMatch(/en:banned_(phrase|word)/);
+    const { data: rejectedVersions } = await db.from("card_translations").select("status").eq("card_id", rejected.id);
+    expect(rejectedVersions).toEqual([{ status: "rejected" }, { status: "rejected" }]);
 
     const { data: updated } = await db.from("books").select("processed_at").eq("id", book.id).single();
     expect(updated!.processed_at).not.toBeNull();
@@ -183,12 +193,14 @@ describe("processBook", () => {
       en: { ...GOOD.en, title: `The imaginary spotlight ${tag}`, body: GOOD.en.body.replace("five minutes", "ten minutes") },
     };
     const a = await processBook(deps(fakeModel([{ ...variant, fr: { ...variant.fr, title: `A ${variant.fr.title}` }, en: { ...variant.en, title: `A ${variant.en.title}` } }], "biais-cognitifs"), fakeEmbedder(vector)), newCounters(), runId, first, psychology, subs);
-    expect(a.created).toBe(2);
+    expect(a.created).toBe(1);
 
     const b = await processBook(deps(fakeModel([variant], "biais-cognitifs"), fakeEmbedder(vector)), newCounters(), runId, second, psychology, subs);
-    expect(b).toEqual({ created: 0, rejected: 2 });
-    const { data } = await db.from("cards").select("rejection_reason").eq("book_id", second.id);
-    expect(data!.every((c) => c.rejection_reason?.startsWith("near_duplicate:"))).toBe(true);
+    expect(b).toEqual({ created: 0, rejected: 1 });
+    const { data } = await db.from("cards").select("status, rejection_reason").eq("book_id", second.id);
+    expect(data).toHaveLength(1);
+    expect(data![0]!.status).toBe("rejected");
+    expect(data![0]!.rejection_reason).toMatch(/fr:near_duplicate:.*en:near_duplicate:/);
   });
 });
 
@@ -222,10 +234,10 @@ describe("runPipeline", () => {
     vi.unstubAllGlobals();
 
     expect(summary.booksFound).toBe(1);
-    expect(summary.cardsCreated).toBe(2);
+    expect(summary.cardsCreated).toBe(1);
     expect(summary.modelCalls).toBe(3);
     const { data: run } = await db.from("ingestion_runs").select("*").eq("id", summary.runId).single();
-    expect(run).toMatchObject({ source: "manual", books_found: 1, cards_created: 2, model_calls: 3 });
+    expect(run).toMatchObject({ source: "manual", books_found: 1, cards_created: 1, model_calls: 3 });
     expect(run!.finished_at).not.toBeNull();
     expect(["success", "partial"]).toContain(run!.status);
   });

@@ -19,7 +19,7 @@ export default async function StashPage() {
     .eq("user_id", user.id)
     .order("created_at", { ascending: false });
   if (error) throw new Error(error.message);
-  const [cards, categories] = await Promise.all([cardsByIds(supabase, stashes.map((s) => s.card_id)), mainCategories(supabase)]);
+  const [cards, categories] = await Promise.all([cardsByIds(supabase, stashes.map((s) => s.card_id), locale), mainCategories(supabase)]);
   const notes = Object.fromEntries(stashes.map((s) => [s.card_id, s.note ?? ""]));
   const t = messagesFor(locale);
 

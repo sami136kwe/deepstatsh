@@ -24,5 +24,11 @@ export async function PATCH(request: Request) {
     .maybeSingle();
   if (error) return serverError("admin:cards", error);
   if (!data) return jsonError(404, "card_not_found");
+  // Both versions follow the card: they are published or rejected together.
+  const { error: translationError } = await admin
+    .from("card_translations")
+    .update({ status, rejection_reason: status === "rejected" ? `human_review:${auth.user.email ?? auth.user.id}` : null })
+    .eq("card_id", cardId);
+  if (translationError) return serverError("admin:translations", translationError);
   return NextResponse.json({ card: data });
 }

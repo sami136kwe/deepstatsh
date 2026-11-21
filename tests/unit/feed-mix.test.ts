@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
-import { mixFeed, roundRobinByCategory, type FeedCandidate } from "@/lib/feed/mix";
+import { countsForStreak } from "@/lib/activity";
+import { interleave, mixFeed, roundRobinByCategory, type FeedCandidate } from "@/lib/feed/mix";
 
 function cards(prefix: string, category: string, n: number, base = 10): FeedCandidate[] {
   return Array.from({ length: n }, (_, i) => ({ id: `${prefix}${i}`, main_category_id: category, rank_score: base - i }));
@@ -44,5 +45,31 @@ describe("feed mixing", () => {
 
   it("returns an empty page for size 0", () => {
     expect(mixFeed(cards("a", "A", 3), [], 0)).toEqual([]);
+  });
+});
+
+describe("re-read mixing", () => {
+  it("spreads re-reads evenly among new cards and keeps every card", () => {
+    const out = interleave(["n1", "n2", "n3", "n4", "n5", "n6", "n7", "n8"], ["r1", "r2"]);
+    expect(out).toHaveLength(10);
+    expect(out.filter((c) => c.startsWith("r"))).toEqual(["r1", "r2"]);
+    expect(out.map((c, i) => (c.startsWith("r") ? i : -1)).filter((i) => i >= 0)).toEqual([2, 6]);
+    expect(out.filter((c) => c.startsWith("n"))).toEqual(["n1", "n2", "n3", "n4", "n5", "n6", "n7", "n8"]);
+  });
+
+  it("handles empty lists and more re-reads than new cards", () => {
+    expect(interleave([], ["r1", "r2"])).toEqual(["r1", "r2"]);
+    expect(interleave(["n1"], [])).toEqual(["n1"]);
+    const out = interleave(["n1"], ["r1", "r2", "r3"]);
+    expect(out).toHaveLength(4);
+    expect(new Set(out).size).toBe(4);
+  });
+});
+
+describe("streak rule", () => {
+  it("never counts a re-read towards the streak", () => {
+    expect(countsForStreak("reread")).toBe(false);
+    expect(countsForStreak("seen")).toBe(true);
+    expect(countsForStreak("completed")).toBe(true);
   });
 });

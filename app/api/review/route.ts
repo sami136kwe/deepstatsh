@@ -20,7 +20,8 @@ export async function GET() {
     .limit(SESSION_SIZE);
   if (error) return serverError("review:list", error);
   try {
-    const cards = await cardsByIds(auth.supabase, data.map((r) => r.card_id));
+    const { data: profile } = await auth.supabase.from("profiles").select("language").eq("id", auth.user.id).single();
+    const cards = await cardsByIds(auth.supabase, data.map((r) => r.card_id), profile?.language === "en" ? "en" : "fr");
     return NextResponse.json({ cards });
   } catch (e) {
     return serverError("review:cards", e);

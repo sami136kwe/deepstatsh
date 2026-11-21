@@ -4,14 +4,23 @@ import { z } from "zod";
 export const daySchema = z.iso.date();
 export const uuidSchema = z.uuid();
 
+/** Comma-separated card ids already shown in this session. */
+const excludeIds = z
+  .string()
+  .max(8000)
+  .optional()
+  .transform((v) => (v ? v.split(",").filter(Boolean) : []))
+  .pipe(z.array(uuidSchema).max(200));
+
 export const feedQuerySchema = z.object({
   size: z.coerce.number().int().min(1).max(30).default(10),
   since: z.iso.datetime({ offset: true }).optional(),
+  exclude: excludeIds,
 });
 
 export const viewBodySchema = z.object({
   cardId: uuidSchema,
-  action: z.enum(["seen", "skipped", "completed"]),
+  action: z.enum(["seen", "skipped", "completed", "reread"]),
   day: daySchema,
 });
 
@@ -35,6 +44,8 @@ export const profileBodySchema = z
     daily_goal: z.union([z.literal(3), z.literal(5), z.literal(10)]),
     language: z.enum(["fr", "en"]),
     onboarded: z.boolean(),
+    include_reread: z.boolean(),
+    reread_ratio: z.union([z.literal(10), z.literal(20), z.literal(30), z.literal(50)]),
   })
   .partial()
   .refine((v) => Object.keys(v).length > 0, "empty update");
@@ -47,3 +58,25 @@ export const adminCardBodySchema = z.object({
 });
 
 export const adminRerunBodySchema = z.object({ categoryId: uuidSchema });
+
+export const rereadModeSchema = z.enum(["random", "oldest", "least", "stashed"]);
+
+export const rereadQuerySchema = z.object({
+  mode: rereadModeSchema.default("random"),
+  category: uuidSchema.optional(),
+  size: z.coerce.number().int().min(1).max(30).default(10),
+  exclude: excludeIds,
+});
+
+export const historyQuerySchema = z.object({
+  category: uuidSchema.optional(),
+  sub: uuidSchema.optional(),
+  stashed: z.enum(["1", "0"]).default("0"),
+  from: z.iso.datetime({ offset: true }).optional(),
+  to: z.iso.datetime({ offset: true }).optional(),
+  q: z.string().trim().max(100).optional(),
+  offset: z.coerce.number().int().min(0).max(100_000).default(0),
+  limit: z.coerce.number().int().min(1).max(60).default(24),
+});
+
+export const reviewLaterBodySchema = z.object({ cardId: uuidSchema });

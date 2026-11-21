@@ -17,6 +17,8 @@ function useLinks(isAdmin: boolean) {
     { href: "/progress", label: t.nav.progress, icon: "▲" },
   ];
   const secondary = [
+    { href: "/history", label: t.nav.history, icon: "☰" },
+    { href: "/reread", label: t.nav.reread, icon: "⟲" },
     { href: "/search", label: t.nav.search, icon: "⌕" },
     { href: "/profile", label: t.nav.profile, icon: "◉" },
     ...(isAdmin ? [{ href: "/admin", label: t.nav.admin, icon: "⚙" }] : []),

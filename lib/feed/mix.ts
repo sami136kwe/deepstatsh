@@ -70,3 +70,26 @@ export function mixFeed(
   }
   return out;
 }
+
+/**
+ * Spreads `extra` items evenly among `base` items (e.g. re-read cards among new
+ * ones). Order inside each list is preserved; nothing is dropped.
+ */
+export function interleave<T, U>(base: T[], extra: U[]): (T | U)[] {
+  const total = base.length + extra.length;
+  if (extra.length === 0) return [...base];
+  if (base.length === 0) return [...extra];
+  const slots = new Set(extra.map((_, j) => Math.min(total - 1, Math.max(0, Math.round(((j + 1) * total) / (extra.length + 1)) - 1))));
+  // Collisions can only happen with tiny lists: push to the next free slot.
+  const taken = new Set<number>();
+  for (const slot of [...slots].sort((a, b) => a - b)) {
+    let s = slot;
+    while (taken.has(s)) s += 1;
+    taken.add(s);
+  }
+  let baseIndex = 0;
+  let extraIndex = 0;
+  const out: (T | U)[] = [];
+  for (let i = 0; i < total; i++) out.push(taken.has(i) && extraIndex < extra.length ? extra[extraIndex++]! : base[baseIndex++]!);
+  return out;
+}

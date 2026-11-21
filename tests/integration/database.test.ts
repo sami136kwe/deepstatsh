@@ -40,24 +40,24 @@ let draftId: string;
 beforeAll(async () => {
   alice = await signedInClient("alice");
   bob = await signedInClient("bob");
-  const { data } = await admin.from("cards").select("id, category_id").eq("status", "published").eq("language", "fr").limit(1).single();
+  const { data } = await admin.from("card_details").select("id, category_id").eq("status", "published").eq("language", "fr").limit(1).single();
   if (!data) throw new Error("run `npm run seed:demo` first");
   cardId = data.id;
-  const { data: draft, error } = await admin
-    .from("cards")
-    .insert({
-      category_id: data.category_id,
+  const { data: draft, error } = await admin.from("cards").insert({ category_id: data.category_id, status: "draft" }).select("id").single();
+  if (error) throw error;
+  draftId = draft.id;
+  const { error: translationError } = await admin.from("card_translations").insert(
+    (["fr", "en"] as const).map((language) => ({
+      card_id: draftId,
+      language,
       title: "Brouillon de test",
       body: "Ceci est une carte brouillon utilisée par les tests d'intégration. Elle ne doit jamais être visible.",
       action_step: "Ne rien faire du tout aujourd'hui.",
-      language: "fr",
       status: "draft",
-      content_hash: `test-draft-${Date.now()}`,
-    })
-    .select("id")
-    .single();
-  if (error) throw error;
-  draftId = draft.id;
+      content_hash: `test-draft-${language}-${Date.now()}`,
+    })),
+  );
+  if (translationError) throw translationError;
 });
 
 afterAll(async () => {
@@ -77,11 +77,19 @@ describe("row level security", () => {
     expect(published).toHaveLength(1);
     const { data: hidden } = await alice.db.from("cards").select("id").eq("id", draftId);
     expect(hidden).toHaveLength(0);
+    const { data: hiddenText } = await alice.db.from("card_translations").select("id").eq("card_id", draftId);
+    expect(hiddenText).toHaveLength(0);
+    const { data: both } = await anon.from("card_translations").select("language").eq("card_id", cardId);
+    expect(both!.map((t) => t.language).sort()).toEqual(["en", "fr"]);
   });
 
   it("forbids users from writing cards or books", async () => {
-    const { error } = await alice.db.from("cards").update({ title: "hacked" }).eq("id", cardId);
+    const { error } = await alice.db.from("cards").update({ difficulty: 3 }).eq("id", cardId);
     expect(error).not.toBeNull();
+    const { error: translationError } = await alice.db.from("card_translations").update({ title: "hacked" }).eq("card_id", cardId);
+    expect(translationError).not.toBeNull();
+    const { data: after } = await admin.from("card_translations").select("title").eq("card_id", cardId);
+    expect(after!.every((t) => t.title !== "hacked")).toBe(true);
     const { error: bookError } = await alice.db.from("books").insert({ dedup_key: "x|y", title: "x", author: "y" });
     expect(bookError).not.toBeNull();
   });
@@ -105,6 +113,125 @@ describe("row level security", () => {
     expect(data ?? []).toHaveLength(0);
     const { error } = await alice.db.rpc("match_cards", { query_embedding: `[${Array(384).fill(0).join(",")}]`, match_language: "fr" });
     expect(error).not.toBeNull();
+  });
+});
+
+describe("reading history and decks", () => {
+  it("records reads with counts, and keeps is_stashed in sync", async () => {
+    await alice.db.from("card_views").insert({ user_id: alice.id, card_id: cardId, action: "seen" });
+    await alice.db.from("card_views").insert({ user_id: alice.id, card_id: cardId, action: "skipped" });
+    await alice.db.from("card_views").insert({ user_id: alice.id, card_id: cardId, action: "seen" });
+    const { data } = await alice.db.from("user_card_state").select("*").eq("card_id", cardId).single();
+    expect(data).toMatchObject({ user_id: alice.id, read_count: 2, is_stashed: true }); // alice stashed it above
+    expect(new Date(data!.last_read_at).getTime()).toBeGreaterThanOrEqual(new Date(data!.first_read_at).getTime());
+
+    await alice.db.from("stashes").delete().eq("card_id", cardId).eq("user_id", alice.id);
+    const { data: unstashed } = await alice.db.from("user_card_state").select("is_stashed, read_count").eq("card_id", cardId).single();
+    expect(unstashed).toEqual({ is_stashed: false, read_count: 2 });
+  });
+
+  it("keeps reading history private and read-only", async () => {
+    const { data: bobView } = await bob.db.from("user_card_state").select("*").eq("user_id", alice.id);
+    expect(bobView).toHaveLength(0);
+    const { error } = await alice.db.from("user_card_state").update({ read_count: 99 }).eq("user_id", alice.id);
+    expect(error).not.toBeNull();
+    const { data } = await alice.db.from("user_card_state").select("read_count").eq("card_id", cardId).single();
+    expect(data!.read_count).toBe(2);
+  });
+
+  it("lets a user store only their own deck and position", async () => {
+    const own = await alice.db.from("daily_deck").insert({ user_id: alice.id, deck_date: today, card_id: cardId, position: 1 });
+    expect(own.error).toBeNull();
+    const duplicatePosition = await alice.db.from("daily_deck").insert({ user_id: alice.id, deck_date: today, card_id: draftId, position: 1 });
+    expect(duplicatePosition.error).not.toBeNull();
+    const forged = await bob.db.from("daily_deck").insert({ user_id: alice.id, deck_date: today, card_id: cardId, position: 2 });
+    expect(forged.error).not.toBeNull();
+    const state = await alice.db.from("daily_deck_state").upsert({ user_id: alice.id, deck_date: today, current_position: 7 });
+    expect(state.error).toBeNull();
+    const { data: bobDeck } = await bob.db.from("daily_deck").select("*").eq("user_id", alice.id);
+    expect(bobDeck).toHaveLength(0);
+  });
+
+  it("accepts daily_limit and timezone only from the allowed set", async () => {
+    const ok = await alice.db.from("profiles").update({ daily_limit: "50", timezone: "Europe/Paris" }).eq("id", alice.id);
+    expect(ok.error).toBeNull();
+    const bad = await alice.db.from("profiles").update({ daily_limit: "75" }).eq("id", alice.id);
+    expect(bad.error).not.toBeNull();
+    const { data } = await alice.db.from("profiles").select("daily_limit, timezone").single();
+    expect(data).toEqual({ daily_limit: "50", timezone: "Europe/Paris" });
+  });
+});
+
+describe("re-reading", () => {
+  let carol: { db: Db; id: string };
+  let a: { id: string; main: string; title: string };
+  let b: { id: string; main: string; title: string };
+
+  beforeAll(async () => {
+    carol = await signedInClient("carol");
+    const { data } = await admin
+      .from("card_details")
+      .select("id, main_category_id, title")
+      .eq("language", "fr")
+      .eq("status", "published")
+      .order("created_at");
+    const first = data![0]!;
+    const other = data!.find((c) => c.main_category_id !== first.main_category_id)!;
+    a = { id: first.id, main: first.main_category_id!, title: first.title };
+    b = { id: other.id, main: other.main_category_id!, title: other.title };
+    await carol.db.from("card_views").insert({ user_id: carol.id, card_id: a.id, action: "seen" });
+    await new Promise((r) => setTimeout(r, 20));
+    await carol.db.from("card_views").insert({ user_id: carol.id, card_id: b.id, action: "seen" });
+  });
+
+  const ids = (rows: { card_id: string }[] | null) => (rows ?? []).map((r) => r.card_id);
+
+  it("counts a re-read as a read without moving first_read_at", async () => {
+    const before = await carol.db.from("user_card_state").select("first_read_at").eq("card_id", a.id).single();
+    await new Promise((r) => setTimeout(r, 20));
+    const { error } = await carol.db.from("card_views").insert({ user_id: carol.id, card_id: a.id, action: "reread" });
+    expect(error).toBeNull();
+    const { data } = await carol.db.from("user_card_state").select("first_read_at, last_read_at, read_count").eq("card_id", a.id).single();
+    expect(data!.read_count).toBe(2);
+    expect(data!.first_read_at).toBe(before.data!.first_read_at);
+    expect(new Date(data!.last_read_at).getTime()).toBeGreaterThan(new Date(data!.first_read_at).getTime());
+    const bad = await carol.db.from("card_views").insert({ user_id: carol.id, card_id: a.id, action: "bogus" });
+    expect(bad.error).not.toBeNull();
+  });
+
+  it("picks cards to re-read by mode, category and exclusion", async () => {
+    const call = (args: Record<string, unknown>) => carol.db.rpc("reread_candidates", { p_language: "fr", ...args });
+    // a was re-read last, so b was read longest ago.
+    expect(ids((await call({ p_mode: "oldest" })).data)).toEqual([b.id, a.id]);
+    // b was read once, a twice.
+    expect(ids((await call({ p_mode: "least" })).data)).toEqual([b.id, a.id]);
+    expect(ids((await call({ p_mode: "random", p_category: a.main })).data)).toEqual([a.id]);
+    expect(ids((await call({ p_mode: "random", p_exclude: [a.id] })).data)).toEqual([b.id]);
+    expect(ids((await call({ p_mode: "stashed" })).data)).toEqual([]);
+    await carol.db.from("stashes").insert({ user_id: carol.id, card_id: b.id });
+    expect(ids((await call({ p_mode: "stashed" })).data)).toEqual([b.id]);
+    expect(ids((await call({ p_mode: "random", p_limit: 1 })).data)).toHaveLength(1);
+  });
+
+  it("does not offer cards the user never read, nor other users' history", async () => {
+    const { data } = await bob.db.rpc("reread_candidates", { p_language: "fr", p_mode: "random", p_limit: 100 });
+    expect(ids(data)).not.toContain(b.id);
+  });
+
+  it("lists the history newest first with filters and full-text search", async () => {
+    const call = (args: Record<string, unknown>) => carol.db.rpc("history_cards", { p_language: "fr", ...args });
+    const all = await call({});
+    expect(ids(all.data)).toEqual([a.id, b.id]); // a was read most recently
+    expect(Number(all.data![0]!.total_count)).toBe(2);
+    expect(ids((await call({ p_stashed: true })).data)).toEqual([b.id]);
+    expect(ids((await call({ p_category: a.main })).data)).toEqual([a.id]);
+    const word = b.title.split(/\s+/).sort((x, y) => y.length - x.length)[0]!;
+    expect(ids((await call({ p_q: word })).data)).toContain(b.id);
+    expect(ids((await call({ p_q: "zzzzzznotaword" })).data)).toEqual([]);
+    const future = new Date(Date.now() + 3_600_000).toISOString();
+    expect(ids((await call({ p_from: future })).data)).toEqual([]);
+    expect(ids((await call({ p_to: new Date(Date.now() - 3_600_000).toISOString() })).data)).toEqual([]);
+    expect(ids((await call({ p_limit: 1, p_offset: 1 })).data)).toEqual([b.id]);
   });
 });
 
@@ -144,7 +271,7 @@ describe("rpc functions", () => {
 
   it("finds near-duplicate embeddings with match_cards (service role)", async () => {
     const v = Array.from({ length: 384 }, (_, i) => (i === 0 ? 1 : 0));
-    await admin.from("cards").update({ embedding: `[${v.join(",")}]` }).eq("id", draftId);
+    await admin.from("card_translations").update({ embedding: `[${v.join(",")}]` }).eq("card_id", draftId).eq("language", "fr");
     const close = Array.from({ length: 384 }, (_, i) => (i === 0 ? 1 : i === 1 ? 0.1 : 0));
     const { data, error } = await admin.rpc("match_cards", { query_embedding: `[${close.join(",")}]`, match_language: "fr" });
     expect(error).toBeNull();

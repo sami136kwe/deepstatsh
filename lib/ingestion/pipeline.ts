@@ -195,9 +195,9 @@ export async function discoverQuery(
 
 async function recentSignatures(db: Db, categoryIds: string[], language: Language): Promise<StructureSignature[]> {
   const { data } = await db
-    .from("cards")
-    .select("body")
-    .in("category_id", categoryIds)
+    .from("card_translations")
+    .select("body, cards!inner(category_id)")
+    .in("cards.category_id", categoryIds)
     .eq("language", language)
     .eq("status", "published")
     .order("created_at", { ascending: false })
@@ -207,9 +207,9 @@ async function recentSignatures(db: Db, categoryIds: string[], language: Languag
 
 async function recentTitles(db: Db, categoryIds: string[]): Promise<string[]> {
   const { data } = await db
-    .from("cards")
-    .select("title")
-    .in("category_id", categoryIds)
+    .from("card_translations")
+    .select("title, cards!inner(category_id)")
+    .in("cards.category_id", categoryIds)
     .eq("language", "fr")
     .eq("status", "published")
     .order("created_at", { ascending: false })
@@ -228,14 +228,82 @@ async function isNearDuplicate(db: Db, embedding: string, language: Language): P
   return data[0]?.id ?? null;
 }
 
-type PreparedCard = {
-  language: Language;
+type PreparedVersion = {
   version: LanguageVersion;
-  difficulty: number;
-  categoryId: string;
   quality: number;
   style: number;
+  embedding: string;
+  reasons: string[];
 };
+
+type PreparedCard = {
+  difficulty: number;
+  categoryId: string;
+  fr: PreparedVersion;
+  en: PreparedVersion;
+};
+
+/**
+ * Stores one idea: the card (identity and scores) and its two translations.
+ * Rejected ideas are kept too (with the reasons) for auditing. Returns
+ * "published" only for an accepted idea; "rejected" otherwise, including when an
+ * identical text already exists (unique content hash).
+ */
+export async function insertCardPair(
+  deps: Pick<PipelineDeps, "db" | "publishMode" | "sourceType">,
+  runId: string,
+  book: { id: string; title: string },
+  card: PreparedCard,
+  accepted: boolean,
+  quote: { text: string; author: string } | null,
+): Promise<"published" | "draft" | "rejected"> {
+  const { db } = deps;
+  const status = accepted ? (deps.publishMode === "auto" ? "published" : "draft") : "rejected";
+  const reasonText = LANGUAGES.map((l) => card[l].reasons.map((r) => `${l}:${r}`)).flat().join(", ").slice(0, 1000);
+
+  const { data: row, error } = await db
+    .from("cards")
+    .insert({
+      category_id: card.categoryId,
+      book_id: book.id,
+      difficulty: card.difficulty,
+      status,
+      quality_score: Math.min(card.fr.quality, card.en.quality),
+      source_type: deps.sourceType,
+      ingestion_run_id: runId,
+      rejection_reason: accepted ? null : reasonText || null,
+    })
+    .select("id")
+    .single();
+  if (error) throw new Error(`insert card: ${error.message}`);
+
+  const translations = LANGUAGES.map((language) => {
+    const v = card[language].version;
+    return {
+      card_id: row.id,
+      language,
+      title: v.title.trim().slice(0, 120),
+      body: v.body.trim().slice(0, 900),
+      action_step: v.action_step.trim().slice(0, 300),
+      quote: accepted ? (quote?.text ?? null) : null,
+      quote_author: accepted && quote ? `${quote.author}, ${book.title}` : null,
+      style_score: card[language].style,
+      status,
+      content_hash: contentHash(language, v.title, v.body),
+      embedding: card[language].embedding,
+      rejection_reason: accepted ? null : card[language].reasons.join(", ").slice(0, 1000) || null,
+    };
+  });
+  const { error: translationError } = await db.from("card_translations").insert(translations);
+  if (translationError) {
+    // Without both translations the card is useless: remove it (23505 = identical text exists,
+    // 23514 = a length check failed). Any other error is unexpected.
+    await db.from("cards").delete().eq("id", row.id);
+    if (translationError.code === "23505" || translationError.code === "23514") return "rejected";
+    throw new Error(`insert translations: ${translationError.message}`);
+  }
+  return status === "rejected" ? "rejected" : status;
+}
 
 export type BookResult = { created: number; rejected: number };
 
@@ -285,77 +353,51 @@ export async function processBook(
   }
 
   const slugToId = new Map(subs.map((s) => [s.slug, s.id]));
-  const prepared: PreparedCard[] = [];
-  rewritten.forEach((card, index) => {
-    for (const language of LANGUAGES) {
-      const score = scores.find((s) => s.index === index && s.language === language);
-      prepared.push({
-        language,
-        version: card[language],
-        difficulty: Math.min(3, Math.max(1, Math.round(batch.cards[index]!.difficulty))),
-        categoryId: slugToId.get(batch.cards[index]!.subcategory_slug) ?? mainCategory.id,
-        quality: score?.quality ?? 0,
-        style: score?.style ?? 0,
-      });
-    }
-  });
-
-  const embeddings = await deps.embed(prepared.map((p) => embeddingText(p.version)));
+  const texts = rewritten.flatMap((card) => LANGUAGES.map((language) => embeddingText(card[language])));
+  const vectors = await deps.embed(texts);
   const signatures: Record<Language, StructureSignature[]> = {
     fr: await recentSignatures(db, categoryIds, "fr"),
     en: await recentSignatures(db, categoryIds, "en"),
   };
   let quoteUsed = false;
 
-  for (const [i, card] of prepared.entries()) {
-    const v = card.version;
-    const reasons: string[] = [];
-    const cardQuote = quote && !quoteUsed && quote.language === card.language ? quote : null;
+  for (const [index, card] of rewritten.entries()) {
+    const generated = batch.cards[index]!;
+    // The quote keeps its original language in BOTH versions (never re-translated).
+    const cardQuote = quote && !quoteUsed ? quote : null;
 
-    const quality = checkQuality({ language: card.language, ...v, quote: cardQuote?.text, quote_author: cardQuote?.author }, book.description);
-    reasons.push(...quality.reasons);
-    const style = checkStyle({ language: card.language, ...v }, signatures[card.language]);
-    reasons.push(...style.reasons);
-    if (card.quality < PUBLISH_THRESHOLD) reasons.push(`quality_score:${card.quality}`);
-    if (card.style < PUBLISH_THRESHOLD) reasons.push(`style_score:${card.style}`);
-
-    const embedding = toVectorLiteral(embeddings[i]!);
-    if (reasons.length === 0) {
-      const duplicateOf = await isNearDuplicate(db, embedding, card.language);
-      if (duplicateOf) reasons.push(`near_duplicate:${duplicateOf}`);
+    const versions = {} as Record<Language, PreparedVersion>;
+    for (const [langIndex, language] of LANGUAGES.entries()) {
+      const v = card[language];
+      const score = scores.find((s) => s.index === index && s.language === language);
+      const reasons: string[] = [];
+      reasons.push(...checkQuality({ language, ...v, quote: cardQuote?.text, quote_author: cardQuote?.author }, book.description).reasons);
+      reasons.push(...checkStyle({ language, ...v }, signatures[language]).reasons);
+      const quality = score?.quality ?? 0;
+      const style = score?.style ?? 0;
+      if (quality < PUBLISH_THRESHOLD) reasons.push(`quality_score:${quality}`);
+      if (style < PUBLISH_THRESHOLD) reasons.push(`style_score:${style}`);
+      const embedding = toVectorLiteral(vectors[index * 2 + langIndex]!);
+      if (reasons.length === 0) {
+        const duplicateOf = await isNearDuplicate(db, embedding, language);
+        if (duplicateOf) reasons.push(`near_duplicate:${duplicateOf}`);
+      }
+      versions[language] = { version: v, quality, style, embedding, reasons };
     }
 
-    const accepted = reasons.length === 0;
-    const { error } = await db.from("cards").insert({
-      category_id: card.categoryId,
-      book_id: book.id,
-      title: v.title.trim().slice(0, 120),
-      body: v.body.trim().slice(0, 900),
-      action_step: v.action_step.trim().slice(0, 300),
-      quote: accepted ? (cardQuote?.text ?? null) : null,
-      quote_author: accepted && cardQuote ? `${cardQuote.author}, ${book.title}` : null,
-      difficulty: card.difficulty,
-      language: card.language,
-      status: accepted ? (deps.publishMode === "auto" ? "published" : "draft") : "rejected",
-      quality_score: card.quality,
-      style_score: card.style,
-      content_hash: contentHash(card.language, v.title, v.body),
-      embedding,
-      source_type: deps.sourceType,
-      ingestion_run_id: runId,
-      rejection_reason: accepted ? null : reasons.join(", ").slice(0, 1000),
-    });
-
-    if (error) {
-      // 23505: exact duplicate (content_hash); 23514: a database length check failed.
-      if (error.code !== "23505" && error.code !== "23514") throw new Error(`insert card: ${error.message}`);
-      result.rejected += 1;
-      continue;
-    }
-    if (accepted) {
+    const prepared: PreparedCard = {
+      difficulty: Math.min(3, Math.max(1, Math.round(generated.difficulty))),
+      categoryId: slugToId.get(generated.subcategory_slug) ?? mainCategory.id,
+      fr: versions.fr,
+      en: versions.en,
+    };
+    // A card is published only when both versions pass every filter.
+    const accepted = prepared.fr.reasons.length === 0 && prepared.en.reasons.length === 0;
+    const outcome = await insertCardPair(deps, runId, book, prepared, accepted, cardQuote);
+    if (outcome !== "rejected") {
       result.created += 1;
       if (cardQuote) quoteUsed = true;
-      signatures[card.language].unshift(structureSignature(card.language, v.body));
+      for (const language of LANGUAGES) signatures[language].unshift(structureSignature(language, card[language].body));
     } else {
       result.rejected += 1;
     }

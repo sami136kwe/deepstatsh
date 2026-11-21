@@ -15,7 +15,10 @@ export default defineConfig({
     trace: "off",
     locale: "fr-FR",
     // Optional: point at a preinstalled Chromium instead of `npx playwright install`.
-    launchOptions: process.env.PLAYWRIGHT_CHROMIUM_PATH ? { executablePath: process.env.PLAYWRIGHT_CHROMIUM_PATH } : {},
+    launchOptions: {
+      args: ["--autoplay-policy=no-user-gesture-required"],
+      ...(process.env.PLAYWRIGHT_CHROMIUM_PATH ? { executablePath: process.env.PLAYWRIGHT_CHROMIUM_PATH } : {}),
+    },
   },
   projects: [
     { name: "mobile", use: { ...devices["Pixel 7"] } },
@@ -23,5 +26,15 @@ export default defineConfig({
   ],
   webServer: process.env.E2E_BASE_URL
     ? undefined
-    : { command: "npm run start", url: "http://localhost:3000", reuseExistingServer: true, timeout: 120_000 },
+    : [
+        // A fake local voice server (same contract as Kokoro) so the audio test needs no model download.
+        { command: "node tests/e2e/fake-tts.mjs", url: "http://127.0.0.1:8799/health", reuseExistingServer: true },
+        {
+          command: "npm run start",
+          url: "http://localhost:3000",
+          reuseExistingServer: true,
+          timeout: 120_000,
+          env: { KOKORO_URL: "http://127.0.0.1:8799" },
+        },
+      ],
 });

@@ -7,6 +7,7 @@ import { useT } from "@/lib/i18n/client";
 
 export type ReviewCard = {
   id: string;
+  translationId: string;
   title: string;
   body: string;
   action_step: string;
@@ -37,7 +38,7 @@ export function AdminReview({ cards }: { cards: ReviewCard[] }) {
       {cards.map((card) => {
         const status = statuses[card.id] || card.status;
         return (
-          <li key={card.id} className="card-surface flex flex-col gap-2 p-4 text-sm" lang={card.language}>
+          <li key={card.translationId} className="card-surface flex flex-col gap-2 p-4 text-sm" lang={card.language}>
             <div className="flex flex-wrap items-center gap-2">
               <span className="chip uppercase">{card.language}</span>
               <span className={`chip ${status === "published" ? "text-ok" : status === "rejected" ? "text-danger" : ""}`}>{status}</span>

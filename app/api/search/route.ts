@@ -22,8 +22,8 @@ export async function GET(request: Request) {
   try {
     const [cards, books, categories] = await Promise.all([
       supabase
-        .from("cards")
-        .select("id")
+        .from("card_translations")
+        .select("card_id")
         .eq("status", "published")
         .eq("language", locale)
         .textSearch("search", q, { type: "websearch", config: locale === "fr" ? "french" : "english" })
@@ -45,9 +45,9 @@ export async function GET(request: Request) {
     if (books.error) throw books.error;
     if (categories.error) throw categories.error;
 
-    const ids = cards.data.map((c) => c.id);
+    const ids = [...new Set(cards.data.map((c) => c.card_id))];
     const details = ids.length
-      ? await supabase.from("card_details").select(CARD_FIELDS).in("id", ids)
+      ? await supabase.from("card_details").select(CARD_FIELDS).in("id", ids).eq("language", locale)
       : { data: [], error: null };
     if (details.error) throw details.error;
     const byId = new Map(details.data.map((c) => [c.id, c]));

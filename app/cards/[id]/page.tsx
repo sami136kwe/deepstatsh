@@ -1,32 +1,31 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { MemoCard } from "@/components/MemoCard";
+import { ReadableMemoCard } from "@/components/ReadableMemoCard";
 import { StashButton } from "@/components/StashButton";
-import { CARD_FIELDS } from "@/lib/cards";
+import { cardById } from "@/lib/cards";
 import { getViewer } from "@/lib/session";
 import { createClient } from "@/lib/supabase/server";
 import { uuidSchema } from "@/lib/validation/api";
 
 type Params = { params: Promise<{ id: string }> };
 
-async function loadCard(id: string) {
+async function loadCard(id: string, language: "fr" | "en") {
   if (!uuidSchema.safeParse(id).success) return null;
-  const supabase = await createClient();
-  const { data } = await supabase.from("card_details").select(CARD_FIELDS).eq("id", id).eq("status", "published").maybeSingle();
-  return data;
+  return cardById(await createClient(), id, language);
 }
 
 export async function generateMetadata({ params }: Params): Promise<Metadata> {
-  const card = await loadCard((await params).id);
+  const { locale } = await getViewer();
+  const card = await loadCard((await params).id, locale);
   if (!card) return {};
   return { title: card.title, description: card.action_step, openGraph: { title: card.title, description: card.body } };
 }
 
 export default async function CardPage({ params }: Params) {
   const { id } = await params;
-  const card = await loadCard(id);
+  const { user, locale } = await getViewer();
+  const card = await loadCard(id, locale);
   if (!card) notFound();
-  const { user } = await getViewer();
   let stashed = false;
   if (user) {
     const supabase = await createClient();
@@ -35,9 +34,7 @@ export default async function CardPage({ params }: Params) {
   }
   return (
     <div className="mx-auto max-w-2xl">
-      <MemoCard card={card} headingLevel="h1">
-        {user && <StashButton cardId={card.id} initiallyStashed={stashed} />}
-      </MemoCard>
+      <ReadableMemoCard card={card}>{user && <StashButton cardId={card.id} initiallyStashed={stashed} />}</ReadableMemoCard>
     </div>
   );
 }
