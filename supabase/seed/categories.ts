@@ -1,0 +1,318 @@
+/**
+ * Category tree for Stash: 12 main categories and their subcategories,
+ * plus the discovery queries the ingestion pipeline sends to Google Books
+ * and Open Library for each main category.
+ *
+ * Applied by `npm run seed:categories` (scripts/seed-categories.ts) and at the
+ * start of `npm run seed`. Upserts by slug, so it is safe to run again.
+ */
+
+export type SubcategorySeed = {
+  slug: string;
+  name_fr: string;
+  name_en: string;
+};
+
+export type CategorySeed = {
+  slug: string;
+  name_fr: string;
+  name_en: string;
+  icon: string;
+  description: string;
+  description_en: string;
+  subcategories: SubcategorySeed[];
+  queries: string[];
+};
+
+export const CATEGORY_SEED: CategorySeed[] = [
+  {
+    slug: "psychologie",
+    name_fr: "Psychologie",
+    name_en: "Psychology",
+    icon: "🧠",
+    description: "Comprendre comment on pense, on décide et on ressent.",
+    description_en: "How we think, decide and feel.",
+    subcategories: [
+      { slug: "biais-cognitifs", name_fr: "Biais cognitifs et erreurs de jugement", name_en: "Cognitive biases and errors of judgment" },
+      { slug: "psychologie-sociale", name_fr: "Psychologie sociale et influence de groupe", name_en: "Social psychology and group influence" },
+      { slug: "motivation-comportement", name_fr: "Motivation et psychologie du comportement", name_en: "Motivation and behavioral psychology" },
+      { slug: "personnalite-connaissance-de-soi", name_fr: "Personnalité et connaissance de soi", name_en: "Personality and self-knowledge" },
+      { slug: "intelligence-emotionnelle", name_fr: "Intelligence émotionnelle", name_en: "Emotional intelligence" },
+      { slug: "psychologie-positive", name_fr: "Psychologie positive et bonheur", name_en: "Positive psychology and happiness" },
+      { slug: "resilience-sante-mentale", name_fr: "Résilience et santé mentale (informatif, sans conseil médical)", name_en: "Resilience and mental health (informational, not medical advice)" },
+    ],
+    queries: [
+      "cognitive biases decision making psychology",
+      "social psychology influence bestseller",
+      "behavioral psychology motivation",
+      "emotional intelligence book",
+      "positive psychology happiness science",
+      "resilience psychology book",
+      "psychologie biais cognitifs",
+      "personality psychology self knowledge",
+    ],
+  },
+  {
+    slug: "communication",
+    name_fr: "Communication",
+    name_en: "Communication",
+    icon: "💬",
+    description: "Mieux écouter, mieux parler, mieux écrire.",
+    description_en: "Listen better, speak better, write better.",
+    subcategories: [
+      { slug: "ecoute-active", name_fr: "Écoute active", name_en: "Active listening" },
+      { slug: "prise-de-parole-storytelling", name_fr: "Parler en public et storytelling", name_en: "Public speaking and storytelling" },
+      { slug: "communication-non-violente", name_fr: "Communication non violente", name_en: "Nonviolent communication" },
+      { slug: "conversations-difficiles", name_fr: "Conversations difficiles et gestion de conflit", name_en: "Difficult conversations and conflict" },
+      { slug: "communication-ecrite", name_fr: "Communication écrite et courriels efficaces", name_en: "Writing and effective emails" },
+      { slug: "poser-les-bonnes-questions", name_fr: "Poser les bonnes questions", name_en: "Asking better questions" },
+      { slug: "charisme-presence", name_fr: "Charisme et présence", name_en: "Charisma and presence" },
+    ],
+    queries: [
+      "communication skills bestseller",
+      "difficult conversations book",
+      "nonviolent communication",
+      "public speaking storytelling book",
+      "active listening book",
+      "charisma presence book",
+      "business writing clear emails",
+      "communication bienveillante livre",
+    ],
+  },
+  {
+    slug: "negociation-persuasion",
+    name_fr: "Négociation et persuasion",
+    name_en: "Negotiation and persuasion",
+    icon: "🤝",
+    description: "Obtenir un accord sans perdre la relation.",
+    description_en: "Reach agreements without losing the relationship.",
+    subcategories: [
+      { slug: "negociation-raisonnee", name_fr: "Principes de négociation raisonnée", name_en: "Principled negotiation" },
+      { slug: "ancrage-concessions", name_fr: "Ancrage, concessions et contre-offres", name_en: "Anchoring, concessions and counteroffers" },
+      { slug: "principes-influence", name_fr: "Principes d'influence (réciprocité, preuve sociale, rareté, autorité)", name_en: "Principles of influence (reciprocity, social proof, scarcity, authority)" },
+      { slug: "negociation-salariale", name_fr: "Négociation salariale et de carrière", name_en: "Salary and career negotiation" },
+      { slug: "objections-dire-non", name_fr: "Gérer les objections et dire non", name_en: "Handling objections and saying no" },
+    ],
+    queries: [
+      "negotiation book bestseller",
+      "persuasion influence psychology",
+      "salary negotiation book",
+      "getting to yes principled negotiation",
+      "art of saying no book",
+      "négociation livre",
+    ],
+  },
+  {
+    slug: "lecture-des-gens",
+    name_fr: "Lecture des gens et langage corporel",
+    name_en: "Reading people and body language",
+    icon: "👀",
+    description: "Ce que les autres disent sans parler.",
+    description_en: "What people say without words.",
+    subcategories: [
+      { slug: "langage-corporel", name_fr: "Langage corporel et microexpressions", name_en: "Body language and microexpressions" },
+      { slug: "detecter-le-mensonge", name_fr: "Détecter le mensonge et l'incohérence", name_en: "Detecting lies and inconsistency" },
+      { slug: "motivations-des-autres", name_fr: "Comprendre les motivations des autres", name_en: "Understanding other people's motives" },
+      { slug: "premieres-impressions", name_fr: "Premières impressions", name_en: "First impressions" },
+      { slug: "intelligence-sociale-pouvoir", name_fr: "Intelligence sociale et dynamiques de pouvoir", name_en: "Social intelligence and power dynamics" },
+    ],
+    queries: [
+      "body language book",
+      "reading people psychology",
+      "detecting lies book",
+      "first impressions psychology",
+      "social intelligence book",
+      "power dynamics book",
+    ],
+  },
+  {
+    slug: "autodiscipline-habitudes",
+    name_fr: "Autodiscipline et habitudes",
+    name_en: "Self-discipline and habits",
+    icon: "🔁",
+    description: "Faire ce qu'on a décidé, même quand on n'a pas envie.",
+    description_en: "Do what you decided, even when you don't feel like it.",
+    subcategories: [
+      { slug: "construire-arreter-habitudes", name_fr: "Construction et arrêt des habitudes", name_en: "Building and breaking habits" },
+      { slug: "procrastination", name_fr: "Procrastination", name_en: "Procrastination" },
+      { slug: "volonte-tentations", name_fr: "Force de volonté et gestion des tentations", name_en: "Willpower and temptation" },
+      { slug: "routines-matin-soir", name_fr: "Routines matinales et du soir", name_en: "Morning and evening routines" },
+      { slug: "constance-systemes-objectifs", name_fr: "Constance, systèmes et objectifs", name_en: "Consistency, systems and goals" },
+      { slug: "dopamine-distractions", name_fr: "Gestion de la dopamine et des distractions", name_en: "Dopamine and distractions" },
+    ],
+    queries: [
+      "habit formation psychology",
+      "self discipline book",
+      "procrastination book",
+      "willpower science",
+      "morning routine book",
+      "dopamine distraction book",
+      "goals systems consistency book",
+    ],
+  },
+  {
+    slug: "productivite-temps",
+    name_fr: "Productivité et gestion du temps",
+    name_en: "Productivity and time management",
+    icon: "⏱️",
+    description: "Moins d'agitation, plus de travail qui compte.",
+    description_en: "Less busyness, more work that matters.",
+    subcategories: [
+      { slug: "concentration-profonde", name_fr: "Concentration profonde", name_en: "Deep focus" },
+      { slug: "priorisation-methodes", name_fr: "Priorisation et méthodes (Eisenhower, Pareto, etc.)", name_en: "Prioritization methods (Eisenhower, Pareto, etc.)" },
+      { slug: "planification-hebdomadaire", name_fr: "Planification hebdomadaire", name_en: "Weekly planning" },
+      { slug: "minimalisme-numerique", name_fr: "Minimalisme numérique", name_en: "Digital minimalism" },
+      { slug: "apprendre-a-apprendre", name_fr: "Apprendre à apprendre et mémoire", name_en: "Learning how to learn and memory" },
+    ],
+    queries: [
+      "productivity book bestseller",
+      "deep work focus",
+      "time management book",
+      "digital minimalism",
+      "learning how to learn memory",
+      "prioritization essentialism",
+    ],
+  },
+  {
+    slug: "corps-sante-performance",
+    name_fr: "Corps humain, santé et performance",
+    name_en: "Body, health and performance",
+    icon: "💪",
+    description: "Ton cerveau tourne sur ton corps. Prends-en soin.",
+    description_en: "Your brain runs on your body. Look after it.",
+    subcategories: [
+      { slug: "sommeil", name_fr: "Sommeil", name_en: "Sleep" },
+      { slug: "nutrition-de-base", name_fr: "Nutrition de base", name_en: "Nutrition basics" },
+      { slug: "exercice-recuperation", name_fr: "Exercice et récupération", name_en: "Exercise and recovery" },
+      { slug: "neurosciences-cerveau", name_fr: "Neurosciences et fonctionnement du cerveau", name_en: "Neuroscience and how the brain works" },
+      { slug: "stress-respiration", name_fr: "Gestion du stress et respiration", name_en: "Stress and breathing" },
+      { slug: "energie-posture-longevite", name_fr: "Énergie, posture et longévité", name_en: "Energy, posture and longevity" },
+    ],
+    queries: [
+      "sleep science book",
+      "nutrition science book",
+      "exercise recovery science",
+      "neuroscience brain popular science",
+      "stress breathing book",
+      "longevity book",
+    ],
+  },
+  {
+    slug: "mentalite-developpement",
+    name_fr: "Mentalité et développement personnel",
+    name_en: "Mindset and personal growth",
+    icon: "🌱",
+    description: "La façon dont tu te parles change ce que tu oses faire.",
+    description_en: "How you talk to yourself changes what you dare to do.",
+    subcategories: [
+      { slug: "etat-esprit-croissance", name_fr: "État d'esprit de croissance", name_en: "Growth mindset" },
+      { slug: "confiance-estime-de-soi", name_fr: "Confiance en soi et estime de soi", name_en: "Self-confidence and self-esteem" },
+      { slug: "peur-zone-de-confort", name_fr: "Peur, anxiété et sortie de la zone de confort", name_en: "Fear, anxiety and leaving your comfort zone" },
+      { slug: "stoicisme-philosophie", name_fr: "Stoïcisme et philosophie pratique", name_en: "Stoicism and practical philosophy" },
+      { slug: "echec-critique", name_fr: "Gestion de l'échec et de la critique", name_en: "Handling failure and criticism" },
+      { slug: "sens-valeurs-mission", name_fr: "Sens, valeurs et mission de vie", name_en: "Meaning, values and purpose" },
+    ],
+    queries: [
+      "growth mindset book",
+      "self confidence book",
+      "stoicism philosophy",
+      "meditations marcus aurelius",
+      "letters seneca",
+      "meaning purpose life book",
+      "failure criticism resilience book",
+      "développement personnel livre",
+    ],
+  },
+  {
+    slug: "leadership-carriere",
+    name_fr: "Leadership et carrière",
+    name_en: "Leadership and career",
+    icon: "🧭",
+    description: "Diriger, décider, et faire avancer sa carrière.",
+    description_en: "Lead, decide and move your career forward.",
+    subcategories: [
+      { slug: "leadership-equipe", name_fr: "Leadership et gestion d'équipe", name_en: "Leadership and team management" },
+      { slug: "reseautage", name_fr: "Réseautage et relations professionnelles", name_en: "Networking and professional relationships" },
+      { slug: "prise-de-decision", name_fr: "Prise de décision", name_en: "Decision making" },
+      { slug: "pensee-strategique-modeles-mentaux", name_fr: "Pensée stratégique et modèles mentaux", name_en: "Strategic thinking and mental models" },
+      { slug: "premieres-annees-carriere", name_fr: "Réussir ses premières années de carrière", name_en: "Thriving in your first years at work" },
+      { slug: "patron-reputation", name_fr: "Gérer son patron et sa réputation", name_en: "Managing your boss and your reputation" },
+    ],
+    queries: [
+      "leadership book bestseller",
+      "management team book",
+      "decision making book",
+      "mental models strategy",
+      "career advice book",
+      "networking relationships book",
+      "art of war sun tzu",
+    ],
+  },
+  {
+    slug: "relations-vie-sociale",
+    name_fr: "Relations et vie sociale",
+    name_en: "Relationships and social life",
+    icon: "❤️",
+    description: "Des liens qui tiennent dans le temps.",
+    description_en: "Bonds that last.",
+    subcategories: [
+      { slug: "amitie", name_fr: "Amitié et relations durables", name_en: "Friendship and lasting relationships" },
+      { slug: "amour-attachement", name_fr: "Relations amoureuses et attachement", name_en: "Romantic relationships and attachment" },
+      { slug: "empathie-vulnerabilite", name_fr: "Empathie et vulnérabilité", name_en: "Empathy and vulnerability" },
+      { slug: "limites-saines", name_fr: "Établir des limites saines", name_en: "Setting healthy boundaries" },
+      { slug: "famille-generations", name_fr: "Famille et communication intergénérationnelle", name_en: "Family and talking across generations" },
+    ],
+    queries: [
+      "relationships psychology book",
+      "attachment theory book",
+      "friendship book",
+      "vulnerability empathy book",
+      "boundaries book",
+      "how to win friends and influence people",
+    ],
+  },
+  {
+    slug: "argent-reussite",
+    name_fr: "Argent et réussite financière",
+    name_en: "Money and financial success",
+    icon: "💰",
+    description: "Ton rapport à l'argent, et ce que tu en fais.",
+    description_en: "Your relationship with money, and what you do with it.",
+    subcategories: [
+      { slug: "mentalite-financiere", name_fr: "Mentalité financière", name_en: "Money mindset" },
+      { slug: "epargne-budget-investissement", name_fr: "Épargne, budget et investissement de base", name_en: "Saving, budgeting and basic investing" },
+      { slug: "entrepreneuriat", name_fr: "Entrepreneuriat et création de valeur", name_en: "Entrepreneurship and creating value" },
+      { slug: "valeur-de-son-travail", name_fr: "Négociation de la valeur de son travail", name_en: "Negotiating what your work is worth" },
+    ],
+    queries: [
+      "personal finance book bestseller",
+      "psychology of money",
+      "investing basics book",
+      "entrepreneurship startup book",
+      "pricing freelance value book",
+    ],
+  },
+  {
+    slug: "pensee-critique-creativite",
+    name_fr: "Pensée critique et créativité",
+    name_en: "Critical thinking and creativity",
+    icon: "💡",
+    description: "Penser clair, et penser neuf.",
+    description_en: "Think clearly, and think new.",
+    subcategories: [
+      { slug: "logique-raisonnement", name_fr: "Logique et raisonnement", name_en: "Logic and reasoning" },
+      { slug: "sophismes-manipulation", name_fr: "Sophismes et manipulation", name_en: "Fallacies and manipulation" },
+      { slug: "resolution-de-problemes", name_fr: "Résolution de problèmes", name_en: "Problem solving" },
+      { slug: "creativite-ideation", name_fr: "Créativité et idéation", name_en: "Creativity and ideation" },
+      { slug: "premiers-principes", name_fr: "Premiers principes", name_en: "First principles" },
+    ],
+    queries: [
+      "critical thinking book",
+      "logical fallacies book",
+      "problem solving book",
+      "creativity book bestseller",
+      "first principles thinking",
+      "thinking fast and slow",
+    ],
+  },
+];
