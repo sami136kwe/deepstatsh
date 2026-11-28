@@ -25,36 +25,51 @@ Pour simplement **lancer l'application**, lis le [README](../README.md) : cinq m
 
 ## 1. L'idée en deux minutes
 
-**Stash** est une application de microapprentissage. Tu fais défiler des **cartes** : chacune contient une idée courte et utile (psychologie, communication, négociation, discipline, santé…), inspirée des meilleurs livres de développement personnel, et **une action concrète à faire aujourd'hui**. L'objectif : apprendre quelque chose d'utile en cinq minutes par jour, le sauvegarder, et le revoir au bon moment.
+**Stash** est une **bibliothèque de livres à lire en petites idées**. Chaque livre est découpé en idées numérotées (6 à 8 en général). Une idée se lit en trois temps : **une histoire** qui met en scène le principe, **« ce qu'il faut retenir »**, puis **une action concrète** à faire aujourd'hui. L'idée suivante se débloque quand tu termines la précédente, et une barre de progression montre où tu en es dans le livre.
 
 Trois principes guident tout le reste :
 
 | Principe | Ce que ça change concrètement |
 |---|---|
-| **Des idées reformulées, jamais copiées** | Les cartes sont écrites avec des mots originaux. Une carte qui ressemble trop au texte d'un livre est refusée automatiquement. Chaque carte garde sa source pour qu'on puisse lire l'original. |
-| **Un style humain** | Tutoiement, exemples de la vie courante, phrases de longueurs variées, pas de formules de dépliant. Des règles automatiques refusent les cartes qui sonnent « générées ». |
-| **Apprendre, pas seulement lire** | Sauvegarde, répétition espacée, défi du jour, série de jours, relecture : tout est fait pour que l'idée reste. |
+| **Des idées inspirées des livres, jamais copiées** | Les histoires et les leçons sont écrites avec des mots originaux, avec des personnages inventés. Elles ne remplacent pas la lecture du livre et le disent. |
+| **Un style humain** | Tutoiement, scènes de la vie courante, phrases de longueurs variées, pas de formules de dépliant. Des règles automatiques refusent les textes qui sonnent « générés ». |
+| **Revenir et lire, pas seulement voir** | Bibliothèque (en cours, enregistrés, terminés), progression livre par livre, révision espacée, défi du jour, série de jours, relecture, lecture audio. |
 
-### Les 12 grandes catégories
+### Les 14 grandes catégories (les « thèmes »)
 
-Psychologie · Communication · Négociation et persuasion · Lecture des gens et langage corporel · Autodiscipline et habitudes · Productivité et gestion du temps · Corps, santé et performance · Mentalité et développement personnel · Leadership et carrière · Relations et vie sociale · Argent et réussite financière · Pensée critique et créativité.
+**Produit & Business** et **Investissements & Marchés** (les deux thèmes prioritaires) · Psychologie · Communication · Négociation et persuasion · Lecture des gens et langage corporel · Autodiscipline et habitudes · Productivité et gestion du temps · Corps, santé et performance · Mentalité et développement personnel · Leadership et carrière · Relations et vie sociale · Argent et réussite financière · Pensée critique et créativité.
 
-Elles se découpent en **67 sous-catégories** (par exemple « Biais cognitifs », « Écoute active », « Sommeil »).
+Elles se découpent en sous-catégories (par exemple « Biais cognitifs », « Écoute active », « Sommeil »). Un livre appartient à un ou plusieurs thèmes.
+
+### Le contenu actuel
+
+100 livres et 602 idées, écrits à la main, **en anglais seulement** pour l'instant : *The Power of Now* (8 idées, histoires longues), puis 99 livres de 6 idées (investissements, business, relations, développement personnel, productivité, santé, créativité). Un lecteur dont l'interface est en français voit ces livres avec un message « pas encore disponible en français ». Les versions françaises sont prévues.
 
 ### Le parcours d'une personne qui utilise l'app
 
 ```mermaid
 flowchart LR
-    A["Je crée un compte<br/>e-mail ou Google"] --> B["Je choisis<br/>ma langue, mes thèmes,<br/>mon objectif du jour"]
-    B --> C["Je fais défiler<br/>mon fil de cartes"]
-    C --> D{"Une carte<br/>me parle ?"}
-    D -- oui --> E["Je la sauvegarde<br/>et j'ajoute une note"]
-    D -- non --> F["Je passe"]
-    E --> G["Elle revient plus tard<br/>en révision espacée"]
-    C --> H["Défi du jour<br/>et série de jours"]
-    C --> I["Je peux l'écouter<br/>à voix haute"]
-    G --> J["Historique<br/>et mode Relire"]
+    A["Je crée un compte<br/>e-mail ou Google"] --> B["Je choisis<br/>ma langue et mes thèmes"]
+    B --> C["Accueil :<br/>selon mes préférences,<br/>nouveautés, à la une,<br/>une étagère par thème"]
+    C --> D["Page d'un livre<br/>couverture, résumé,<br/>idées numérotées"]
+    D --> E["Je lis l'idée 1<br/>histoire, à retenir, action"]
+    E --> F["Continuer :<br/>l'idée suivante se débloque"]
+    F --> E
+    F --> G["Livre terminé<br/>dans ma bibliothèque"]
+    D --> H["J'enregistre le livre<br/>dans ma bibliothèque"]
+    E --> I["Je sauvegarde une idée<br/>dans mon stash"]
+    I --> J["Révision espacée,<br/>défi du jour, historique, relecture"]
+    E --> K["Je l'écoute<br/>à voix haute"]
 ```
+
+### Les quatre onglets
+
+| Onglet | Contenu |
+|---|---|
+| **Accueil** | Reprendre la lecture, selon tes préférences, dernières nouveautés, livres à la une, puis une étagère par thème |
+| **Explorer** | Recherche par titre ou auteur, tous les thèmes, une étagère par thème, page d'un thème |
+| **Bibliothèque** | Trois étagères : en cours, enregistrés, terminés |
+| **Profil** | Réglages, et l'accès aux outils : stash, révision, défi, progrès, historique, relecture |
 
 ---
 
@@ -65,7 +80,7 @@ Stash est une application web composée de trois grands blocs : ce que voit la p
 ```mermaid
 flowchart TB
     subgraph Navigateur
-        UI["Pages et composants<br/>fil, stash, révision, historique,<br/>profil, admin"]
+        UI["Pages et composants<br/>accueil, explorer, bibliothèque, livre,<br/>lecteur d'idée, stash, révision, profil, admin"]
         Audio["Lecteur audio<br/>segments et surlignage"]
     end
 
@@ -114,9 +129,11 @@ flowchart TB
 ### Les dossiers, en une phrase chacun
 
 ```text
-app/                 les pages et les routes d'API (une page = un dossier)
-components/          les briques d'interface : carte, navigation, boutons, états vides
+app/                 les pages et les routes d'API (home, explore, library, books/[id], books/[id]/ideas/[position]…)
+components/          les briques d'interface : couverture, tuile de livre, étagère, navigation à 4 onglets, icônes
 lib/
+  books.ts           lecture des livres, des idées et de la progression
+  books-logic.ts     logique pure : idées débloquées, pourcentage, couleurs de couverture
   supabase/          les trois façons de parler à la base : navigateur, serveur, administrateur
   ingestion/         tout ce qui fabrique et contrôle les cartes
   ai/                les consignes données à Claude
@@ -151,13 +168,22 @@ tests/               unit (logique), integration (base de données), e2e (naviga
 
 ### Le schéma en un coup d'œil
 
-Une idée est représentée par **une carte** (`cards`) qui porte son identité : sa catégorie, son livre, sa difficulté, ses scores. Le **texte** vit dans les **traductions** (`card_translations`) : une ligne en français, une ligne en anglais. Une carte n'est publiée que si ses deux versions sont publiées.
+Une **idée** est stockée dans la table `cards` (le nom technique est resté, l'interface parle d'« idées »). Elle porte son identité : sa catégorie, son **livre**, son **numéro dans le livre** (`position`), sa difficulté, ses scores. Le **texte** (titre, histoire, ce qu'il faut retenir, action) vit dans les **traductions** (`card_translations`) : une ligne par langue. Un **livre** (`books`) a un résumé par langue (`book_translations`), un ou plusieurs thèmes (`book_topics`) et un indicateur « à la une ».
+
+La progression de lecture est écrite uniquement par des fonctions SQL : `user_books` (livre enregistré, commencé, terminé) et `user_idea_progress` (idées terminées).
 
 ```mermaid
 erDiagram
     categories ||--o{ categories : "sous-catégories"
     categories ||--o{ cards : "classe"
-    books ||--o{ cards : "inspire"
+    books ||--o{ cards : "contient les idées"
+    books ||--o{ book_translations : "résumé fr et en"
+    books ||--o{ book_topics : "appartient à"
+    categories ||--o{ book_topics : ""
+    auth_users ||--o{ user_books : "bibliothèque"
+    books ||--o{ user_books : ""
+    auth_users ||--o{ user_idea_progress : "idées terminées"
+    cards ||--o{ user_idea_progress : ""
     cards ||--|{ card_translations : "fr et en"
     auth_users ||--|| profiles : "a un profil"
     auth_users ||--o{ stashes : "sauvegarde"
@@ -184,13 +210,38 @@ erDiagram
         uuid id PK
         text title
         text author
+        text slug
+        boolean is_featured
         boolean is_public_domain
         numeric popularity_score
+    }
+    book_translations {
+        uuid book_id PK
+        text language PK
+        text summary
+    }
+    book_topics {
+        uuid book_id PK
+        uuid category_id PK
+    }
+    user_books {
+        uuid user_id PK
+        uuid book_id PK
+        boolean is_saved
+        timestamptz started_at
+        timestamptz completed_at
+    }
+    user_idea_progress {
+        uuid user_id PK
+        uuid card_id PK
+        uuid book_id FK
+        timestamptz completed_at
     }
     cards {
         uuid id PK
         uuid category_id FK
         uuid book_id FK
+        int position
         int difficulty
         text status
         numeric quality_score
@@ -260,7 +311,7 @@ erDiagram
 
 Deux tables ne sont pas dessinées pour garder le schéma lisible : `daily_deck_state` (la position courante dans le paquet du jour) et `profiles.timezone`. Elles sont prêtes dans la base, mais l'écran « paquet du jour » n'est pas encore construit (voir [la feuille de route](#10-gestion-de-projet)).
 
-### Le cycle de vie d'une carte
+### Le cycle de vie d'une idée
 
 ```mermaid
 stateDiagram-v2
@@ -272,18 +323,22 @@ stateDiagram-v2
     published --> [*]
 ```
 
-Les cartes rejetées ne sont pas supprimées : on garde le **motif** (par exemple « phrase interdite », « trop proche d'une carte existante »). C'est utile pour comprendre ce qui coince et ajuster les règles.
+Les idées rejetées ne sont pas supprimées : on garde le **motif** (par exemple « phrase interdite », « trop proche d'une carte existante »). C'est utile pour comprendre ce qui coince et ajuster les règles.
 
-### Le format d'une carte : une histoire, puis une leçon
+### Le format d'une idée : une histoire, puis une leçon
 
-Une carte ne se contente plus d'énoncer une idée : elle la **fait vivre** avant de l'expliquer. Elle se lit dans cet ordre :
+Une idée se lit dans cet ordre :
 
 1. **Le titre.**
-2. **L'histoire** (`story`) : une petite scène de 3 à 6 phrases, avec un personnage inventé et une situation précise (par exemple quelqu'un qui rumine dans sa voiture après le travail et finit par laisser sa pensée s'éteindre). Elle montre l'idée sans la nommer ni conclure par une morale.
-3. **Ce qu'il faut retenir** (`body`) : la leçon en 1 à 3 phrases, qui parle à « tu » et généralise ce que l'histoire a montré.
-4. **L'action** (`action_step`) : une chose concrète à faire aujourd'hui.
+2. **L'histoire** (`story`) : une scène avec un personnage inventé, un lieu et un moment précis (par exemple Priya sur le quai d'une gare, qui rejoue une dispute dans sa tête). Elle montre l'idée sans la nommer ni conclure par une morale. À l'écran, elle s'affiche en **paragraphes de deux phrases**, sans boîtes ni couleurs, pour se lire comme une narration.
+3. **Ce qu'il faut retenir** (`body`) : la leçon en 1 à 3 phrases, qui parle à « tu ». Carte sombre arrondie.
+4. **L'action** (`action_step`) : une chose concrète à faire aujourd'hui. Carte ambrée.
 
-Les règles automatiques s'adaptent : l'histoire est exigée pour toute nouvelle carte, avec ses propres limites (longueur, 3 à 7 phrases), et la monotonie du rythme est mesurée sur toutes les phrases de la carte. Dans une histoire, un prénom ou un pronom peut revenir trois fois en début de phrase, mais pas quatre. Les anciennes cartes sans histoire continuent de s'afficher.
+Limites des règles automatiques (`lib/ingestion/quality.ts`) : l'histoire fait de 3 à 12 phrases, jusqu'à 200 mots et 1200 caractères (la base accepte 1200 caractères). Ces limites ont été relevées après un retour : à 120 mots, les histoires devaient être trop compactées pour rester claires. La monotonie du rythme est mesurée sur l'histoire seule et sur toute l'idée. Dans une histoire, un prénom ou un pronom peut revenir deux fois en début de phrase, pas trois.
+
+### Le déblocage séquentiel
+
+Une idée ne peut être terminée que si **toutes les idées précédentes du même livre le sont**. C'est la base qui l'impose (fonction `complete_idea`), pas seulement l'interface : essayer de contourner renvoie une erreur « idea is locked ». Terminer une nouvelle idée compte pour la série de jours ; terminer une idée déjà faite, non. Ouvrir une idée par l'adresse directe alors qu'elle est verrouillée renvoie vers la page du livre.
 
 ### Pourquoi une table de traductions ?
 
@@ -293,6 +348,9 @@ Au départ, chaque langue était une carte séparée. Mais l'idée, elle, est la
 
 | Fonction | Rôle |
 |---|---|
+| `complete_idea` | Termine une idée si les précédentes sont faites, met à jour le livre (commencé, terminé), renvoie la progression. |
+| `touch_book` | Marque un livre comme commencé et mémorise la dernière ouverture. |
+| `set_book_saved` | Ajoute un livre à la bibliothèque ou le retire, sans le commencer. |
 | `feed_candidates` | Propose des cartes jamais vues, classées par qualité, style, popularité et un peu de hasard. |
 | `daily_challenge` | Choisit la carte du défi du jour, la même toute la journée pour une personne donnée. |
 | `record_activity` | Met à jour la série de jours avec la date locale de la personne. |
@@ -304,6 +362,36 @@ Au départ, chaque langue était une carte séparée. Mais l'idée, elle, est la
 ---
 
 ## 4. Ce qui se passe quand tu utilises l'app
+
+### Lire un livre
+
+```mermaid
+sequenceDiagram
+    actor Toi
+    participant Page as Page du livre
+    participant Lecteur as Lecteur d'idée
+    participant API as /api/ideas/*
+    participant SQL as Base de données
+
+    Toi->>Page: j'ouvre un livre
+    Page->>SQL: idées, progression, résumé
+    Note over Page: seules les idées débloquées<br/>sont cliquables
+    Toi->>Lecteur: Commencer / Continuer
+    Lecteur->>API: open (idée affichée)
+    API->>SQL: touch_book + vue "seen" ou "reread"
+    Toi->>Lecteur: je lis, j'écoute, je sauvegarde
+    Toi->>Lecteur: Idée suivante
+    Lecteur->>API: complete
+    API->>SQL: complete_idea (refuse si verrouillée)
+    API-->>Lecteur: progression, livre terminé ou non
+    Lecteur->>Toi: idée suivante, ou retour au livre
+```
+
+Les étagères de l'accueil et d'Explorer viennent de `lib/books.ts` : un livre n'apparaît que s'il a au moins une idée publiée, dans ta langue si possible, sinon dans l'autre langue avec un message. La recherche d'Explorer interroge directement la base (titre ou auteur).
+
+### L'ancien fil de cartes
+
+L'ancien fil (cartes sans livre) n'est plus la page d'accueil : `/feed` redirige vers `/home`. Son moteur reste utilisé par le mode **Relire**, et les douze cartes d'exemple sans livre sont toujours dans la base. Voici comment il fonctionnait :
 
 ### Le fil de cartes
 
@@ -528,6 +616,19 @@ flowchart LR
 | 6 | **Cette documentation** | Expliquer le projet, le lancer simplement, documenter conception et gestion | Ce fichier et le README |
 | 7 | **Le format histoire** : « chaque idée est racontée comme une petite histoire », avec des captures d'écran d'une autre application comme référence d'interface | Une histoire d'abord (un personnage, une scène), puis ce qu'il faut retenir, puis l'action ; une barre du bas, une bibliothèque, des parcours | Le format de carte en trois temps (voir [la section 3](#le-format-dune-carte--une-histoire-puis-une-leçon)). La suite de l'interface est planifiée, voir [la feuille de route](#10-gestion-de-projet) |
 
+Les prompts suivants ont fait évoluer le produit :
+
+| # | Le prompt | Ce qu'il demandait | Ce qui en est sorti |
+|---|---|---|---|
+| 8 | **Plusieurs projets côte à côte** (retours de terminal) | Faire tourner Stash à côté d'un autre projet Supabase déjà lancé | Les ports de Stash passent à 55320-55329 pour éviter tout conflit |
+| 9 | **Le virage « bibliothèque de livres »** : « enlever l'idée de cartes », des livres avec des idées numérotées, Accueil / Explorer / Bibliothèque / Profil, captures d'écran de référence | Une interface qui donne envie de revenir lire, avec des étagères, des thèmes et un premier livre complet | Nouveau modèle de données (livres, idées, progression), nouvelle navigation, thème sombre, page livre, lecteur d'idée, tests réécrits |
+| 10 | **Retours de design** : couvertures plus grandes, sections par catégorie | De vrais rectangles verticaux avec le titre, et des étagères par thème | Couvertures générées (titre, auteur, dos de livre), une étagère par thème sur l'accueil et dans Explorer |
+| 11 | **Retour d'erreur** : 404 sur « Commencer » (journal du serveur collé) | Comprendre pourquoi le lien pointait vers `/ideas/undefined` | Le numéro de l'idée est lu directement dans la table `cards`, et une idée introuvable renvoie vers le livre |
+| 12 | **Histoires en petits blocs, puis 50 livres** | Rendre l'histoire plus facile à lire, puis écrire 50 livres de plus | Livres écrits à la main avec des règles de qualité vérifiées automatiquement |
+| 13 | **Retour sur la mise en page** : « je n'aime pas la séparation », histoires plus longues et plus contextualisées | Une narration fluide, sans boîtes, puis 50 livres de plus | Paragraphes de deux phrases sans fond, 100 livres au total |
+| 14 | **Cartes colorées pour la leçon et l'action**, sans limite de longueur | Garder l'histoire noire et remettre en couleur « ce qu'il faut retenir » et « à faire aujourd'hui » ; ne plus compacter les histoires | Cartes colorées, limites de longueur relevées, histoires de *The Power of Now* réécrites (120 à 145 mots) |
+| 15 | **Mise à jour du README et de cette documentation** | Refléter le produit actuel | Ce document |
+
 ### Ce qui rendait les prompts efficaces
 
 En relisant les prompts, voici ce qui a bien marché, et qu'il vaut la peine de reproduire :
@@ -564,13 +665,13 @@ Piloter par prompts ne veut pas dire tout accepter sans vérifier. Quelques mome
 
 ```mermaid
 flowchart LR
-    P0["Application complète<br/>6 phases du prompt fondateur"]:::done --> P1["Audio Edge<br/>lecture des cartes"]:::done
-    P1 --> P2["Données bilingues<br/>historique, paquet du jour"]:::done
-    P2 --> P3["Relecture<br/>historique, mode Relire"]:::done
-    P3 --> P4["Audio rapide<br/>segments, Kokoro local"]:::done
-    P4 --> P5["Paquet du jour<br/>navigation avant/arrière,<br/>position reprise, limite 50"]:::todo
-    P5 --> P6["Interface bilingue<br/>bouton FR/EN,<br/>retourner une carte"]:::todo
-    P6 --> P7["Génération du contenu<br/>plan d'idées, 10 000 cartes,<br/>contrôle de cohérence, export"]:::todo
+    P0["Application complète<br/>6 phases du prompt fondateur"]:::done --> P1["Audio Edge puis rapide<br/>segments, Kokoro local"]:::done
+    P1 --> P2["Données bilingues,<br/>historique, relecture"]:::done
+    P2 --> P3["Format histoire"]:::done
+    P3 --> P4["Bibliothèque de livres<br/>idées numérotées, déblocage,<br/>4 onglets, 100 livres"]:::done
+    P4 --> P5["Histoires plus longues<br/>pour les 99 autres livres"]:::todo
+    P5 --> P6["Versions françaises<br/>des livres"]:::todo
+    P6 --> P7["Génération automatique<br/>de livres par l'IA"]:::todo
 
     classDef done fill:#d1fae5,stroke:#047857,color:#064e3b
     classDef todo fill:#fef3c7,stroke:#b45309,color:#78350f
@@ -580,39 +681,34 @@ flowchart LR
 
 | Chantier | État | Remarque |
 |---|---|---|
-| Base de données, sécurité (RLS), catégories | ✅ fait | 4 migrations, testé |
-| Comptes (e-mail), onboarding, profil, export, suppression | ✅ fait | Connexion Google configurée mais **non testée** (demande des identifiants Google) |
-| Fil, stash, notes, recherche | ✅ fait | |
-| Révision espacée (SM-2), défi du jour, série, progression | ✅ fait | |
-| Pages livre, carte, catégorie, admin | ✅ fait | |
-| Pipeline d'ingestion et seed | ✅ fait, testé avec un faux modèle | **Jamais lancé avec le vrai modèle** |
-| Cartes bilingues liées (`card_translations`) | ✅ fait | |
-| Historique, mode Relire, relectures dans le fil | ✅ fait | |
-| Lecture audio (Edge + Kokoro) | ✅ fait | Latence Edge réelle non mesurée |
-| **Format histoire** (titre, histoire, ce qu'il faut retenir, action) | ✅ fait | Cartes de démo réécrites, consignes de génération et filtres adaptés ; affichage en **une seule carte qui défile** |
-| Lecteur **par étapes** (histoire découpée en scènes, barre à segments, bouton Continuer) | ❓ à décider | Vu sur des captures de référence ; compatible avec le format actuel sans régénérer les cartes. Les illustrations par scène demanderaient un générateur d'images |
-| Barre du bas, Bibliothèque, Explorer, parcours | ⏳ à faire | Choisi comme prochaine étape après le format histoire |
-| **Paquet du jour** (navigation façon histoire, 50 ou illimité, jours précédents) | ⏳ à faire | Les tables existent déjà |
-| **Bouton FR/EN** dans l'en-tête et sur chaque carte | ⏳ à faire | La langue est déjà stockée dans le profil |
-| **Génération de 10 000 cartes** (`seed:cards`, `check:db`, export CSV/JSON, budget) | ⏳ à faire | Dépend de la clé Anthropic de la personne |
-| Régénérer une seule langue quand l'autre échoue | ⏳ à faire | Aujourd'hui, la carte entière est rejetée |
-| Filtres plus stricts du prompt « 10 000 cartes » (8 mots, 0,90) | ⏳ à faire | Aujourd'hui : 15 mots, 0,92 |
+| Base de données, sécurité (RLS), catégories (14) | ✅ fait | 6 migrations, testé |
+| Comptes (e-mail), onboarding, profil, export, suppression | ✅ fait | Connexion Google configurée mais **non testée** |
+| **Bibliothèque de livres** : accueil, explorer, thèmes, bibliothèque, page livre | ✅ fait | Étagères par thème, recherche, couvertures générées |
+| **Lecteur d'idée** (histoire, à retenir, action), déblocage séquentiel, barre de progression | ✅ fait | Le déblocage est imposé par la base |
+| Histoire en paragraphes sans boîtes, leçon et action en cartes colorées | ✅ fait | |
+| **100 livres, 602 idées** (anglais) | ✅ fait | Écrits à la main, relecture humaine conseillée |
+| Histoires longues (120 à 145 mots) | 🟡 partiel | Seulement *The Power of Now* ; les 99 autres livres ont des histoires d'environ 50 mots |
+| Versions françaises des livres | ⏳ à faire | Aujourd'hui, un lecteur français voit l'anglais avec un message. Son stash, son historique et ses relectures ne montrent pas encore ces idées |
+| Onboarding : vocabulaire « cartes » | ⏳ à faire | Les écrans parlent encore de « cartes » et d'objectif quotidien |
+| Révision espacée, défi du jour, série, progression, historique, mode Relire | ✅ fait | Accessibles depuis le Profil |
+| Lecture audio (Edge + Kokoro) | ✅ fait | Sur le lecteur d'idée aussi ; latence Edge réelle non mesurée |
+| Pipeline d'ingestion et seed | ✅ fait, testé avec un faux modèle | **Jamais lancé avec le vrai modèle** ; il ne produit pas encore de livres numérotés |
+| Onglet actualités (Investissements & Marchés) | ⏸️ reporté | Décision : pas d'actualités pour l'instant |
+| Paquet du jour, bouton FR/EN, génération de 10 000 cartes | ⏸️ remplacés | Le virage « livres » les a remplacés ; à replanifier si besoin |
+| Vraies couvertures de livres | ⏳ à faire | Le code accepte déjà une URL de couverture par livre |
 | Mise en ligne (Vercel + Supabase hébergé) | ⏳ non testée | Voir [section 12](#12-mettre-en-ligne) |
 
 ### Dépendances entre les chantiers restants
 
 ```mermaid
 flowchart TD
-    A["Génération des 10 000 cartes"] --> B["Vérification finale<br/>check:db"]
-    C["Régénération d'une langue"] --> A
-    D["Filtres plus stricts"] --> A
-    E["Clé Anthropic<br/>et budget confirmé"] --> A
-    F["Paquet du jour"] --> G["Écran de fin<br/>et jours précédents"]
-    H["Bouton FR/EN"] --> I["Retourner une carte<br/>sans perdre la position"]
-    F --> I
+    A["Histoires longues<br/>pour les 99 livres"] --> B["Versions françaises"]
+    B --> C["Stash, historique et relectures<br/>complets pour les lecteurs français"]
+    D["Clé Anthropic<br/>et budget confirmé"] --> E["Génération automatique<br/>de livres"]
+    F["Pipeline adapté aux livres<br/>numérotés"] --> E
+    G["Vraies couvertures"] --> H["Mise en ligne"]
+    B --> H
 ```
-
-Le paquet du jour et le bouton FR/EN sont indépendants de la génération : on peut les construire et les tester avec les cartes de démonstration.
 
 ### Les risques, et comment on les gère
 
@@ -634,16 +730,16 @@ Le paquet du jour et le bouton FR/EN sont indépendants de la génération : on 
 
 ```mermaid
 pie showData title Tests automatiques (nombre de tests)
-    "Unitaires : la logique" : 62
-    "Intégration : base de données" : 23
-    "Bout en bout : navigateur (6 scénarios x 2 appareils)" : 12
+    "Unitaires : la logique" : 78
+    "Intégration : base de données" : 31
+    "Bout en bout : navigateur (5 scénarios x 2 appareils)" : 10
 ```
 
 | Niveau | Outil | Ce qu'il vérifie |
 |---|---|---|
 | **Unitaires** | Vitest | SM-2, mélange du fil, règles de qualité et de style, similarité, découverte de livres, découpage audio, cache |
-| **Intégration** | Vitest + vraie base locale | Sécurité (RLS), fonctions SQL, déclencheurs de l'historique, pipeline complet avec faux modèle |
-| **Bout en bout** | Playwright, mobile et ordinateur | Inscription, fil, sauvegarde, révision, défi, historique, relecture, lecture audio avec un faux serveur de voix |
+| **Intégration** | Vitest + vraie base locale | Sécurité (RLS), fonctions SQL, déclencheurs de l'historique, déblocage des idées et progression, pipeline complet avec faux modèle |
+| **Bout en bout** | Playwright, mobile et ordinateur | Inscription, accueil, ouverture d'un livre, lecture des idées dans l'ordre, idée verrouillée, bibliothèque, recherche, terminer un livre entier, historique, relecture, lecture audio avec un faux serveur de voix |
 
 Commandes : `npm test`, `npm run test:db`, `npm run test:e2e` (voir le README).
 
@@ -661,6 +757,10 @@ C'est la meilleure preuve que les tests servent. Chaque ligne est un vrai défau
 | Deux éléments portaient le même nom d'accessibilité | Un test de bout en bout |
 | La route audio n'avait pas de délai d'attente, donc attendait 30 s au lieu de basculer sur le repli | Un test sur la route, avec un service injoignable |
 | Mon outil de mesure des silences audio se trompait d'ordre (le test, pas le code) | Lecture du journal brut avant de conclure |
+| La recherche d'Explorer ne regardait que les 60 premiers livres et ratait des titres dès que la bibliothèque a grandi | Un test de bout en bout, une fois les 100 livres chargés |
+| Le test de génération automatique rejetait une bonne carte, parce que 300 idées écrites à la main faussaient la comparaison de style | Les tests d'intégration du pipeline |
+| Le bouton « Commencer » pointait vers `/ideas/undefined` sur un ordinateur (cause exacte non reproduite chez moi) | Le journal du serveur collé par l'utilisatrice ou l'utilisateur ; la lecture du numéro a été rendue indépendante de la vue SQL |
+| 14 idées sur 66 (puis beaucoup d'autres) rejetées par les règles de style (rythme trop régulier, pas de « tu », mots interdits) | Un test qui applique les règles à chacune des 100 livres |
 
 ---
 
@@ -723,8 +823,12 @@ C'est la meilleure preuve que les tests servent. Chaque ligne est un vrai défau
 
 À lire avant de présenter ou de déployer le projet :
 
-- **Le contenu réel n'existe pas encore.** La base ne contient que 12 cartes de démonstration, écrites à la main (chacune en français et en anglais). L'objectif de 10 000 cartes passe par la phase « génération », pas encore construite dans sa version finale.
-- **Aucune carte n'a été produite par le vrai modèle.** Le pipeline est testé avec des simulations, mais la qualité réelle du style, le taux de rejet et le coût réel sont inconnus tant qu'un premier lot n'a pas été généré et relu.
+- **Le contenu est écrit à la main, de mémoire.** Les 602 idées s'inspirent des livres sans les citer, mais elles n'ont pas été comparées aux textes originaux : une idée peut simplifier ou déformer un livre. Une relecture humaine est conseillée, surtout pour les livres de santé, d'argent et de psychologie.
+- **Tout est en anglais.** Un lecteur dont l'interface est en français voit les livres en anglais avec un message ; son stash, son historique et ses relectures n'affichent pas encore ces idées, parce qu'ils filtrent par langue.
+- **Les histoires ne sont pas toutes de la même longueur.** Seul *The Power of Now* a des histoires de 120 à 145 mots ; les autres livres ont environ 50 mots.
+- **Aucune idée n'a été produite par le vrai modèle.** Le pipeline automatique est testé avec des simulations, il ne produit pas encore de livres numérotés, et la qualité et le coût réels sont inconnus.
+- **Pas de vraies couvertures.** Les couvertures sont générées (titre, auteur, couleurs).
+- **Droits d'auteur.** Résumer des livres récents pour un usage personnel est courant, mais si Stash devient public, la question du droit d'auteur et de la marque des titres devra être revue.
 - **La connexion Google n'a pas été testée**, ni le déploiement sur Vercel, ni la fonction d'embeddings en conditions réelles (elle doit télécharger un modèle).
 - **Edge TTS n'est pas garanti** : c'est un service non officiel, adapté à un projet personnel plutôt qu'à un produit commercial.
 - **Le script `npm run setup`** a été vérifié pour la création de `.env.local` et le chargement des données ; son premier démarrage de Supabase dépend de Docker et de la connexion Internet de la personne.
@@ -736,8 +840,13 @@ C'est la meilleure preuve que les tests servent. Chaque ligne est un vrai défau
 
 | Mot | Signification |
 |---|---|
-| **Carte (memo card)** | Une idée courte avec une action concrète |
-| **Stash** | Ta collection de cartes sauvegardées |
+| **Livre** | Un ouvrage résumé en idées numérotées, avec un résumé, des thèmes et une progression |
+| **Idée** | Un morceau d'un livre : une histoire, ce qu'il faut retenir, une action. Stockée dans la table `cards` |
+| **Carte (memo card)** | Ancien nom d'une idée, encore utilisé dans le code et dans le mode Relire |
+| **Thème** | Une grande catégorie (Produit & Business, Psychologie…) |
+| **Étagère** | Une rangée horizontale de livres (accueil, Explorer) |
+| **Déblocage** | Une idée s'ouvre seulement quand les précédentes du livre sont terminées |
+| **Stash** | Ta collection d'idées sauvegardées (différent de la bibliothèque, qui contient des livres) |
 | **Fil (feed)** | La suite de cartes que tu fais défiler |
 | **Pipeline d'ingestion** | La chaîne qui fabrique et contrôle les cartes |
 | **RLS** | Sécurité au niveau des lignes : la base décide qui voit quoi |
