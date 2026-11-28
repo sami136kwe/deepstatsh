@@ -26,6 +26,52 @@ export type CategorySeed = {
 
 export const CATEGORY_SEED: CategorySeed[] = [
   {
+    slug: "produit-business",
+    name_fr: "Produit & Business",
+    name_en: "Product & Business",
+    icon: "🚀",
+    description: "Construire des produits, des équipes et des entreprises qui durent.",
+    description_en: "Build products, teams and companies that last.",
+    subcategories: [
+      { slug: "strategie-innovation", name_fr: "Stratégie et innovation", name_en: "Strategy and innovation" },
+      { slug: "produit-conception", name_fr: "Produit et conception", name_en: "Product and design" },
+      { slug: "startups-croissance", name_fr: "Startups et croissance", name_en: "Startups and growth" },
+      { slug: "marketing-ventes", name_fr: "Marketing et ventes", name_en: "Marketing and sales" },
+      { slug: "operations-execution", name_fr: "Opérations et exécution", name_en: "Operations and execution" },
+    ],
+    queries: [
+      "product management book bestseller",
+      "startup strategy innovation book",
+      "business strategy classic book",
+      "marketing and sales bestseller",
+      "lean startup growth book",
+      "product design thinking book",
+    ],
+  },
+  {
+    slug: "investissements-marches",
+    name_fr: "Investissements & Marchés",
+    name_en: "Investments & Markets",
+    icon: "📈",
+    description: "Comprendre les marchés, l'argent et le comportement des investisseurs.",
+    description_en: "Understand markets, money and how investors behave.",
+    subcategories: [
+      { slug: "bourse-bases", name_fr: "Bourse et investissement de base", name_en: "Stock market basics" },
+      { slug: "psychologie-investisseur", name_fr: "Psychologie de l'investisseur", name_en: "Investor psychology" },
+      { slug: "economie-marches", name_fr: "Économie et marchés", name_en: "Economics and markets" },
+      { slug: "crypto-finance", name_fr: "Crypto et nouvelle finance", name_en: "Crypto and new finance" },
+      { slug: "patrimoine-immobilier", name_fr: "Patrimoine et immobilier", name_en: "Wealth and real estate" },
+    ],
+    queries: [
+      "stock market investing beginners book",
+      "psychology of money investing book",
+      "financial crisis markets book",
+      "bitcoin cryptocurrency book",
+      "personal finance wealth bestseller",
+      "trading psychology book",
+    ],
+  },
+  {
     slug: "psychologie",
     name_fr: "Psychologie",
     name_en: "Psychology",

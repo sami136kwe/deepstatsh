@@ -162,6 +162,37 @@ describe("reading history and decks", () => {
   });
 });
 
+describe("story format", () => {
+  it("finds a card from a word that only appears in its story", async () => {
+    // "concert" is in the French story of "Le coût déjà payé", not in its title, lesson or action.
+    const { data } = await admin
+      .from("card_translations")
+      .select("title, story")
+      .eq("language", "fr")
+      .eq("status", "published")
+      .textSearch("search", "concert", { type: "websearch", config: "french" });
+    expect(data!.map((t) => t.title)).toContain("Le coût déjà payé");
+    expect(data!.every((t) => !t.title.toLowerCase().includes("concert"))).toBe(true);
+  });
+
+  it("exposes the story through card_details, in the right language", async () => {
+    const { data } = await admin.from("card_details").select("language, story, title").eq("title", "Pay yourself first").ilike("story", "%Hugo%");
+    expect(data).toHaveLength(1);
+    expect(data![0]!.language).toBe("en");
+    expect(data![0]!.story).toContain("Hugo");
+  });
+
+  it("refuses a story that is too short, but still accepts a card without one (older cards)", async () => {
+    const { data: card } = await admin.from("cards").insert({ category_id: (await admin.from("categories").select("id").limit(1).single()).data!.id, status: "draft" }).select("id").single();
+    const base = { card_id: card!.id, language: "fr", title: "Titre de test", body: "Une leçon qui fait au moins quarante caractères de long.", action_step: "Fais quelque chose de précis aujourd'hui.", status: "draft" };
+    const tooShort = await admin.from("card_translations").insert({ ...base, story: "Trop court.", content_hash: `short-${Date.now()}` });
+    expect(tooShort.error).not.toBeNull();
+    const noStory = await admin.from("card_translations").insert({ ...base, content_hash: `nostory-${Date.now()}` });
+    expect(noStory.error).toBeNull();
+    await admin.from("cards").delete().eq("id", card!.id);
+  });
+});
+
 describe("re-reading", () => {
   let carol: { db: Db; id: string };
   let a: { id: string; main: string; title: string };
@@ -235,6 +266,63 @@ describe("re-reading", () => {
   });
 });
 
+describe("books and ideas", () => {
+  let bookId: string;
+  let ideas: { id: string; position: number }[];
+
+  beforeAll(async () => {
+    const { data: book } = await admin.from("books").select("id").eq("slug", "the-power-of-now").single();
+    if (!book) throw new Error("run `npm run seed:demo` first");
+    bookId = book.id;
+    const { data } = await admin.from("cards").select("id, position").eq("book_id", bookId).not("position", "is", null).order("position");
+    ideas = (data ?? []).map((c) => ({ id: c.id, position: c.position! }));
+  });
+
+  it("exposes eight numbered ideas and a book overview in English", async () => {
+    expect(ideas.map((i) => i.position)).toEqual([1, 2, 3, 4, 5, 6, 7, 8]);
+    const { data } = await alice.db.from("book_overview").select("idea_count, summary").eq("id", bookId).eq("language", "en").single();
+    expect(data?.idea_count).toBe(8);
+    expect(data?.summary).toBeTruthy();
+    const { data: fr } = await alice.db.from("book_overview").select("idea_count").eq("id", bookId).eq("language", "fr").single();
+    expect(fr?.idea_count).toBe(0);
+  });
+
+  it("refuses an idea whose earlier ideas are not done, then unlocks them in order", async () => {
+    const locked = await alice.db.rpc("complete_idea", { p_card: ideas[2]!.id });
+    expect(locked.error?.message).toMatch(/locked/);
+    expect((await alice.db.rpc("complete_idea", { p_card: ideas[0]!.id })).error).toBeNull();
+    expect((await alice.db.rpc("complete_idea", { p_card: ideas[1]!.id })).error).toBeNull();
+    const third = await alice.db.rpc("complete_idea", { p_card: ideas[2]!.id });
+    expect(third.error).toBeNull();
+    expect(third.data?.[0]).toMatchObject({ r_done: 3, r_total: 8, r_completed: false });
+    // Doing it twice changes nothing.
+    const again = await alice.db.rpc("complete_idea", { p_card: ideas[2]!.id });
+    expect(again.data?.[0]?.r_done).toBe(3);
+  });
+
+  it("marks the book completed after the last idea", async () => {
+    let last;
+    for (const idea of ideas) last = await alice.db.rpc("complete_idea", { p_card: idea.id });
+    expect(last?.data?.[0]).toMatchObject({ r_done: 8, r_total: 8, r_completed: true });
+    const { data } = await alice.db.from("user_books").select("completed_at").eq("book_id", bookId).single();
+    expect(data?.completed_at).toBeTruthy();
+  });
+
+  it("keeps progress private and writable only through the functions", async () => {
+    const { data } = await bob.db.from("user_idea_progress").select("card_id");
+    expect(data).toEqual([]);
+    const direct = await bob.db.from("user_idea_progress").insert({ user_id: bob.id, card_id: ideas[0]!.id, book_id: bookId });
+    expect(direct.error).not.toBeNull();
+    expect((await bob.db.rpc("complete_idea", { p_card: ideas[1]!.id })).error?.message).toMatch(/locked/);
+  });
+
+  it("saves and unsaves a book without starting it", async () => {
+    expect((await bob.db.rpc("set_book_saved", { p_book: bookId, p_saved: true })).error).toBeNull();
+    const { data } = await bob.db.from("user_books").select("is_saved, started_at").eq("book_id", bookId).single();
+    expect(data).toEqual({ is_saved: true, started_at: null });
+  });
+});
+
 describe("rpc functions", () => {
   it("counts streak days with record_activity", async () => {
     const first = await bob.db.rpc("record_activity", { p_day: yesterday });
@@ -262,10 +350,10 @@ describe("rpc functions", () => {
     expect(a.data?.[0]?.id).toBe(b.data?.[0]?.id);
   });
 
-  it("reports progress for the twelve main categories", async () => {
+  it("reports progress for the fourteen main categories", async () => {
     const { data, error } = await bob.db.rpc("category_progress");
     expect(error).toBeNull();
-    expect(data).toHaveLength(12);
+    expect(data).toHaveLength(14);
     expect(data!.reduce((s, r) => s + Number(r.seen), 0)).toBeGreaterThanOrEqual(1);
   });
 

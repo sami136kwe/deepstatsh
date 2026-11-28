@@ -8,7 +8,7 @@ import { useVoicePref } from "./prefs";
 import { buildSegments, buildUnits, type ReadingPosition } from "./segment";
 import type { TtsLanguage } from "./voices";
 
-type Card = { title: string; body: string; action_step: string; language: string };
+type Card = { title: string; story?: string | null; body: string; action_step: string; language: string };
 
 /** Read-aloud state for one card: toggle, current sentence, voice choice. */
 export function useReadAloud(card: Card | undefined, options: { autoPlay?: boolean } = {}) {
@@ -21,10 +21,10 @@ export function useReadAloud(card: Card | undefined, options: { autoPlay?: boole
   const playerRef = useRef<ReadAloudPlayer | null>(null);
 
   const units = useMemo(
-    () => (card ? buildUnits(card, t.common.actionToday, language) : []),
+    () => (card ? buildUnits(card, { takeaway: t.common.takeaway, action: t.common.actionToday }, language) : []),
     // Rebuild only when the card text changes.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [card?.title, card?.body, card?.action_step, language, t.common.actionToday],
+    [card?.title, card?.story, card?.body, card?.action_step, language, t.common.actionToday, t.common.takeaway],
   );
 
   const getPlayer = useCallback(() => {
@@ -49,7 +49,7 @@ export function useReadAloud(card: Card | undefined, options: { autoPlay?: boole
     (next: Card | undefined) => {
       if (!next) return;
       const nextLanguage: TtsLanguage = next.language === "en" ? "en" : "fr";
-      const nextSegments = buildSegments(buildUnits(next, t.common.actionToday, nextLanguage));
+      const nextSegments = buildSegments(buildUnits(next, { takeaway: t.common.takeaway, action: t.common.actionToday }, nextLanguage));
       for (const segment of nextSegments.slice(0, 2)) prefetchAudio(segment.text, voice).catch(() => undefined);
     },
     [t, voice],

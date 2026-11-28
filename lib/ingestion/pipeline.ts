@@ -196,13 +196,14 @@ export async function discoverQuery(
 async function recentSignatures(db: Db, categoryIds: string[], language: Language): Promise<StructureSignature[]> {
   const { data } = await db
     .from("card_translations")
-    .select("body, cards!inner(category_id)")
+    .select("story, body, cards!inner(category_id)")
     .in("cards.category_id", categoryIds)
+    .neq("cards.source_type", "manual") // hand-written seed ideas do not set the bar for generated ones
     .eq("language", language)
     .eq("status", "published")
     .order("created_at", { ascending: false })
     .limit(50);
-  return (data ?? []).map((r) => structureSignature(language, r.body));
+  return (data ?? []).map((r) => structureSignature(language, r.story || r.body));
 }
 
 async function recentTitles(db: Db, categoryIds: string[]): Promise<string[]> {
@@ -283,13 +284,14 @@ export async function insertCardPair(
       card_id: row.id,
       language,
       title: v.title.trim().slice(0, 120),
+      story: v.story.trim().slice(0, 1200),
       body: v.body.trim().slice(0, 900),
       action_step: v.action_step.trim().slice(0, 300),
       quote: accepted ? (quote?.text ?? null) : null,
       quote_author: accepted && quote ? `${quote.author}, ${book.title}` : null,
       style_score: card[language].style,
       status,
-      content_hash: contentHash(language, v.title, v.body),
+      content_hash: contentHash(language, v.title, `${v.story}\n${v.body}`),
       embedding: card[language].embedding,
       rejection_reason: accepted ? null : card[language].reasons.join(", ").slice(0, 1000) || null,
     };
@@ -397,7 +399,7 @@ export async function processBook(
     if (outcome !== "rejected") {
       result.created += 1;
       if (cardQuote) quoteUsed = true;
-      for (const language of LANGUAGES) signatures[language].unshift(structureSignature(language, card[language].body));
+      for (const language of LANGUAGES) signatures[language].unshift(structureSignature(language, card[language].story || card[language].body));
     } else {
       result.rejected += 1;
     }

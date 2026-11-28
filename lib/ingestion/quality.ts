@@ -9,6 +9,9 @@ import type { Language } from "./style";
 export type QualityInput = {
   language: Language;
   title: string;
+  /** The short story that opens the card. */
+  story?: string | null;
+  /** What to remember. */
   body: string;
   action_step: string;
   quote?: string | null;
@@ -20,10 +23,18 @@ export type QualityCheck = { ok: boolean; reasons: string[] };
 export const LIMITS = {
   titleMin: 3,
   titleMax: 80,
-  bodyMinChars: 120,
-  bodyMaxChars: 600,
-  bodyMinSentences: 2,
+  storyMinChars: 140,
+  storyMaxChars: 1200,
+  storyMinSentences: 3,
+  storyMaxSentences: 12,
+  storyMinWords: 25,
+  storyMaxWords: 200,
+  bodyMinChars: 50,
+  bodyMaxChars: 450,
+  bodyMinSentences: 1,
   bodyMaxSentences: 4,
+  /** story + lesson + action together */
+  cardMaxWords: 300,
   actionMinChars: 15,
   actionMaxChars: 220,
   quoteMaxWords: 14,
@@ -54,7 +65,8 @@ const VAGUE_BODY: Record<Language, RegExp> = {
   en: /\b(in many ways|all sorts of things|in many areas of life|in countless ways)\b/,
 };
 
-export function checkQuality(card: QualityInput, sourceText?: string | null): QualityCheck {
+export function checkQuality(card: QualityInput, sourceText?: string | null, options: { requireStory?: boolean } = {}): QualityCheck {
+  const { requireStory = true } = options;
   const reasons: string[] = [];
   const title = card.title.trim();
   const body = card.body.trim();
@@ -63,6 +75,19 @@ export function checkQuality(card: QualityInput, sourceText?: string | null): Qu
   if (title.length < LIMITS.titleMin || title.length > LIMITS.titleMax) reasons.push("title_length");
   if (body.length < LIMITS.bodyMinChars) reasons.push("body_too_short");
   if (body.length > LIMITS.bodyMaxChars) reasons.push("body_too_long");
+
+  const story = card.story?.trim() ?? "";
+  if (!story) {
+    if (requireStory) reasons.push("story_missing");
+  } else {
+    if (story.length < LIMITS.storyMinChars) reasons.push("story_too_short");
+    if (story.length > LIMITS.storyMaxChars) reasons.push("story_too_long");
+    const storySentences = splitSentences(story).length;
+    if (storySentences < LIMITS.storyMinSentences || storySentences > LIMITS.storyMaxSentences) reasons.push("story_sentence_count");
+    const storyWords = wordCount(story);
+    if (storyWords < LIMITS.storyMinWords || storyWords > LIMITS.storyMaxWords) reasons.push("story_word_count");
+  }
+  if (wordCount(`${story} ${body} ${action}`) > LIMITS.cardMaxWords) reasons.push("card_too_long");
 
   const sentences = splitSentences(body).length;
   if (sentences < LIMITS.bodyMinSentences || sentences > LIMITS.bodyMaxSentences) {
@@ -81,7 +106,7 @@ export function checkQuality(card: QualityInput, sourceText?: string | null): Qu
   }
 
   if (sourceText) {
-    const cardText = `${title} ${body} ${action}`;
+    const cardText = `${title} ${story} ${body} ${action}`;
     if (copiesSource(cardText, sourceText)) {
       reasons.push(`copied_from_source:${longestCommonWordRun(cardText, sourceText)}>=${MAX_COPIED_RUN}`);
     }

@@ -80,3 +80,7 @@ export const historyQuerySchema = z.object({
 });
 
 export const reviewLaterBodySchema = z.object({ cardId: uuidSchema });
+
+export const saveBookBodySchema = z.object({ bookId: uuidSchema, saved: z.boolean() });
+export const ideaOpenBodySchema = z.object({ cardId: uuidSchema, day: daySchema });
+export const ideaCompleteBodySchema = z.object({ cardId: uuidSchema, day: daySchema });

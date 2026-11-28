@@ -11,6 +11,8 @@ export type Language = "fr" | "en";
 export type StyleInput = {
   language: Language;
   title: string;
+  /** The short story that opens the card (third person, so no "you" required there). */
+  story?: string | null;
   body: string;
   action_step: string;
 };
@@ -165,7 +167,8 @@ function openingRestatesTitle(title: string, body: string): boolean {
 export function checkStyle(card: StyleInput, recent: StructureSignature[] = []): StyleCheck {
   const reasons: string[] = [];
   const lang = card.language;
-  const full = `${card.title}. ${card.body} ${card.action_step}`;
+  const story = card.story?.trim() ?? "";
+  const full = `${card.title}. ${story} ${card.body} ${card.action_step}`;
   const normalizedFull = fold(full);
 
   for (const re of BANNED_PHRASES[lang]) {
@@ -175,9 +178,24 @@ export function checkStyle(card: StyleInput, recent: StructureSignature[] = []):
     if (re.test(normalizedFull)) reasons.push(`banned_word:${re.source}`);
   }
 
-  const lengths = sentenceLengths(card.body);
+  // Rhythm is judged over all the card's sentences (story + lesson), not the short lesson alone.
+  const lengths = sentenceLengths(`${story} ${card.body}`);
   if (lengths.length >= 2 && coefficientOfVariation(lengths) < MIN_SENTENCE_LENGTH_VARIATION) {
     reasons.push("uniform_sentence_length");
+  }
+
+  const storyLengths = sentenceLengths(story);
+  if (storyLengths.length >= 3 && coefficientOfVariation(storyLengths) < MIN_SENTENCE_LENGTH_VARIATION) {
+    reasons.push("uniform_story_sentence_length");
+  }
+  // A narrative naturally repeats its character's name or a pronoun, so the limit is looser here.
+  const storyOpeners = new Map<string, number>();
+  for (const sentence of splitSentences(story)) {
+    const first = tokenize(sentence)[0];
+    if (first) storyOpeners.set(first, (storyOpeners.get(first) ?? 0) + 1);
+  }
+  for (const [word, count] of storyOpeners) {
+    if (count > 3) reasons.push(`story_repeated_opener:${word}`);
   }
 
   const openers = new Map<string, number>();
@@ -190,8 +208,8 @@ export function checkStyle(card: StyleInput, recent: StructureSignature[] = []):
   }
 
   if ((full.match(/—/g) ?? []).length > 1) reasons.push("em_dash_series");
-  if (hasAdjectiveTriad(lang, card.body)) reasons.push("adjective_triad");
-  if (openingRestatesTitle(card.title, card.body)) reasons.push("opening_restates_title");
+  if (hasAdjectiveTriad(lang, `${story} ${card.body}`)) reasons.push("adjective_triad");
+  if (openingRestatesTitle(card.title, story || card.body)) reasons.push("opening_restates_title");
 
   if (!SECOND_PERSON[lang].test(normalizeText(`${card.body} ${card.action_step}`))) {
     reasons.push("no_direct_address");
@@ -200,7 +218,7 @@ export function checkStyle(card: StyleInput, recent: StructureSignature[] = []):
     reasons.push("vouvoiement");
   }
 
-  const signature = structureSignature(lang, card.body);
+  const signature = structureSignature(lang, story || card.body);
   if (structureShare(signature, recent) > MAX_STRUCTURE_SHARE) {
     reasons.push("repetitive_structure");
   }

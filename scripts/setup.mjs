@@ -57,7 +57,7 @@ if (!flag("no-start")) {
   }
   say("Démarrage de Supabase (la première fois, c'est long : des images à télécharger)…");
   const start = run("npx", ["supabase", "start"], { EMBEDDING_FUNCTION_SECRET: embeddingSecret });
-  if (start.status !== 0) fail("Supabase n'a pas démarré. Regardez le message ci-dessus (Docker lancé ? ports 54321-54324 libres ?).");
+  if (start.status !== 0) fail("Supabase n'a pas démarré. Regardez le message ci-dessus (Docker lancé ? ports 55320-55329 libres ?).");
 }
 
 // 3. Environment file
@@ -85,7 +85,12 @@ const wanted = {
 const added = [];
 const lines = existsSync(ENV_FILE) ? readFileSync(ENV_FILE, "utf8").replace(/\s*$/, "\n").split("\n").slice(0, -1) : [];
 for (const [key, value] of Object.entries(wanted)) {
-  if (existing.get(key)) continue; // never overwrite something already set
+  const current = existing.get(key);
+  // Never overwrite something already set, except a local Supabase address that points at another port
+  // (Stash's local ports changed, so an older .env.local would still point at the old ones).
+  const staleLocalUrl =
+    key === "NEXT_PUBLIC_SUPABASE_URL" && current && /^https?:\/\/(127\.0\.0\.1|localhost)(:\d+)?/.test(current) && current !== value;
+  if (current && !staleLocalUrl) continue;
   const at = lines.findIndex((l) => l.startsWith(`${key}=`));
   if (at >= 0) lines[at] = `${key}=${value}`;
   else lines.push(`${key}=${value}`);

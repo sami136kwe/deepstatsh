@@ -274,6 +274,17 @@ stateDiagram-v2
 
 Les cartes rejetées ne sont pas supprimées : on garde le **motif** (par exemple « phrase interdite », « trop proche d'une carte existante »). C'est utile pour comprendre ce qui coince et ajuster les règles.
 
+### Le format d'une carte : une histoire, puis une leçon
+
+Une carte ne se contente plus d'énoncer une idée : elle la **fait vivre** avant de l'expliquer. Elle se lit dans cet ordre :
+
+1. **Le titre.**
+2. **L'histoire** (`story`) : une petite scène de 3 à 6 phrases, avec un personnage inventé et une situation précise (par exemple quelqu'un qui rumine dans sa voiture après le travail et finit par laisser sa pensée s'éteindre). Elle montre l'idée sans la nommer ni conclure par une morale.
+3. **Ce qu'il faut retenir** (`body`) : la leçon en 1 à 3 phrases, qui parle à « tu » et généralise ce que l'histoire a montré.
+4. **L'action** (`action_step`) : une chose concrète à faire aujourd'hui.
+
+Les règles automatiques s'adaptent : l'histoire est exigée pour toute nouvelle carte, avec ses propres limites (longueur, 3 à 7 phrases), et la monotonie du rythme est mesurée sur toutes les phrases de la carte. Dans une histoire, un prénom ou un pronom peut revenir trois fois en début de phrase, mais pas quatre. Les anciennes cartes sans histoire continuent de s'afficher.
+
 ### Pourquoi une table de traductions ?
 
 Au départ, chaque langue était une carte séparée. Mais l'idée, elle, est la même : si on veut apprendre le vocabulaire en retournant la carte dans l'autre langue, il faut que ce soit **la même carte**. D'où la séparation : l'identité de l'idée d'un côté, ses deux textes de l'autre. La vue SQL `card_details` recolle le tout : une ligne par carte et par langue, ce qui a permis de ne presque rien changer dans le reste du code.
@@ -515,6 +526,7 @@ flowchart LR
 | 4 | **Le prompt « 10 000 cartes »** : base de contenu + relecture + bilingue + paquet du jour | Générer 10 000 cartes, relire les cartes déjà lues, version fr/en de chaque carte, paquet du jour navigable | Découpé en 5 phases. Les phases 1 (données) et 2 (relecture) sont faites. Voir [la feuille de route](#10-gestion-de-projet) |
 | 5 | **La plainte sur l'audio** : « le chargement est beaucoup trop long » + le code d'un autre projet | Corriger la lenteur, en s'inspirant d'un projet qui marchait | Lecture en segments, préchargement, serveur Kokoro local en option |
 | 6 | **Cette documentation** | Expliquer le projet, le lancer simplement, documenter conception et gestion | Ce fichier et le README |
+| 7 | **Le format histoire** : « chaque idée est racontée comme une petite histoire », avec des captures d'écran d'une autre application comme référence d'interface | Une histoire d'abord (un personnage, une scène), puis ce qu'il faut retenir, puis l'action ; une barre du bas, une bibliothèque, des parcours | Le format de carte en trois temps (voir [la section 3](#le-format-dune-carte--une-histoire-puis-une-leçon)). La suite de l'interface est planifiée, voir [la feuille de route](#10-gestion-de-projet) |
 
 ### Ce qui rendait les prompts efficaces
 
@@ -577,6 +589,9 @@ flowchart LR
 | Cartes bilingues liées (`card_translations`) | ✅ fait | |
 | Historique, mode Relire, relectures dans le fil | ✅ fait | |
 | Lecture audio (Edge + Kokoro) | ✅ fait | Latence Edge réelle non mesurée |
+| **Format histoire** (titre, histoire, ce qu'il faut retenir, action) | ✅ fait | Cartes de démo réécrites, consignes de génération et filtres adaptés ; affichage en **une seule carte qui défile** |
+| Lecteur **par étapes** (histoire découpée en scènes, barre à segments, bouton Continuer) | ❓ à décider | Vu sur des captures de référence ; compatible avec le format actuel sans régénérer les cartes. Les illustrations par scène demanderaient un générateur d'images |
+| Barre du bas, Bibliothèque, Explorer, parcours | ⏳ à faire | Choisi comme prochaine étape après le format histoire |
 | **Paquet du jour** (navigation façon histoire, 50 ou illimité, jours précédents) | ⏳ à faire | Les tables existent déjà |
 | **Bouton FR/EN** dans l'en-tête et sur chaque carte | ⏳ à faire | La langue est déjà stockée dans le profil |
 | **Génération de 10 000 cartes** (`seed:cards`, `check:db`, export CSV/JSON, budget) | ⏳ à faire | Dépend de la clé Anthropic de la personne |

@@ -18,15 +18,15 @@
 }
 
 .dark {
-  --bg: #13110e;
-  --surface: #1c1915;
-  --surface-2: #26221c;
-  --ink: #f4efe7;
-  --muted: #b0a799;
-  --line: #3a342c;
-  --accent: #fb923c;
-  --accent-ink: #1c1915;
-  --accent-soft: #3b2517;
+  --bg: #0d1017;
+  --surface: #161a23;
+  --surface-2: #1f2430;
+  --ink: #f2f0ea;
+  --muted: #a3a9b8;
+  --line: #2b3140;
+  --accent: #f2b84b;
+  --accent-ink: #1a1405;
+  --accent-soft: #2e2613;
   --ok: #4ade80;
   --danger: #f87171;
   color-scheme: dark;

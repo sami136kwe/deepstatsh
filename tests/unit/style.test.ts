@@ -7,18 +7,21 @@ import {
   structureShare,
   structureSignature,
 } from "@/lib/ingestion/style";
+import { LIBRARY as DEMO_BOOKS } from "@/supabase/seed/library";
 import { DEMO_CARDS } from "@/supabase/seed/demo-cards";
 
 // The two examples from the product brief.
 const BAD = {
   language: "fr" as const,
   title: "L'écoute active",
+  story: "Paul parle à sa collègue lors d'une réunion importante. Elle regarde son téléphone et hoche la tête de temps en temps. Paul continue de parler pendant vingt minutes sans s'apercevoir qu'elle ne l'écoute plus du tout.",
   body: "L'écoute active est une compétence essentielle en communication. Il est important de maintenir un contact visuel et de reformuler les propos de son interlocuteur afin de favoriser une compréhension mutuelle.",
   action_step: "Pratiquez l'écoute active lors de vos prochaines conversations.",
 };
 const GOOD = {
   language: "fr" as const,
   title: "Répète, ne réponds pas",
+  story: "Mia raconte sa journée à Sam, qui l'écoute à moitié. Elle s'arrête au milieu d'une phrase. « Attends, tu viens de dire quoi ? » Sam rougit, puis reprend ses mots un à un, doucement. Mia sourit enfin et lui raconte le vrai problème.",
   body: "Tu sais ce qui change tout dans une conversation ? Pas ce que tu dis, ce que tu répètes de l'autre. La prochaine fois, reprends sa dernière phrase avec tes mots ('donc si je comprends bien, ça te stresse que...'). Il va se sentir écouté, et il va te raconter le vrai problème.",
   action_step: "Dans ta prochaine conversation, reformule une fois ce que l'autre vient de dire avant de répondre.",
 };
@@ -41,6 +44,17 @@ describe("style rules", () => {
     for (const card of DEMO_CARDS) {
       for (const language of ["fr", "en"] as const) {
         const input = { language, ...card[language] };
+        expect({ title: input.title, ...checkStyle(input) }).toEqual({ title: input.title, ok: true, reasons: [] });
+        expect({ title: input.title, ...checkQuality(input) }).toEqual({ title: input.title, ok: true, reasons: [] });
+      }
+    }
+  });
+
+  it("accepts every idea of the demo books, numbered without gaps", () => {
+    for (const book of DEMO_BOOKS) {
+      expect(book.ideas.map((i) => i.position)).toEqual(book.ideas.map((_, i) => i + 1));
+      for (const idea of book.ideas) {
+        const input = { language: "en" as const, ...idea.en };
         expect({ title: input.title, ...checkStyle(input) }).toEqual({ title: input.title, ok: true, reasons: [] });
         expect({ title: input.title, ...checkQuality(input) }).toEqual({ title: input.title, ok: true, reasons: [] });
       }
@@ -104,17 +118,55 @@ describe("style rules", () => {
   });
 });
 
+describe("story rules", () => {
+  const base = { ...GOOD };
+
+  it("flags a story whose sentences are all the same length", () => {
+    const story = "Mia lit un livre chaque soir. Sam fait la cuisine chaque soir. Ils parlent un peu chaque soir. Puis ils dorment bien chaque soir.";
+    expect(checkStyle({ ...base, story }).reasons).toContain("uniform_story_sentence_length");
+  });
+
+  it("allows a character's name or pronoun to repeat up to three times, not four", () => {
+    const three = "Léa arrive en retard à la réunion. Elle s'excuse, un peu gênée. Elle s'assoit au fond de la salle. Elle découvre que personne n'a vraiment remarqué son absence.";
+    const four = `${three} Elle respire enfin.`;
+    expect(checkStyle({ ...base, story: three }).reasons.filter((r) => r.startsWith("story_repeated_opener"))).toEqual([]);
+    expect(checkStyle({ ...base, story: four }).reasons).toContain("story_repeated_opener:elle");
+  });
+
+  it("applies the banned phrases and buzzwords to the story too", () => {
+    const story = "Paul pense que la communication est essentielle. En effet, il écoute sa collègue avec attention pendant toute la réunion de lundi matin, sans rien dire.";
+    const reasons = checkStyle({ ...base, story }).reasons;
+    expect(reasons.some((r) => r.startsWith("banned_phrase"))).toBe(true);
+    expect(reasons.some((r) => r.startsWith("banned_word"))).toBe(true);
+  });
+
+  it("does not require 'tu' in the story (it is told in the third person)", () => {
+    expect(checkStyle(base).reasons).not.toContain("no_direct_address");
+  });
+});
+
 describe("quality rules", () => {
   it("rejects cards without a concrete action", () => {
     const r = checkQuality({ ...GOOD, action_step: "Garde ça en tête." });
     expect(r.reasons).toEqual(expect.arrayContaining(["action_vague"]));
   });
 
-  it("rejects bodies that are too long or a single sentence", () => {
+  it("rejects lessons that are too long or too many sentences", () => {
     expect(checkQuality({ ...GOOD, body: `${GOOD.body} ${"Encore une phrase de plus. ".repeat(20)}` }).reasons).toContain("body_too_long");
-    expect(checkQuality({ ...GOOD, body: "Une seule phrase qui parle de toi et de ta façon d'écouter les gens autour de toi quand ils ont un souci au travail." }).reasons).toContain(
-      "body_sentence_count",
+    expect(checkQuality({ ...GOOD, body: "Écoute. Répète. Respire. Attends. Reformule." }).reasons).toContain("body_sentence_count");
+  });
+
+  it("requires a story that is long enough, with a few sentences", () => {
+    expect(checkQuality({ ...GOOD, story: undefined }).reasons).toContain("story_missing");
+    expect(checkQuality({ ...GOOD, story: undefined }, null, { requireStory: false }).ok).toBe(true);
+    expect(checkQuality({ ...GOOD, story: "Mia parle à Sam." }).reasons).toEqual(expect.arrayContaining(["story_too_short", "story_sentence_count"]));
+    expect(checkQuality({ ...GOOD, story: `${GOOD.story} ${"Puis il se passe encore quelque chose de nouveau. ".repeat(20)}` }).reasons).toEqual(
+      expect.arrayContaining(["story_too_long", "story_sentence_count", "story_word_count"]),
     );
+  });
+
+  it("judges the length of the whole card, story included", () => {
+    expect(checkQuality({ ...GOOD, body: `${GOOD.body} ${"Mot ".repeat(260)}.` }).reasons).toContain("card_too_long");
   });
 
   it("rejects long or unattributed quotes", () => {

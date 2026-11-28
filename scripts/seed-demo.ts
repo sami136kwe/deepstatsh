@@ -4,7 +4,8 @@
  */
 import { bookDedupKey, contentHash } from "@/lib/ingestion/text";
 import { DEMO_CARDS } from "@/supabase/seed/demo-cards";
-import { createServiceClient, seedCategories } from "./lib";
+import { LIBRARY as DEMO_BOOKS } from "@/supabase/seed/library";
+import { createServiceClient, seedCategories, seedDemoBooks } from "./lib";
 
 async function main() {
   const db = createServiceClient();
@@ -12,6 +13,17 @@ async function main() {
   const { data: categories, error } = await db.from("categories").select("id, slug");
   if (error) throw new Error(error.message);
   const idBySlug = new Map(categories.map((c) => [c.slug, c.id]));
+
+  // Demo cards from an older version of the content (no story) are replaced, not duplicated.
+  // This also removes the saves and history attached to them, which is fine for demo data.
+  const keep = new Set(DEMO_CARDS.flatMap((c) => [contentHash("fr", c.fr.title, `${c.fr.story}\n${c.fr.body}`), contentHash("en", c.en.title, `${c.en.story}\n${c.en.body}`)]));
+  const { data: manual, error: manualError } = await db
+    .from("card_translations")
+    .select("card_id, content_hash, cards!inner(source_type)")
+    .eq("cards.source_type", "manual");
+  if (manualError) throw new Error(manualError.message);
+  const stale = [...new Set(manual.filter((t) => !keep.has(t.content_hash)).map((t) => t.card_id))];
+  if (stale.length > 0) await db.from("cards").delete().in("id", stale);
 
   let inserted = 0;
   for (const card of DEMO_CARDS) {
@@ -42,8 +54,8 @@ async function main() {
     }
 
     const hashes = {
-      fr: contentHash("fr", card.fr.title, card.fr.body),
-      en: contentHash("en", card.en.title, card.en.body),
+      fr: contentHash("fr", card.fr.title, `${card.fr.story}\n${card.fr.body}`),
+      en: contentHash("en", card.en.title, `${card.en.story}\n${card.en.body}`),
     };
     const { data: existing, error: existingError } = await db
       .from("card_translations")
@@ -78,6 +90,7 @@ async function main() {
         card_id: row.id,
         language,
         title: card[language].title,
+        story: card[language].story,
         body: card[language].body,
         action_step: card[language].action_step,
         status: "published",
@@ -90,6 +103,8 @@ async function main() {
     }
     inserted += 1;
   }
+  const library = await seedDemoBooks(db, DEMO_BOOKS);
+  console.log(`Demo library ready: ${library.books} book(s), ${library.ideas} ideas.`);
   console.log(`Demo cards ready: ${inserted} (each with a French and an English version)`);
 }
 

@@ -4,7 +4,7 @@ import type { Database } from "@/types/database";
 export type CardDetails = Database["public"]["Views"]["card_details"]["Row"];
 
 export const CARD_FIELDS =
-  "id, category_id, main_category_id, category_slug, category_name_fr, category_name_en, category_icon, book_id, book_title, book_author, book_cover_url, book_info_link, title, body, action_step, quote, quote_author, difficulty, language" as const;
+  "id, category_id, main_category_id, category_slug, category_name_fr, category_name_en, category_icon, book_id, book_title, book_author, book_cover_url, book_info_link, title, story, body, action_step, quote, quote_author, difficulty, language, position" as const;
 
 export type CardSummary = Pick<
   CardDetails,
@@ -21,12 +21,14 @@ export type CardSummary = Pick<
   | "book_cover_url"
   | "book_info_link"
   | "title"
+  | "story"
   | "body"
   | "action_step"
   | "quote"
   | "quote_author"
   | "difficulty"
   | "language"
+  | "position"
 >;
 
 export type CardLanguage = "fr" | "en";

@@ -5,7 +5,7 @@
  */
 import type { TtsLanguage } from "./voices";
 
-export type UnitPart = "title" | "body" | "label" | "action";
+export type UnitPart = "title" | "story" | "lead" | "body" | "label" | "action";
 export type ReadingUnit = { part: UnitPart; index: number; text: string };
 export type ReadingPosition = { part: UnitPart; index: number };
 
@@ -34,18 +34,26 @@ export function splitSentences(text: string, language: TtsLanguage, max: number 
   return sentences.flatMap((s) => (s.length > max ? hardSplit(s, max) : [s]));
 }
 
+export type SpokenLabels = { takeaway: string; action: string };
+
+/**
+ * Reading order of a card: title, the story, "what to remember" (label then the
+ * lesson), then "do this today" (label then the action).
+ */
 export function buildUnits(
-  card: { title: string; body: string; action_step: string },
-  actionLabel: string,
+  card: { title: string; story?: string | null; body: string; action_step: string },
+  labels: SpokenLabels,
   language: TtsLanguage,
 ): ReadingUnit[] {
   const title = splitSentences(card.title, language).join(" ");
-  return [
-    ...(title ? [{ part: "title" as const, index: 0, text: title }] : []),
-    ...splitSentences(card.body, language).map((text, index) => ({ part: "body" as const, index, text })),
-    { part: "label" as const, index: 0, text: actionLabel },
-    ...splitSentences(card.action_step, language).map((text, index) => ({ part: "action" as const, index, text })),
-  ];
+  const units: ReadingUnit[] = [];
+  if (title) units.push({ part: "title", index: 0, text: title });
+  splitSentences(card.story ?? "", language).forEach((text, index) => units.push({ part: "story", index, text }));
+  units.push({ part: "lead", index: 0, text: labels.takeaway });
+  splitSentences(card.body, language).forEach((text, index) => units.push({ part: "body", index, text }));
+  units.push({ part: "label", index: 0, text: labels.action });
+  splitSentences(card.action_step, language).forEach((text, index) => units.push({ part: "action", index, text }));
+  return units;
 }
 
 /** Strips characters the speech service reads badly (guillemets, stray markup). */
@@ -68,7 +76,7 @@ export function spoken(text: string): string {
 /**
  * Groups reading units into a few audio segments. The first one is short so that
  * playback starts quickly; the next ones are longer and are prefetched while the
- * previous one plays. The "À faire aujourd'hui" label never ends a segment.
+ * previous one plays. The section labels ("what to remember", "do this today") never end a segment.
  */
 export function buildSegments(units: ReadingUnit[], firstMax = 170, restMax = 420): Segment[] {
   const segments: Segment[] = [];
@@ -83,7 +91,8 @@ export function buildSegments(units: ReadingUnit[], firstMax = 170, restMax = 42
   for (const unit of units) {
     const size = spoken(unit.text).length + 1;
     const max = segments.length === 0 ? firstMax : restMax;
-    const gluedToNext = current[current.length - 1]?.part === "label";
+    const lastPart = current[current.length - 1]?.part;
+    const gluedToNext = lastPart === "label" || lastPart === "lead";
     if (current.length > 0 && !gluedToNext && length + size > max) flush();
     current.push(unit);
     length += size;

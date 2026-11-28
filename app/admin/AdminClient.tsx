@@ -9,6 +9,7 @@ export type ReviewCard = {
   id: string;
   translationId: string;
   title: string;
+  story: string | null;
   body: string;
   action_step: string;
   language: string;
@@ -47,7 +48,8 @@ export function AdminReview({ cards }: { cards: ReviewCard[] }) {
               </span>
             </div>
             <h3 className="font-serif text-lg font-bold">{card.title}</h3>
-            <p>{card.body}</p>
+            {card.story && <p className="border-l-4 border-line pl-3 font-serif text-muted">{card.story}</p>}
+            <p className="font-medium">{card.body}</p>
             <p className="rounded-xl bg-accent-soft p-2 font-medium">{card.action_step}</p>
             {card.rejection_reason && (
               <p className="text-xs text-muted">

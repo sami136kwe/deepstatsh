@@ -1,0 +1,521 @@
+import { book } from "./helpers";
+
+export const GROWTH_BOOKS_2 = [
+  book({
+    slug: "never-split-the-difference",
+    title: "Never Split the Difference",
+    author: "Chris Voss",
+    year: 2016,
+    topics: ["negociation-persuasion", "communication"],
+    summary:
+      "Negotiation lessons from a former hostage negotiator: listen, mirror, label emotions and ask questions that make the other side solve your problem. Six stories on calm persuasion.",
+    ideas: [
+      [
+        "Mirror to learn more",
+        "Shira repeats the last few words her landlord says, with a questioning tone. He keeps explaining, revealing that the repairs were delayed by a supplier. She learns more in two minutes than in a week of emails. Mirroring makes people elaborate.",
+        "Repeating the last few words someone says invites them to say more. It is a simple way to gather information.",
+        "In your next conversation, repeat the last three words they said as a question.",
+      ],
+      [
+        "Label the emotion",
+        "You seem frustrated by the delay, Amir says to the client, instead of defending himself. The client exhales and the tension drops. Naming a feeling takes away some of its power. Now they can talk about solutions.",
+        "Naming the other person's emotion calms it. Say it gently without arguing.",
+        "Next time someone is upset, say it sounds like you are feeling... and pause.",
+      ],
+      [
+        "Get to no",
+        "People feel safe when they can say no. Lena asks, would it be a bad idea to try a different schedule? The client relaxes and offers a reasonable compromise. A no gives them control, and control makes them open.",
+        "Making it easy to say no lowers resistance. Questions that invite a no feel less threatening to your counterpart.",
+        "Rephrase one request of yours today so that a no is a comfortable answer.",
+      ],
+      [
+        "Ask how",
+        "Instead of rejecting an unreasonable price, Joe asks how am I supposed to do that? The seller thinks about the problem and softens the offer. Questions beginning with how shift the work to the other side. The negotiation becomes a shared puzzle.",
+        "Open how or what questions make the other side consider your constraints. They often lead to better solutions than a flat refusal.",
+        "Replace a direct no with a how question in your next negotiation.",
+      ],
+      [
+        "Hear the that's right",
+        "When Kit summarizes his customer's concerns accurately, the customer says, that's right. That phrase signals real understanding and a shift in trust. It matters more than yes. Kit learns that summarizing is a bridge.",
+        "A summary that earns that's right shows the other person you understand them. It builds trust faster than argument.",
+        "Summarize what the other person said and see if they answer that's right.",
+      ],
+      [
+        "Prepare your accusation audit",
+        "Before a tough call, Dina lists every harsh thing the other side might think of her and says it first. You probably think we have been slow and unclear. The other side is disarmed, and the call goes smoothly. Naming the negatives removes their sting.",
+        "Stating the worst things the other side might think takes away their power. It shows empathy and honesty.",
+        "Write the three worst things the other person might think of you and name one at the start.",
+      ],
+    ],
+  }),
+  book({
+    slug: "influence",
+    title: "Influence",
+    author: "Robert B. Cialdini",
+    year: 1984,
+    topics: ["negociation-persuasion", "psychologie"],
+    summary:
+      "Six principles of persuasion, reciprocity, commitment, social proof, liking, authority and scarcity, explained through research and stories. Use them to understand influence and to resist manipulation.",
+    ideas: [
+      [
+        "Give first",
+        "A waiter brings a mint with the bill and tips rise. Pablo notes that a small unasked favor makes people want to return it. He starts helping colleagues without strings and finds that help returns. Reciprocity is a powerful, quiet force.",
+        "People feel obliged to return favors. Giving first creates goodwill for you, so keep it honest and sincere.",
+        "Do a small favor for someone today without asking for anything.",
+      ],
+      [
+        "Small commitments grow",
+        "Once Eve agrees to a small request, a larger one feels natural. After signing a petition, neighbors accept a much bigger sign on their lawn a few weeks later, without a fuss. People like to act in line with what they have said. She spots the ladder.",
+        "Small public commitments make people act consistently later. Beware of steps that quietly lead to bigger ones.",
+        "Write down one small commitment you can make to move a goal forward.",
+      ],
+      [
+        "Look at the crowd",
+        "A restaurant with a line outside looks better than an empty one. Rafi realizes that he often chooses because others do. Social proof is useful when information is scarce, but easy to fake. He asks what the crowd actually knows.",
+        "People follow what others do, especially when unsure. Ask whether the crowd really knows more than you.",
+        "Before following a trend, write one reason you would choose it if nobody else did.",
+      ],
+      [
+        "We say yes to friends",
+        "A seller who finds something in common with her customer gets more sales. Mina begins conversations by looking for shared interests. It makes people feel warm toward her. Liking opens the door to cooperation.",
+        "People say yes more readily to those they like. Look for genuine common ground.",
+        "Find one real thing in common with someone you want to connect with.",
+      ],
+      [
+        "Respect for authority",
+        "People tend to obey titles, uniforms and expertise. Colm sees a man in a white coat recommend a product and feels persuaded. He remembers to ask whether that expertise applies to the claim. Authority deserves respect, but not blind faith.",
+        "Titles and experts influence you strongly. Check if the authority is relevant and truthful.",
+        "When an expert makes a claim, ask what their specific expertise is.",
+      ],
+      [
+        "Scarcity speeds the pulse",
+        "Only three left! says the banner, and Ada's heart beats faster. Limited options make things seem more valuable and urgent. She learns to ask whether she wants the item or only wants to avoid losing it. Taking a breath removes the pressure.",
+        "Scarcity and deadlines push people to act quickly. Pause and ask whether you really want the thing.",
+        "Wait a day before buying anything that is marketed as nearly gone.",
+      ],
+    ],
+  }),
+  book({
+    slug: "meditations",
+    title: "Meditations",
+    author: "Marcus Aurelius",
+    year: 180,
+    topics: ["mentalite-developpement", "pensee-critique-creativite"],
+    summary:
+      "The private notebook of a Roman emperor, full of reminders about duty, impermanence and controlling your own mind. Six stories on Stoic practice, then and now.",
+    ideas: [
+      [
+        "Start the day prepared",
+        "Marcus reminded himself each morning that he would meet rude and selfish people. Isla does the same before work. When a colleague snaps, she is not shocked. Expecting difficulty takes away the surprise.",
+        "Expect some difficult people and events in advance. Preparation keeps you steady when they arrive.",
+        "Each morning this week, name one challenge you may meet and how you will respond.",
+      ],
+      [
+        "Judge less",
+        "Opinions about events, more than the events themselves, are what upset us. When her train is late, Vera first feels anger. Then she sees the delay as a delay and nothing more. The story she tells about it is what hurts, and she can rewrite that story in seconds.",
+        "Much of your distress comes from your judgment of events. Describe what happened without adding drama.",
+        "Describe a recent annoyance in neutral facts only.",
+      ],
+      [
+        "Obstacles as the way",
+        "What stands in the way becomes the way. Hal's project is blocked by a missing resource, and he treats the problem as a chance to learn a new skill. The obstacle trains him. He finishes stronger than if the road had been smooth.",
+        "A difficulty can become material for growth. Ask what this obstacle can teach you.",
+        "Choose one current obstacle and write what it could teach you.",
+      ],
+      [
+        "Remember you will die",
+        "Marcus reminded himself that life is short, so he should act well now. Tess thinks of it when she is tempted to postpone a call to an old friend. She makes the call that evening. The reminder is not gloomy but clarifying.",
+        "Remembering that time is limited helps you act on what matters. Use it as a nudge, not a fear.",
+        "Do one thing today that you have been putting off for later.",
+      ],
+      [
+        "View from above",
+        "Imagine seeing your city from high above, then the earth, then the stars. Nico does this when a petty quarrel bothers him. Next to the sky, the quarrel looks small. He lets it go.",
+        "Zooming out in your mind shrinks petty concerns. A wider view brings perspective.",
+        "When something bothers you, imagine it from a year away.",
+      ],
+      [
+        "Act for the common good",
+        "Marcus wrote that we are made to cooperate like hands or feet. Ona asks how her work helps others as well as herself. Her days feel more meaningful. A bee, he said, does what is good for the hive.",
+        "Meaning grows when your actions benefit others. Ask how your work serves people beyond yourself.",
+        "Do something today that helps a person without being asked.",
+      ],
+    ],
+  }),
+  book({
+    slug: "quiet",
+    title: "Quiet",
+    author: "Susan Cain",
+    year: 2012,
+    topics: ["psychologie", "relations-vie-sociale"],
+    summary:
+      "The power of introverts in a world that rewards loud voices: how quiet people think, lead and recharge. Six stories on solitude, listening and working with your temperament.",
+    ideas: [
+      [
+        "Quiet is not shy",
+        "Shyness is a fear of judgment, while introversion is a preference for quieter stimulation. Leo loves deep conversations but gets drained at big parties. He stops treating that as a flaw. Knowing the difference lets him plan his energy.",
+        "Introversion is about how you recharge, not a lack of confidence. Understand your own temperament.",
+        "Note what drains and what restores your energy, and plan one of each this week.",
+      ],
+      [
+        "Solitude fuels ideas",
+        "Many creative thinkers do their best work alone. Sana blocks time away from the open-plan office to think. In the quiet, ideas come easily. She returns to the team with something worth sharing, and nobody minds her absence.",
+        "Time alone can spark deep thinking and creativity. Protect solitude if you need it to do your best work.",
+        "Block one hour of quiet time for focused thinking this week.",
+      ],
+      [
+        "Prepare for the spotlight",
+        "Dan dreads speaking in meetings. He writes out two points beforehand and shares them early. Having prepared, he speaks with confidence and is heard. Preparation turns his quiet into a strength.",
+        "Introverts often shine when they prepare. Plan a point or two before a meeting.",
+        "Before your next meeting, write one point you want to contribute.",
+      ],
+      [
+        "Listen as leadership",
+        "Quiet leaders often listen to their teams and let proactive employees run with ideas. Ruth asks questions and gives space. Her team feels trusted and takes initiative. Listening, she finds, is a form of power.",
+        "Leaders who listen empower others to take initiative. Quiet styles can be highly effective, and yours may be too.",
+        "Ask one team member for their ideas and let them lead on it.",
+      ],
+      [
+        "Stretch, then rest",
+        "Cam sometimes needs to act more outgoing for a cause he loves. He gives himself a quiet corner afterward to recharge. Stretching for important things is possible, as long as he rests. He plans recovery as carefully as the event.",
+        "You can step outside your comfort zone for what matters, provided you restore yourself afterward.",
+        "After a social effort, plan a quiet recovery period for yourself.",
+      ],
+      [
+        "Make room for both",
+        "In a brainstorm, loud voices dominate while quiet ones hold great ideas back. Jen asks everyone to write their ideas first, then share. Ideas flow from all. The group gets better because everyone's thoughts count.",
+        "Groups do better when quiet and talkative people both contribute. Give people time to think before they speak.",
+        "Next time you lead a discussion, let people write down ideas first.",
+      ],
+    ],
+  }),
+  book({
+    slug: "emotional-intelligence",
+    title: "Emotional Intelligence",
+    author: "Daniel Goleman",
+    year: 1995,
+    topics: ["psychologie", "relations-vie-sociale"],
+    summary:
+      "Why awareness of your own and others' emotions often matters as much as raw intellect: self-awareness, self-control, empathy and social skill. Six stories on feelings at work and at home.",
+    ideas: [
+      [
+        "Name what you feel",
+        "Feeling something vaguely bad, Lotte stops and tries to name it: disappointed, not angry. The label makes the feeling smaller. She can now decide what to do about it. Clarity comes before control.",
+        "Naming your emotion precisely helps you manage it. Self-awareness is the first step.",
+        "Several times today, pause and name what you feel in one word.",
+      ],
+      [
+        "The pause",
+        "When a rude email arrives, Hank feels an urge to reply instantly. He waits ten minutes and walks around the block. His answer is calmer and more effective. The gap between feeling and action is where choice lives.",
+        "A short pause between impulse and action prevents regret. Delay your reply when emotions run high.",
+        "Wait ten minutes before replying to the next message that upsets you.",
+      ],
+      [
+        "Read the room",
+        "Beyond words, tone and posture tell how people feel. Bea notices her teammate's tight shoulders and asks if now is a good time. The teammate is grateful. Empathy begins with noticing.",
+        "Pay attention to tone, expressions and posture. Empathy starts by noticing what people feel.",
+        "In your next conversation, notice the other person's tone and body language.",
+      ],
+      [
+        "Delay gratification",
+        "Children who waited for a second treat often did better later in some studies. Marcus applies the idea to adults: he skips a small impulse purchase to save for a goal. Self-control feels like a muscle he can train. Each small wait helps.",
+        "Resisting a small impulse today can serve your bigger goal. Practice waiting for what matters.",
+        "Skip one small impulsive purchase this week and move the money to a goal.",
+      ],
+      [
+        "Motivate from within",
+        "Ivy treats setbacks as lessons, not verdicts. Optimism and a clear goal keep her moving when things go wrong. She sets small targets and celebrates them. Inner drive beats outside pressure.",
+        "Optimism, clear goals and small wins keep motivation alive. Look for drive that comes from within.",
+        "Set a small target for tomorrow and celebrate when you meet it.",
+      ],
+      [
+        "Handle the heat in relationships",
+        "In an argument, Raj feels his heart racing and his words sharpening. He calls a break and returns later with a clearer head. Calm discussion succeeds where hot words fail. He uses the break to understand the other view.",
+        "When emotions flood, take a break before continuing. You decide better when calm.",
+        "Agree on a signal with someone close to you for pausing a heated talk.",
+      ],
+    ],
+  }),
+  book({
+    slug: "the-almanack-of-naval-ravikant",
+    title: "The Almanack of Naval Ravikant",
+    author: "Eric Jorgenson",
+    year: 2020,
+    topics: ["argent-reussite", "mentalite-developpement"],
+    summary:
+      "A collection of Naval Ravikant's thoughts on wealth, judgment and happiness. Six stories on leverage, specific knowledge and calm. Treat it as one person's philosophy, not a formula.",
+    ideas: [
+      [
+        "Owning, not just earning",
+        "Money moves around, but wealth is assets that earn while you sleep. Kemi thinks about a business, a skill or a product that works for her even when she is resting. Trading time for money has a ceiling. She starts building something that scales.",
+        "Wealth is anything that produces value without your constant time. Aim to own assets, not just earn pay.",
+        "Write one asset you could build that earns without your presence.",
+      ],
+      [
+        "Specific knowledge",
+        "Ravi has a skill nobody can train a person for, built from his own curiosity. He cannot be replaced by a manual. Specific knowledge is learned by following genuine interest. It makes his work unique.",
+        "Skills that come from your curiosity are hard to copy. Follow your genuine interest to build them.",
+        "Write what you are curious about that others find too odd to chase.",
+      ],
+      [
+        "Multiply your effort",
+        "A lever lets a small push move a heavy load. Mia uses code, media and other people to multiply her effort. One idea posted online reaches thousands. Her output stops depending on her hours.",
+        "Tools like code, media and teams multiply what you can do. Look for ways to multiply your own work.",
+        "Identify one task you could automate or delegate to multiply your time.",
+      ],
+      [
+        "Play long-term games",
+        "Short-term deals can be quick but burn trust. Jon chooses to work with people he can trust for decades. Reputation compounds like interest. He plays a game where the best outcomes come from patience.",
+        "Trusted, long-term relationships compound over time. Choose partners and projects you want to be with for years.",
+        "Think of one relationship you would like to deepen over the next ten years.",
+      ],
+      [
+        "Judgment is the skill",
+        "Hard work matters, yet good decisions about what to work on matter more. Liv spends time thinking about the direction before she pushes. A well-chosen path saves years. Knowing what to do beats doing more.",
+        "Good judgment about where to put effort multiplies results. Spend time choosing before you work hard.",
+        "Before starting a project, spend ten minutes asking if it is the right one.",
+      ],
+      [
+        "Peace is a skill",
+        "Happiness, Naval says, is the absence of desire. Zed notices that each want creates a small unhappiness until it is met. He practices wanting fewer things and noticing the calm underneath. Contentment becomes something he builds.",
+        "Calm comes from reducing needless desires and noticing the present. Treat peace as a skill you can train.",
+        "Notice one desire today and ask if you would be fine without it.",
+      ],
+    ],
+  }),
+  book({
+    slug: "why-we-sleep",
+    title: "Why We Sleep",
+    author: "Matthew Walker",
+    year: 2017,
+    topics: ["corps-sante-performance"],
+    summary:
+      "What sleep does for memory, mood and health, and how to protect it. Six stories on routines for better rest. Some claims in the book are debated, so use it as a prompt to care about sleep, not as medical advice.",
+    ideas: [
+      [
+        "Sleep is not wasted time",
+        "Tomas brags about sleeping five hours and feels foggy all day. Reading about how sleep helps memory and mood, he tries seven. Within a week, work feels lighter. Rest turns out to be a tool and not a luxury.",
+        "Sleep supports memory, mood and health. Treat it as an important part of your performance.",
+        "Plan a bedtime tonight that gives you at least seven hours.",
+      ],
+      [
+        "Keep a regular schedule",
+        "The body loves rhythm, so Ana goes to bed and wakes up at the same times, weekends included. After a few weeks, she falls asleep faster and wakes without an alarm. A steady schedule trains her body clock. Consistency beats occasional long sleeps.",
+        "Going to bed and waking at consistent times helps your body clock. Regularity improves sleep quality.",
+        "Pick a wake-up time and keep it for the next seven days.",
+      ],
+      [
+        "Cool, dark and quiet",
+        "Eli's bedroom is warm, bright with a standby light and noisy. He cools the room, covers the light and uses earplugs. He sleeps more deeply. The environment does a lot of the work.",
+        "A cool, dark, quiet room supports better sleep. Adjust your environment before blaming yourself.",
+        "Remove one light or noise source from your bedroom tonight.",
+      ],
+      [
+        "Mind the caffeine clock",
+        "Caffeine lingers for hours, so a late coffee can steal sleep without Zoe noticing. She moves her last cup to before noon. Her nights improve, and she needs less coffee. A small timing change brings a big gain.",
+        "Caffeine can affect sleep many hours after you drink it. Set a cutoff time earlier in the day.",
+        "Choose a time after which you will not drink caffeine, and stick to it this week.",
+      ],
+      [
+        "Wind down",
+        "Scrolling in bed keeps Sam's mind buzzing. He starts a thirty-minute routine of dim lights, reading and no screens. His mind slows and sleep comes sooner. The ritual tells his body that the day is over.",
+        "A calm routine before bed signals your body to sleep. Reduce screens and bright light in the last hour.",
+        "Create a thirty-minute wind-down routine and try it tonight.",
+      ],
+      [
+        "Don't fight the night",
+        "Awake at 3 a.m., Freya watches the clock and worries about sleeping. She gets up, reads quietly in dim light and returns to bed when drowsy. The pressure fades. Lying there anxious would have made it worse.",
+        "If you cannot sleep, get up and do something calm instead of staring at the clock. Return when you feel sleepy.",
+        "Decide what calm activity you will do if you cannot sleep tonight.",
+      ],
+    ],
+  }),
+  book({
+    slug: "getting-things-done",
+    title: "Getting Things Done",
+    author: "David Allen",
+    year: 2001,
+    topics: ["productivite-temps"],
+    summary:
+      "A method for clearing your mind: capture everything, decide the next action and review regularly. Six stories about turning open loops into calm, steady progress.",
+    ideas: [
+      [
+        "Empty your head",
+        "Fran's mind buzzes with reminders, half-promises and worries. She spends an evening writing everything down. The buzz quiets. A trusted list holds what her brain was straining to remember.",
+        "Your mind is for thinking, not for storing tasks. Capture every open loop in a trusted place.",
+        "Spend ten minutes writing every task and worry in your head onto a list.",
+      ],
+      [
+        "Define the next action",
+        "Plan the wedding is too vague to start. Hugh turns it into call the venue and ask for dates. A clear physical step makes progress easy. Vague tasks stay stuck, while specific ones get done.",
+        "Break every goal into the next physical action. Clear, small steps are easy to begin.",
+        "Rewrite one vague task as a specific first action you can do in minutes.",
+      ],
+      [
+        "Two-minute rule",
+        "If a task takes under two minutes, do it now. Bela answers a quick email on the spot rather than add it to a list. The small pile shrinks fast. She feels lighter.",
+        "Tasks that take less than two minutes are cheaper to do than to track. Clear them immediately, and your list gets shorter.",
+        "Do three tasks that take under two minutes before lunch.",
+      ],
+      [
+        "Use contexts",
+        "Sort your actions by where or with what you can do them: at the computer, on the phone, out and about. Lou checks the list for the context he is in and acts. No more searching through a giant list. The right task appears at the right time.",
+        "Organize tasks by where or with what tool you can do them. It makes choosing what to do easier.",
+        "Group your tasks into contexts such as phone, computer and errands.",
+      ],
+      [
+        "Weekly review",
+        "Once a week, Ula reviews her lists, calendar and projects, and updates them. Things stop slipping through the cracks. The review keeps her system trusted and current. Without it, the list rots.",
+        "A weekly review keeps your system current and trustworthy. Take time to clean and plan.",
+        "Schedule a thirty-minute weekly review in your calendar.",
+      ],
+      [
+        "Stress-free focus",
+        "With her lists complete, Ida can fully focus on one task at a time. She no longer wonders whether she is forgetting something. The mind rests when it trusts the system. Calm brings better work.",
+        "When you trust your system, you can concentrate fully. Calm is a result of clarity, not effort.",
+        "Pick one task, close other tabs and work only on it for twenty-five minutes.",
+      ],
+    ],
+  }),
+  book({
+    slug: "the-4-hour-workweek",
+    title: "The 4-Hour Workweek",
+    author: "Timothy Ferriss",
+    year: 2007,
+    topics: ["productivite-temps", "argent-reussite"],
+    summary:
+      "A provocative guide to designing your life around freedom: eliminate low-value work, automate and delegate. Six stories about rethinking work. Some of its tactics are controversial, so adapt them wisely.",
+    ideas: [
+      [
+        "Define your ideal life",
+        "Instead of asking how to retire, Kat asks what she would do with free time and how much it costs. The numbers are smaller than she feared. She sees a path to a good life sooner. Clear goals make plans possible.",
+        "Define what you really want and what it costs. A clear target turns vague dreams into plans.",
+        "Write what a perfect ordinary week would look like and what it costs.",
+      ],
+      [
+        "The 80/20 cut",
+        "Eighty percent of Pavel's results come from twenty percent of his clients, and eighty percent of his headaches from another twenty. He drops the troublemakers and focuses on the best. Income holds steady while stress falls. Pruning frees him.",
+        "A few activities produce most of your results and a few cause most of your problems. Cut the worst and grow the best.",
+        "List your clients or tasks and mark the top few that give most results.",
+      ],
+      [
+        "Do less, not faster",
+        "Efficiency is doing a thing well, while effectiveness is doing the right thing. Maya stops improving a pointless report and removes it entirely. The time she saves is huge. Elimination beats optimization.",
+        "Don't speed up work that should not exist. Remove your low-value tasks first.",
+        "Pick one recurring task that no longer matters and stop doing it.",
+      ],
+      [
+        "Batch the interruptions",
+        "Checking email constantly splits Walt's attention into pieces. He sets two daily times for messages and states them in his signature. Colleagues adjust. His focus time doubles.",
+        "Handling messages in batches protects your concentration. Tell people when to expect your replies.",
+        "Choose two daily times to check messages and tell your team.",
+      ],
+      [
+        "Automate and delegate",
+        "Repeated tasks like invoices and reminders can be handled by tools or helpers. Bea writes clear instructions and passes a task to a freelancer. She spends her time on what only she can do. Delegation starts with documenting.",
+        "Repetitive work can often be automated or delegated. Write clear instructions so that it becomes possible for you.",
+        "Document one repetitive task step by step so someone else could do it.",
+      ],
+      [
+        "A cheap experiment first",
+        "Before quitting his job for a dream, Ned runs a small side test. He learns what customers actually pay for. The test costs little and teaches a lot. Real feedback beats a fantasy.",
+        "Try small experiments before making large life changes. Real data reduces risk.",
+        "Design a one-week test of an idea you have been dreaming about.",
+      ],
+    ],
+  }),
+  book({
+    slug: "drive",
+    title: "Drive",
+    author: "Daniel H. Pink",
+    year: 2009,
+    topics: ["leadership-carriere", "psychologie"],
+    summary:
+      "What actually motivates people at work: autonomy, mastery and purpose, more than carrots and sticks. Six stories on motivation for knowledge work and creative tasks.",
+    ideas: [
+      [
+        "Rewards can backfire",
+        "Children who loved drawing were promised a prize and later lost interest in drawing for fun. Noa sees the same at work when bonuses kill curiosity. Rewards can turn play into a chore. For creative tasks, they may not help.",
+        "External rewards can reduce interest in work you once enjoyed. For creative tasks, other motivators matter more.",
+        "Think of something you enjoy and ask what would happen if someone paid you for it.",
+      ],
+      [
+        "Give autonomy",
+        "A team that chooses how, when and with whom to work does better than one that is micromanaged. Ivo gives his team a goal and lets them design their path. Ownership shows up in the quality. People like steering their own work.",
+        "Autonomy over tasks, time, technique and team boosts motivation. Give your people room to decide how to work.",
+        "Offer a teammate more freedom over how they do one task.",
+      ],
+      [
+        "Chase mastery",
+        "Getting better at something is deeply satisfying. Tia picks a skill and practices a little every day for the pleasure of improving. Progress itself becomes the reward. Mastery is a pursuit, not a place.",
+        "The urge to improve at something that matters is a strong motivator. Choose a skill you want to keep developing.",
+        "Pick one skill and set a small improvement goal for this week.",
+      ],
+      [
+        "Connect to purpose",
+        "A job feels heavier without a reason behind it. Gus visits the customers who use his product and hears their stories. His daily tasks gain meaning. Purpose makes effort feel worthwhile.",
+        "People work harder when they know why it matters. Connect your tasks to the people they help.",
+        "Talk to someone who benefits from your work and ask what difference it makes.",
+      ],
+      [
+        "Protect time to experiment",
+        "Some companies let staff spend a slice of time on projects of their choice. Sol uses his to try an odd idea, and it becomes a new product. Free time fuels innovation. Without space, curiosity dies.",
+        "Time to explore your own ideas can lead to breakthroughs. Protect some free time for experiments.",
+        "Set aside one hour this week to explore an idea of your choice.",
+      ],
+      [
+        "Give feedback that helps",
+        "Annual reviews feel too late to help. Rue asks for feedback every week and tries something new right away. Small, quick loops help her improve. She grows faster than before.",
+        "Frequent, specific feedback helps you improve and stay motivated. Ask for it often.",
+        "Ask someone for one specific suggestion on your latest work.",
+      ],
+    ],
+  }),
+  book({
+    slug: "the-obstacle-is-the-way",
+    title: "The Obstacle Is the Way",
+    author: "Ryan Holiday",
+    year: 2014,
+    topics: ["mentalite-developpement", "pensee-critique-creativite"],
+    summary:
+      "Stoic ideas turned into a practical approach: see clearly, act with persistence and accept what you cannot change. Six stories about turning trouble into progress.",
+    ideas: [
+      [
+        "See things as they are",
+        "Panic exaggerates problems. Ida describes a setback in plain facts and finds it smaller than her mind suggested. Clear sight is the first step to a solution. She stops adding drama.",
+        "Describe a problem without exaggeration to see it clearly. Perception shapes how well you act.",
+        "Write the facts of one current problem without any adjectives.",
+      ],
+      [
+        "Control what you can",
+        "Weather, other people's choices and the economy are outside Ray's control. His effort, attitude and preparation are not. He puts his energy there. He feels steadier when he focuses on his own side of the line.",
+        "Spend your energy on what you control and accept what you do not. It brings peace and effectiveness.",
+        "Draw a line down a page and list what you can and cannot control in one situation.",
+      ],
+      [
+        "Take action",
+        "Planning cannot replace trying. Faye starts with an imperfect attempt, learns something and adjusts. Persistence wears down difficulty over weeks, one small step after another. Waiting for perfect conditions would have meant waiting forever.",
+        "Persistent action, even imperfect, beats waiting for ideal conditions. Start now and adjust as you go.",
+        "Take one imperfect step toward a goal today instead of planning more.",
+      ],
+      [
+        "Use what's in the way",
+        "Failing to get funding, Bo builds a cheaper version and finds he likes the focus it forces. The constraint shapes a better idea. Limits can spark creativity. He realizes that problems can supply the raw material.",
+        "Constraints can improve your solution. Ask how the problem could be used, not just avoided.",
+        "Choose a limitation you face and think of one way it could help you.",
+      ],
+      [
+        "Prepare for the worst",
+        "Each week Cleo imagines what could go wrong in her plan and how she would respond. When a setback hits, she already has an answer. Rehearsal takes the sting out of surprise. She acts calmly while others scramble.",
+        "Imagining setbacks in advance prepares you to respond calmly. It makes surprises less shocking.",
+        "Write the worst that could happen in your plan and how you would respond.",
+      ],
+      [
+        "Love what happens",
+        "Some events cannot be changed, so Jan tries to accept them and look for the use in them. She does not pretend to enjoy bad news. But she stops fighting reality. Energy comes back when she stops resisting.",
+        "Accepting what happens, even when it hurts, frees your energy. Then you can respond with purpose.",
+        "Pick something you cannot change and write one useful thing you can do with it.",
+      ],
+    ],
+  }),
+];

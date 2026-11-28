@@ -33,7 +33,7 @@ export function Onboarding({ categories, initial }: Props) {
         method: "PATCH",
         json: { language, interests, daily_goal: goal, onboarded: true },
       });
-      router.replace("/feed");
+      router.replace("/home");
       router.refresh();
     } catch {
       setError(t.common.error);

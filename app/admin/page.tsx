@@ -8,12 +8,13 @@ import { AdminReview, RerunForm, type ReviewCard } from "./AdminClient";
 export const metadata: Metadata = { title: "Admin", robots: { index: false } };
 
 const SAMPLE_SIZE = 20;
-const REVIEW_FIELDS = "id, card_id, title, body, action_step, language, status, style_score, rejection_reason, created_at";
+const REVIEW_FIELDS = "id, card_id, title, story, body, action_step, language, status, style_score, rejection_reason, created_at";
 
 type TranslationRow = {
   id: string;
   card_id: string;
   title: string;
+  story: string | null;
   body: string;
   action_step: string;
   language: string;
@@ -29,6 +30,7 @@ function toReviewCard(row: TranslationRow): ReviewCard {
     id: row.card_id,
     translationId: row.id,
     title: row.title,
+    story: row.story,
     body: row.body,
     action_step: row.action_step,
     language: row.language,

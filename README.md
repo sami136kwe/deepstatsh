@@ -78,7 +78,7 @@ Ouvre **http://localhost:3000** dans ton navigateur, crée un compte (e-mail et 
 | Ce que tu vois | Ce qu'il faut faire |
 |---|---|
 | `Docker ne répond pas` ou `Cannot connect to the Docker daemon` | Ouvre Docker Desktop, attends qu'il indique « running », puis relance `npm run setup`. |
-| `port is already allocated` ou `address already in use` (port 54321 à 54324) | Un autre projet Supabase tourne déjà. Arrête-le (`npx supabase stop` dans son dossier), puis relance. |
+| `port is already allocated` ou `address already in use` (ports 55320 à 55329) | Quelque chose d'autre utilise ces ports. Stash utilise des ports différents de ceux par défaut de Supabase (54321…), donc il peut tourner **à côté d'un autre projet Supabase**. Si un autre Stash tourne déjà, arrête-le (`npx supabase stop` dans son dossier), puis relance. |
 | Le port 3000 est déjà pris | Lance `npm run dev -- -p 3001` et ouvre http://localhost:3001. |
 | La première fois, ça semble figé | Normal : Docker télécharge plusieurs images. Laisse tourner quelques minutes. |
 | `Rate exceeded` pendant le téléchargement | Le service d'images est surchargé. Attends une minute et relance `npm run setup`, il reprend où il en était. |
@@ -259,3 +259,7 @@ Le projet est prévu pour tourner gratuitement sur **Vercel** (l'appli) et **Sup
 - Aucune récupération de pages Google : la découverte de livres passe par les API gratuites **Google Books** et **Open Library**.
 - Le style (tutoiement, exemples concrets, phrases de longueurs variées, position assumée, pas de formules de dépliant) est écrit dans `lib/ai/prompts.ts` et **vérifié automatiquement** par `lib/ingestion/style.ts`.
 - Santé, psychologie, argent : de l'**information générale** seulement, jamais un conseil médical ou financier personnalisé.
+
+## Stash est maintenant une bibliothèque de livres
+
+Chaque livre contient des **idées numérotées** (par exemple 8). Une idée est une histoire qui défile, suivie de « ce qu'il faut retenir » et d'une action. L'idée suivante se débloque quand tu appuies sur *Continuer*. Navigation : **Accueil, Explorer, Bibliothèque, Profil**. Le premier livre fourni est *The Power of Now* (anglais). Après `git apply`, lance `npx supabase migration up` puis `npm run seed:demo`.

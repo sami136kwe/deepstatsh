@@ -26,10 +26,10 @@ describe("sentence splitting", () => {
 });
 
 describe("reading units", () => {
-  it("orders title, body sentences, action label and action", () => {
-    const units = buildUnits({ title: "Un titre", body: "Phrase un. Phrase deux.", action_step: "Fais ça." }, "À faire", "fr");
-    expect(units.map((u) => `${u.part}:${u.index}`)).toEqual(["title:0", "body:0", "body:1", "label:0", "action:0"]);
-    expect(units[1]!.text).toBe("Phrase un.");
+  it("orders title, story, takeaway label and lesson, action label and action", () => {
+    const units = buildUnits({ title: "Un titre", story: "Il était une fois. Puis la fin.", body: "Phrase un. Phrase deux.", action_step: "Fais ça." }, { takeaway: "À retenir", action: "À faire" }, "fr");
+    expect(units.map((u) => `${u.part}:${u.index}`)).toEqual(["title:0", "story:0", "story:1", "lead:0", "body:0", "body:1", "label:0", "action:0"]);
+    expect(units[1]!.text).toBe("Il était une fois.");
   });
 
   it("makes speech text safe for the service", () => {
@@ -67,10 +67,11 @@ describe("audio cache", () => {
 describe("audio segments", () => {
   const card = {
     title: "Le coût déjà payé",
+    story: "Inès a payé quarante euros sa place de concert. Dès la deuxième chanson, elle sait que ça ne lui plaît pas. Elle regarde l'heure, soupire, mais reste : « J'ai payé, quand même. » À la fin, elle rentre après minuit, fatiguée, avec un mal de tête et aucun souvenir qu'elle voudra garder.",
     body: "Tu as déjà fini un film nul juste parce que tu avais payé la place ? C'est le piège des coûts irrécupérables. L'argent est parti quoi que tu fasses, et la seule vraie question, c'est ce que tu veux faire des deux prochaines heures. Franchement, partir au milieu est souvent la décision la plus lucide de la soirée.",
     action_step: "Choisis un projet ou un abonnement que tu gardes parce que tu as déjà investi et demande-toi si tu le reprendrais à zéro aujourd'hui.",
   };
-  const units = buildUnits(card, "À faire aujourd'hui", "fr");
+  const units = buildUnits(card, { takeaway: "Ce qu'il faut retenir", action: "À faire aujourd'hui" }, "fr");
 
   it("reads a card in a handful of requests instead of one per sentence", () => {
     const segments = buildSegments(units);
@@ -87,8 +88,8 @@ describe("audio segments", () => {
     for (const s of segments.slice(1)) expect(s.text.length).toBeLessThanOrEqual(520);
   });
 
-  it("never ends a segment on the 'À faire aujourd'hui' label", () => {
-    for (const s of buildSegments(units, 60, 80)) expect(s.units[s.units.length - 1]!.part).not.toBe("label");
+  it("never ends a segment on a section label", () => {
+    for (const s of buildSegments(units, 60, 80)) expect(["label", "lead"]).not.toContain(s.units[s.units.length - 1]!.part);
   });
 
   it("closes every unit with a stop so the voice's intonation ends properly", () => {

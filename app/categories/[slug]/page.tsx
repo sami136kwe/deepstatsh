@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import { CardGrid } from "@/components/CardGrid";
 import { CARD_FIELDS } from "@/lib/cards";
 import { messagesFor } from "@/lib/i18n/server";
@@ -26,6 +26,7 @@ export async function generateMetadata({ params }: Params): Promise<Metadata> {
 export default async function CategoryPage({ params }: Params) {
   const category = await loadCategory((await params).slug);
   if (!category) notFound();
+  if (!category.parent_id) redirect(`/explore/${category.slug}`);
   const { locale } = await getViewer();
   const t = messagesFor(locale);
   const supabase = await createClient();

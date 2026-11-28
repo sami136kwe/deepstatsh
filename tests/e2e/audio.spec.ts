@@ -1,4 +1,5 @@
 import { expect, test } from "@playwright/test";
+import { openPowerOfNow, signUp } from "./helpers";
 
 /**
  * Read-aloud: playback starts quickly, the card's segments follow one another
@@ -28,15 +29,10 @@ test("a card is read without long waits or gaps, with the sentence highlighted",
     };
   });
 
-  await page.goto("/login?mode=signup");
-  await page.getByLabel("Adresse e-mail").fill(`e2e-audio-${testInfo.project.name}-${Date.now()}@example.com`);
-  await page.getByLabel("Mot de passe").fill("correct-horse-battery");
-  await page.getByRole("button", { name: "Créer mon compte" }).click();
-  await page.getByRole("button", { name: "Suivant" }).click();
-  await page.getByRole("checkbox", { name: /Psychologie/ }).check();
-  await page.getByRole("button", { name: "Suivant" }).click();
-  await page.getByRole("button", { name: "C'est parti" }).click();
-  await expect(page.locator("article h2").first()).toBeVisible();
+  await signUp(page, "audio", testInfo.project.name);
+  await openPowerOfNow(page);
+  await page.getByTestId("book-cta").click();
+  await expect(page.getByTestId("idea-story")).toBeVisible();
 
   // The fast local voice is offered and chosen by default.
   await expect(page.getByLabel("Voix").locator("option").first()).toContainText("local");

@@ -17,7 +17,7 @@ function readTheme(): Theme {
 }
 
 function applyTheme(theme: Theme) {
-  const dark = theme === "dark" || (theme === "system" && window.matchMedia("(prefers-color-scheme: dark)").matches);
+  const dark = theme !== "light";
   document.documentElement.classList.toggle("dark", dark);
 }
 
@@ -65,7 +65,7 @@ export function useIsDark(): boolean {
 }
 
 /** Inline script run before first paint to avoid a flash of the wrong theme. */
-export const THEME_SCRIPT = `(function(){try{var t=localStorage.getItem("${KEY}");var d=t==="dark"||(t!=="light"&&window.matchMedia("(prefers-color-scheme: dark)").matches);if(d)document.documentElement.classList.add("dark")}catch(e){}})();`;
+export const THEME_SCRIPT = `(function(){try{var t=localStorage.getItem("${KEY}");var d=t!=="light";if(d)document.documentElement.classList.add("dark")}catch(e){}})();`;
 
 export function ThemeToggle() {
   const t = useT();

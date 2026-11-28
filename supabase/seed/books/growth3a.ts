@@ -1,0 +1,568 @@
+import { book } from "./helpers";
+
+export const GROWTH_BOOKS_3A = [
+  book({
+    slug: "the-power-of-habit",
+    title: "The Power of Habit",
+    author: "Charles Duhigg",
+    year: 2012,
+    topics: ["autodiscipline-habitudes", "psychologie"],
+    summary:
+      "How habits work as loops of cue, routine and reward, and how to change them by keeping the cue and reward and swapping the routine. Six stories on rewriting behavior.",
+    ideas: [
+      [
+        "The habit loop",
+        "Every afternoon at three, Ines wanders to the vending machine and buys a cookie, then feels a little guilty. She decides to study the habit like a detective. The cue is a dip in energy, the routine is the walk and the cookie, and the reward is a short break and some sugar. Seeing the loop written on paper, she realizes she can keep the break and change what she does in it. Then she smiles.",
+        "A habit has three parts: a cue, a routine and a reward. Identifying each is the first step to changing it.",
+        "Write the cue, routine and reward of one habit you want to change.",
+      ],
+      [
+        "Swap the routine",
+        "Ines tries something simple: at three o'clock, she walks outside for five minutes and chats with a colleague instead of buying a cookie. The break is still there, and so is the human contact she was really craving. After two weeks, the cookie is forgotten. She did not remove a habit, she replaced its middle part. Simple.",
+        "Keep the cue and the reward and change the routine in between. It is easier than fighting the habit directly.",
+        "Choose a new routine that gives you the same reward as one old habit.",
+      ],
+      [
+        "Find the real craving",
+        "Marc checks his phone every few minutes during work and cannot explain why. He tests different rewards: a snack, a stretch, a chat with a friend. It turns out he is not craving information but a moment of human connection. Once he names it, he schedules short real chats during the day, and the compulsive checking fades. He feels calmer.",
+        "Cravings often hide a different need than you think. Test different rewards to find what you actually want.",
+        "Experiment with three different rewards for one habit and see which satisfies you.",
+      ],
+      [
+        "Keystone habits",
+        "When Tara starts exercising on Monday mornings, other changes follow almost by themselves. She eats better, sleeps earlier and feels more patient at work. A single habit became a keystone, a small domino that tips many others. She did not plan the ripple effect, but she is grateful for it. It still surprises her.",
+        "Some habits trigger positive changes in other areas. Look for the one that tends to pull your others along.",
+        "Pick one habit that seems to make other good habits easier and strengthen it.",
+      ],
+      [
+        "Small wins build momentum",
+        "Instead of aiming to clean the whole garage, Peter starts with one shelf. The tiny win feels good, and he moves on to the next. In a month the garage is done, and he feels more capable at work too. Small wins create a sense of progress that fuels bigger efforts. One shelf.",
+        "Small, early wins build confidence and momentum. Start with a task that you can finish today.",
+        "Choose a tiny goal related to a bigger project and finish it today.",
+      ],
+      [
+        "Plan for the hard moments",
+        "Dana knows she will be tempted to skip the gym on rainy evenings. She writes a rule: if it rains, I will do twenty minutes at home. When the rain comes, the decision is already made. Plans for the hard moments turn willpower into a script. It works.",
+        "Decide in advance what you will do when obstacles appear. An if-then plan reduces the need for willpower.",
+        "Write one if-then plan for the most likely obstacle to your habit.",
+      ],
+    ],
+  }),
+  book({
+    slug: "flow",
+    title: "Flow",
+    author: "Mihaly Csikszentmihalyi",
+    year: 1990,
+    topics: ["mentalite-developpement", "productivite-temps"],
+    summary:
+      "The experience of deep absorption in a challenging activity, and how to design your day for it. Six stories about clear goals, feedback and balance between challenge and skill.",
+    ideas: [
+      [
+        "When time disappears",
+        "A rock climber on a long route loses track of the hours and of his own worries. Nothing else exists but the next handhold. Leo recognizes something similar when he writes code late at night: the clock jumps and he feels alive. This state of total absorption, the author calls flow, is one of the most rewarding experiences people report.",
+        "Deep absorption in a challenging activity can feel more satisfying than leisure. Notice when you lose track of time.",
+        "List three activities where you lose track of time and plan to do one this week.",
+      ],
+      [
+        "Match challenge and skill",
+        "If a task is too easy, boredom sets in. If it is too hard, anxiety does. Mia notices that her guitar practice only flows when the piece is slightly beyond her ability. She adjusts the difficulty of her practice each week to stay in that narrow band. Her progress and her enjoyment both increase.",
+        "Flow appears when a task is slightly beyond your current skill. Adjust the difficulty to stay in that zone.",
+        "Raise or lower the difficulty of one task so it feels challenging but possible.",
+      ],
+      [
+        "Set clear goals",
+        "Vague tasks like work on the report create wandering attention. Sam changes it to write the introduction in the next forty minutes. Clear goals tell his mind exactly where to focus. He finishes the paragraph in half the usual time and feels satisfied. Done by lunch.",
+        "Clear, immediate goals help attention focus. Define exactly what you will do in the next session.",
+        "Write a specific goal for your next work session before you start.",
+      ],
+      [
+        "Get instant feedback",
+        "A chess player sees the result of each move at once, and a runner sees his pace on a watch. Quick feedback helps both adjust and stay engaged. Noor adds small feedback loops to her study, such as short quizzes after each section. She sees what she knows instantly and stays absorbed.",
+        "Immediate feedback keeps you engaged and helps you adjust. Build small checks into your work.",
+        "Add a quick self-check at the end of each work block today.",
+      ],
+      [
+        "Remove distractions",
+        "Flow needs undivided attention. Ted silences notifications, closes extra tabs and sets a timer for ninety minutes. In that short window, he does more than in the rest of the day. Interruptions, he learns, are the enemy of absorption.",
+        "Flow is fragile and needs protection from interruptions. Create a distraction-free window.",
+        "Silence your phone and close extra tabs for your next focused session.",
+      ],
+      [
+        "Turn chores into challenges",
+        "Washing dishes seems dull until Ana turns it into a game: how neatly and quickly can she stack them? Giving a routine task a challenge makes her attention sharpen. Even boring jobs become more interesting. She finds flow where she did not expect it. Almost fun.",
+        "Adding a challenge or a goal to a routine task can make it absorbing. Find a small game in it.",
+        "Pick one boring chore and set yourself a small challenge while doing it.",
+      ],
+    ],
+  }),
+  book({
+    slug: "range",
+    title: "Range",
+    author: "David Epstein",
+    year: 2019,
+    topics: ["pensee-critique-creativite", "leadership-carriere"],
+    summary:
+      "Why generalists who explore widely often outperform narrow specialists in complex, uncertain fields. Six stories about sampling, analogies and late starts.",
+    ideas: [
+      [
+        "Sample before you specialize",
+        "Sixteen-year-old Aisha is told to pick a career path now. Instead, she tries journalism, coding and pottery before choosing. Her choices take longer, but she ends up in a role that suits her better than any early commitment would have. Exploring early, she finds, helps her match her interests to real work.",
+        "Trying different things before committing helps you find a better fit. Early exploration is not wasted time.",
+        "Try one activity this month that is far from your usual field.",
+      ],
+      [
+        "Late starters catch up",
+        "Everyone seems to start early, but many who bloom late catch up quickly because they chose with more self-knowledge. Joel changes careers at thirty-five and finds that his broader experience speeds his learning. Being behind others, he realizes, is only an illusion of comparison. His path is his own. He relaxes.",
+        "Starting later does not doom you. Wider experience and self-knowledge often make up for lost time.",
+        "Stop comparing your timeline with others' for one week and note how you feel.",
+      ],
+      [
+        "Learn through analogies",
+        "A doctor solves a puzzling case by remembering a similar pattern from a different field. Gina, a designer, finds new ideas by studying how bakers, architects and musicians solve problems. Connecting distant domains gives her fresh solutions that specialists in her own field miss. Breadth feeds creativity.",
+        "Ideas from different fields can solve problems in yours. Look for analogies beyond your own specialty.",
+        "Read about a field unrelated to yours and note one idea you could borrow.",
+      ],
+      [
+        "Struggle helps learning",
+        "Students who struggle to recall an answer remember it longer than those who see it explained at once. Kyle, who studies for exams, stops rereading notes and starts testing himself without peeking. It feels harder and slower, yet it works better. Productive struggle builds deeper learning. He keeps going.",
+        "Effortful recall strengthens memory more than passive review. A bit of difficulty helps learning stick.",
+        "Test yourself on something you studied recently before looking at your notes.",
+      ],
+      [
+        "Beware narrow thinking",
+        "Specialists in a tidy, repeating field, like chess, improve by drilling. In messy fields with changing rules, narrow experts can be overconfident. Hana's team, full of specialists, repeatedly misses signals from outside its domain. She invites people from other backgrounds to review their plans. It helps.",
+        "In unpredictable fields, outside perspectives help catch what specialists miss. Invite different views.",
+        "Ask someone from a different field to review one of your plans.",
+      ],
+      [
+        "Match your fit",
+        "Instead of asking whether she is behind, Lila asks whether her current work fits who she is becoming. She drops a path that looks impressive but feels wrong. Changing course is uncomfortable, but within a year she is thriving. Good fit, she sees, beats sticking to an old plan.",
+        "Quitting a path that no longer fits can be a smart move, not a failure. Judge by fit, not by sunk effort.",
+        "Write what you have learned about what fits you and what does not.",
+      ],
+    ],
+  }),
+  book({
+    slug: "make-it-stick",
+    title: "Make It Stick",
+    author: "Peter C. Brown, Henry L. Roediger III and Mark A. McDaniel",
+    year: 2014,
+    topics: ["pensee-critique-creativite", "productivite-temps"],
+    summary:
+      "What learning science says about remembering: retrieval practice, spacing, mixing topics and making material meaningful. Six stories about studying smarter.",
+    ideas: [
+      [
+        "Test yourself",
+        "Before an exam, Emre reads his notes three times and feels ready. He then fails to answer basic questions. His classmate Nia closes her book and tries to write down everything she remembers. It is harder, but the effort sticks. Retrieving information from memory strengthens it more than rereading.",
+        "Trying to recall something strengthens memory more than rereading it. Make self-testing a habit.",
+        "Close your notes and write down everything you remember from your last study session.",
+      ],
+      [
+        "Space it out",
+        "Cramming for one night makes Dev feel productive, yet he forgets it within days. Spreading the same study across a week, with gaps in between, makes him recall far more later. The forgetting between sessions, and the effort to recall, helps the memory last. He plans small sessions instead of a single marathon.",
+        "Spacing practice over time helps memory last longer than cramming. Review in short, repeated sessions of your own.",
+        "Split one study task into three short sessions across the next week.",
+      ],
+      [
+        "Mix it up",
+        "A basketball player who practices only free throws gets very good at them but struggles in a real game. Anita mixes different types of problems in her math practice rather than doing ten of the same kind. It feels messier, yet she learns to choose the right method for each. Variety prepares her for real situations. It works.",
+        "Mixing different kinds of problems in practice improves your ability to choose the right approach. It feels harder but works better.",
+        "Mix at least three different types of problems in your next practice session.",
+      ],
+      [
+        "Desirable difficulties",
+        "Easy learning feels good but often fades fast. Chris notices that the lessons he struggled with remain clearer in his memory. Some difficulty, like having to think and recall, signals that learning is happening. He stops avoiding effort and starts seeking productive challenges.",
+        "Effortful learning often lasts longer than easy learning. Welcome difficulties that make you think.",
+        "Pick a topic and study it in a way that requires you to produce an answer, not just read.",
+      ],
+      [
+        "Link to what you know",
+        "New facts attach to old ones. When Tamar learns about a distant historical event, she links it to a place she has visited and to a story her grandmother told. The rich links make it easy to recall. Meaning, she finds, is the glue of memory.",
+        "Connecting new information to what you already know helps it stick. Make your own examples and links.",
+        "Explain one new idea using an example from your own life.",
+      ],
+      [
+        "Beware the illusion of knowing",
+        "Rereading a text feels familiar, which tricks Omar into thinking he knows it. Familiarity is not mastery. He starts to explain concepts aloud without notes and quickly finds the gaps. The gaps show him exactly what to study next.",
+        "Familiarity can feel like knowledge. Test yourself by explaining without notes to find what you really know.",
+        "Explain a topic aloud without notes and write down where you got stuck.",
+      ],
+    ],
+  }),
+  book({
+    slug: "think-again",
+    title: "Think Again",
+    author: "Adam Grant",
+    year: 2021,
+    topics: ["pensee-critique-creativite", "mentalite-developpement"],
+    summary:
+      "The skill of rethinking and unlearning: staying humble, questioning your opinions and updating your views. Six stories about changing your mind well.",
+    ideas: [
+      [
+        "Think like a scientist",
+        "Instead of defending his strategy as if it were sacred, Jonas treats it as a hypothesis. He asks what evidence would change his mind and checks for it every month. When data shows it is not working, he adjusts without shame. A scientist's mindset makes his plans stronger.",
+        "Treat your opinions as hypotheses that can be tested. Be ready to update when evidence changes.",
+        "Write one belief and what evidence would make you change your mind.",
+      ],
+      [
+        "Confident humility",
+        "Maya believes in her ability to succeed, but doubts the specific method she is using. That mix of confidence in the goal and humility about the means helps her improve. She asks others for feedback and adapts. Her belief in herself stays steady while her tactics evolve.",
+        "Stay confident in your ability while doubting your current methods. It keeps you learning.",
+        "Ask someone for a critique of your approach to a goal you are sure about.",
+      ],
+      [
+        "Challenge network",
+        "Instead of surrounding himself with people who agree, Ty builds a small group of trusted people who challenge his ideas honestly. They disagree respectfully and sometimes show him blind spots. He finds that his decisions improve. Having people who say you might be wrong is a gift.",
+        "Seek a few trusted people who challenge you kindly. They help you see what you miss.",
+        "Ask one honest friend to point out a blind spot in your thinking.",
+      ],
+      [
+        "Argue less, ask more",
+        "At a family dinner, Pablo's uncle shares a strong opinion, and Pablo wants to rebut it. Instead, he asks, what experience led you to think that? His uncle shares a story, and the tone softens. People change their minds more when they feel curious questions than when they face attacks.",
+        "Asking curious questions about someone's view is more persuasive than arguing. People open up when they feel respected.",
+        "In your next disagreement, ask one real question about the other person's reasoning.",
+      ],
+      [
+        "Rethink your identity",
+        "Cal has always said, I am a salesman, and it makes it hard to change when sales shift to new channels. A mentor suggests that he describe himself by his values rather than his job: I help people solve problems. The shift gives him room to adapt. Identities that are too tight make change feel like loss.",
+        "Define yourself by values, beyond your roles. It makes it easier to adapt when circumstances change.",
+        "Describe who you are without naming your job.",
+      ],
+      [
+        "Review your old views",
+        "Once a year, Eva writes down five things she believes strongly and checks whether she still does. Some have changed, and one she now thinks was wrong. She treats the change not as a defeat but as growth. Regular reviews keep her flexible.",
+        "Review your strong beliefs regularly to see whether they still hold. Changing your mind is a sign of learning.",
+        "Write down three beliefs you hold strongly and mark whether they have changed over time.",
+      ],
+    ],
+  }),
+  book({
+    slug: "originals",
+    title: "Originals",
+    author: "Adam Grant",
+    year: 2016,
+    topics: ["pensee-critique-creativite", "leadership-carriere"],
+    summary:
+      "How people champion new ideas and how to improve yours: generating many options, managing risk and speaking up wisely. Six stories about original thinking.",
+    ideas: [
+      [
+        "Generate many ideas",
+        "The most creative people do not have fewer bad ideas, they have more total ideas. Elena used to polish a single concept for weeks. Now she sketches thirty rough ones in an afternoon and picks the best. Quantity gives her a better chance of finding something original.",
+        "Producing many ideas raises your chances of finding a great one. Do not wait for the perfect idea.",
+        "Write twenty ideas for a problem in twenty minutes, and keep the best three.",
+      ],
+      [
+        "Procrastinate on purpose",
+        "Rather than finishing the proposal at once, Quinn starts it, then leaves it alone for a few days while doing other things. The unfinished task simmers in the back of his mind, and a better angle appears. Strategic delay, he finds, can boost creativity, as long as he starts early. It works.",
+        "Starting early and pausing lets your ideas incubate. Delay with intention, not out of avoidance.",
+        "Start a creative task today and set it aside for a day before finishing.",
+      ],
+      [
+        "Doubt your first idea",
+        "Seeing a first idea as obviously great is a trap. Mari asks herself what is wrong with it and what a rival would say. The questioning reveals weaknesses she can fix. Doubt makes her ideas stronger before she shares them. Better.",
+        "Challenge your own idea before others do. It improves the idea and saves you embarrassment.",
+        "List three weaknesses in your favorite idea and fix one.",
+      ],
+      [
+        "Balance your risks",
+        "Many successful originals keep a stable job while testing a bold side project. Rafa does exactly that, risking little while learning a lot. When the side project grows, he is ready to leap. Playing it safe in one area lets him dare in another. Smart.",
+        "Take bold risks in one area while keeping stability in others. It lets you try new things safely.",
+        "Pick a small side experiment and keep your main commitments stable.",
+      ],
+      [
+        "Speak up wisely",
+        "Wanting to propose a change to her boss, Lena frames it as a way to achieve the boss's own goals and gathers allies first. She presents it calmly, with a few evidence points. The boss listens. Timing, framing and allies increase the chance that her idea will be heard.",
+        "Ideas land better when you frame them around others' goals and gather allies. Prepare before you speak up.",
+        "Before pitching a change, find one ally and one reason it helps your audience.",
+      ],
+      [
+        "Embrace being wrong",
+        "Even great creators produce many failures. Sol keeps a folder of his failed ideas and looks at it when he feels discouraged. It reminds him that creativity is a numbers game. Each failure teaches him something and moves him closer to a hit.",
+        "Failures are a normal part of creative work. Keep track of yours and learn from them.",
+        "Start a list of your failed experiments and what each taught you.",
+      ],
+    ],
+  }),
+  book({
+    slug: "antifragile",
+    title: "Antifragile",
+    author: "Nassim Nicholas Taleb",
+    year: 2012,
+    topics: ["pensee-critique-creativite", "mentalite-developpement"],
+    summary:
+      "Systems that gain from disorder, beyond mere resilience: how stress, variety and small failures can make things stronger. Six stories about benefiting from shocks.",
+    ideas: [
+      [
+        "Some things gain from stress",
+        "Muscles grow after being stressed with weights, bones strengthen with load and immune systems learn from exposure. Fragile things break under stress, robust things stay the same and antifragile things improve. Nell asks which of her own habits, routines and plans are fragile and which could grow stronger under pressure. Good question.",
+        "Some systems get stronger from stress. Look for areas where small stress improves your resilience.",
+        "List one fragile thing and one antifragile thing in your life.",
+      ],
+      [
+        "Small failures protect you",
+        "A restaurant that tries many small experiments, new dishes and short-run specials, learns quickly and avoids large disasters. Bao copies this approach and tests ideas in small batches. When a dish fails, it costs little and teaches a lot. Small errors, he realizes, are cheap tuition.",
+        "Many small, cheap failures prevent large ones. Test ideas at small scale first.",
+        "Try your next idea on a small scale before committing fully.",
+      ],
+      [
+        "Avoid hidden fragility",
+        "A company that depends on one customer for most of its revenue looks stable until that customer leaves. Mira reviews her own income and sees the same concentration: one employer, one skill. She builds a second skill and a small side income. Her situation becomes less fragile.",
+        "Dependence on a single source makes you fragile. Spread your risk across several sources.",
+        "Identify one single point of failure in your income or routine and reduce it.",
+      ],
+      [
+        "Use optionality",
+        "Having options, small bets that cost little but could pay off greatly, helps Tom more than elaborate plans. He takes on short projects in several areas and keeps the ones that grow. Because he can drop the others at little cost, he is free to explore. Options turn uncertainty into an advantage.",
+        "Keep options that cost little and could pay a lot. They let you benefit from uncertainty.",
+        "Start one small project with low cost and large potential upside.",
+      ],
+      [
+        "Remove, don't just add",
+        "When something is not working, we usually add more. Lena finds improvements by removing: fewer meetings, fewer tools and fewer commitments. Subtracting harmful things often helps more than adding helpful ones. She feels lighter and more effective.",
+        "Taking things away can improve a system more than adding. Ask what you can remove.",
+        "Remove one commitment, tool or habit that is not serving you this week.",
+      ],
+      [
+        "Don't over-protect",
+        "A parent who shields a child from every discomfort may weaken their ability to cope. Ivo lets his daughter try ladders, climb trees and solve small conflicts on her own. She stumbles sometimes but grows confident. Healthy exposure to difficulty builds strength.",
+        "Overprotection can weaken people. Let yourself and others face manageable challenges.",
+        "Let someone you care about solve a small problem on their own this week.",
+      ],
+    ],
+  }),
+  book({
+    slug: "predictably-irrational",
+    title: "Predictably Irrational",
+    author: "Dan Ariely",
+    year: 2008,
+    topics: ["psychologie", "pensee-critique-creativite"],
+    summary:
+      "The systematic quirks in human decisions: relativity, free offers, social norms and expectations. Six stories about why we choose the way we do.",
+    ideas: [
+      [
+        "Relativity rules",
+        "Offered a trip to Rome or a trip to Paris, people hesitate. Add a third option, Rome without coffee, and suddenly Rome with coffee looks attractive. Aisha notices how the third option changes the choice, though it is something nobody wants. She starts to compare options in absolute terms, not just relative ones. Surprising.",
+        "We judge options relative to others on the list, not on their own value. Check whether a decoy is steering you.",
+        "Next time you choose between options, ask whether you would still pick it if the others vanished.",
+      ],
+      [
+        "The pull of free",
+        "A free item feels irresistible, even when another option is a better deal. Marco takes a free gift with a purchase he did not need. Later he sees that he spent more than he would have paid for what he actually wanted. Free removes his sense of cost, and he overreacts.",
+        "Free offers can distort your judgment and make you buy more than you need. Ask what the free item really costs.",
+        "Before accepting a free offer, write down what you might spend because of it.",
+      ],
+      [
+        "Social and market norms",
+        "A friend helping you move would be insulted by a small payment. Mixing social and market exchanges ruins both. Lena sees this in her team: when she started to pay for small favors, goodwill vanished. She decides to keep appreciation social and pay fairly for real work.",
+        "Mixing money into favors can damage goodwill. Keep your social favors social and pay fairly for work.",
+        "Thank a friend for a favor with words or time rather than money.",
+      ],
+      [
+        "The power of expectation",
+        "The same wine tastes better when people are told that it is expensive. Ivan notices that labels and prices shape his experience as well as his judgment. He starts trying things blind to see his real preferences. The surprising results teach him how much beliefs shape perception. Surprising.",
+        "Expectations shape what we experience. Test your preferences without labels or prices.",
+        "Try two similar products blind and see which you actually prefer.",
+      ],
+      [
+        "Ownership inflates value",
+        "People value what they own more than what they could buy. Gina refuses to sell an old chair for a fair price, then realizes she would not buy it at that price. She uses the thought, would I buy this today, to declutter. Her house feels lighter.",
+        "We overvalue what we own. Ask whether you would buy it today at that price.",
+        "Pick one item you own and ask if you would buy it today.",
+      ],
+      [
+        "Delay dishonesty",
+        "Small cheating, like rounding up expenses, happens more when people feel it is only a little. Eli notices this in himself and begins to track his small shortcuts. Reminding himself of his values before filling forms reduces them. Honesty grows when it is made salient.",
+        "Small dishonesty adds up when it feels harmless. Remind yourself of your values before decisions.",
+        "Write your own honesty rule and read it before filling in your next report or form.",
+      ],
+    ],
+  }),
+  book({
+    slug: "nudge",
+    title: "Nudge",
+    author: "Richard H. Thaler and Cass R. Sunstein",
+    year: 2008,
+    topics: ["psychologie", "pensee-critique-creativite"],
+    summary:
+      "How the design of choices, defaults, framing and feedback, shapes decisions, and how to nudge people toward better outcomes without forcing them. Six stories on choice architecture.",
+    ideas: [
+      [
+        "Defaults are powerful",
+        "When a company enrolled employees in its savings plan by default, almost everyone stayed. When enrollment required filling out a form, many never did. Rafi sees that the default choice decides more than people's preferences. He sets sensible defaults for his own bills and savings. Simple.",
+        "People often stick with the default option. Set up helpful defaults for yourself and others.",
+        "Change one default in your life, such as automatic savings, to a better one.",
+      ],
+      [
+        "Design the choice",
+        "In a school cafeteria, placing fruit at eye level and sweets in the back changes what children pick, without banning anything. Nora redesigns her own kitchen the same way, placing healthy snacks in front. The choices remain free, but the easy path is better. Small design changes shape behavior. Easy.",
+        "The way options are arranged influences choices. Make the better option the easy one for you.",
+        "Rearrange one space at home or work so that the better choice is the most visible.",
+      ],
+      [
+        "Make feedback instant",
+        "A driver sees a smiley or frown sign showing his speed, and slows down. Immediate feedback turns abstract goals into daily action. Lia puts a visible tracker on her fridge for her habit. Seeing progress gives her small nudges throughout the day.",
+        "Instant feedback helps people adjust behavior. Make your progress visible.",
+        "Create one visible tracker for a goal you are working on.",
+      ],
+      [
+        "Expect error",
+        "Systems that forgive mistakes work better. A car that beeps if you leave your lights on prevents dead batteries. Kai designs his own routines to catch likely errors: he sets a reminder for a deadline he tends to forget. Planning for human error saves him from many small disasters.",
+        "People make mistakes, so design systems that anticipate and forgive them. Add small safeguards.",
+        "Add one reminder or safeguard for something you often forget.",
+      ],
+      [
+        "Frame it right",
+        "People respond differently to a ninety percent success rate and a ten percent failure rate. Selma frames her proposals with the positive version and sees better support. She also checks that the framing is honest. Words shape choices, so she picks them with care.",
+        "Framing changes how people react to the same facts. Choose honest framing that helps them decide well.",
+        "Rewrite one message you plan to send using a more positive but accurate frame.",
+      ],
+      [
+        "Nudges need ethics",
+        "Because nudges influence people without their awareness, they must be used wisely. Ty asks himself whether he would be comfortable if the people he nudges knew exactly what he was doing and why. If not, he rethinks. Good nudges help people do what they would choose on reflection.",
+        "A good nudge helps people do what they want for themselves and could be explained openly. Test it by transparency.",
+        "Before you nudge someone, ask if you could tell them exactly what you are doing.",
+      ],
+    ],
+  }),
+  book({
+    slug: "the-happiness-hypothesis",
+    title: "The Happiness Hypothesis",
+    author: "Jonathan Haidt",
+    year: 2006,
+    topics: ["psychologie", "mentalite-developpement"],
+    summary:
+      "Ancient wisdom tested against modern psychology: the rider and the elephant, the progress principle and the value of relationships. Six stories on living well.",
+    ideas: [
+      [
+        "Steering an elephant",
+        "Haidt compares the mind to a rider on an elephant: the rider is reasoning, the elephant is emotion and habit. Sarah resolves to diet using reason alone, and the elephant ignores her at dinner. She starts to train the elephant with small cues, friendly routines and a shift in environment. The rider can steer, but only with the elephant's cooperation. Steering takes patience.",
+        "Your emotions and habits are powerful. Work with them by changing cues and environment, instead of relying on reasoning alone.",
+        "Identify a change you want and design a cue or environment that supports it.",
+      ],
+      [
+        "Reciprocity builds bonds",
+        "Humans trade favors without keeping score, and it binds communities together. Dina starts giving small gifts, compliments and help at work, with no expectations. Over months, colleagues return the favor in kind ways. The web of goodwill makes her work life warmer.",
+        "Giving generously creates a web of goodwill. Your small favors build relationships.",
+        "Do one small favor for a colleague or neighbor this week.",
+      ],
+      [
+        "The progress principle",
+        "Happiness often comes from progress toward goals more than from reaching them. Leo finds that the weeks when he feels he is moving forward are the happiest, even if the finish line is far. He breaks big projects into smaller steps and marks each one. The small pleasures of progress add up.",
+        "Making progress toward meaningful goals brings satisfaction. Break your goals into visible steps.",
+        "Divide one big goal into five steps and mark the first one done.",
+      ],
+      [
+        "Adapt to the good",
+        "A new car or a raise thrills for a while, then fades into the background. Hedonic adaptation makes Ava realize that chasing bigger rewards can be an endless treadmill. She starts to invest in experiences and relationships, which adapt less. Gratitude helps her notice good things before they vanish. Gratitude helps.",
+        "We adapt to material gains quickly. Spend on experiences and relationships and practice gratitude.",
+        "Plan one shared experience with someone you care about this month.",
+      ],
+      [
+        "See your own faults first",
+        "Before judging others, Pete tries to notice the log in his own eye. When a colleague irritates him, he asks which part of his annoyance comes from his own habits. He often finds a mirror. The practice makes him humbler and kinder.",
+        "We see others' faults more easily than our own. Ask what part of your annoyance reflects you.",
+        "Think of someone who irritates you and write what you may share with them.",
+      ],
+      [
+        "Find meaning in connection",
+        "Strong relationships, meaningful work and a sense of belonging predict well-being better than wealth. Neda realizes she has been neglecting friends for work. She schedules a weekly call with an old friend and joins a local volunteer group. Her life feels richer for it.",
+        "Close relationships and meaningful work are central to happiness. Invest your time in both.",
+        "Schedule time with a friend this week and treat it as non-negotiable.",
+      ],
+    ],
+  }),
+  book({
+    slug: "outliers",
+    title: "Outliers",
+    author: "Malcolm Gladwell",
+    year: 2008,
+    topics: ["mentalite-developpement", "pensee-critique-creativite"],
+    summary:
+      "How success depends on context, timing, opportunity and practice, not only on talent. Six stories about what lies behind great achievement.",
+    ideas: [
+      [
+        "Success has a context",
+        "The best players in a youth hockey league are often born in the first months of the year, because they were older and bigger at the time of selection. Jana sees how an arbitrary cutoff date can shape careers. She starts to ask what hidden advantages helped successful people. Talent is only part of the story.",
+        "Hidden advantages like timing and context shape success. Look beyond talent when you explain results.",
+        "Think of someone successful and list two advantages of timing or circumstance they had.",
+      ],
+      [
+        "Practice adds up",
+        "Before they were famous, the young band played thousands of hours in small clubs in another city. Reza sees that their skill came from sheer volume of practice and a unique chance to do it. He wonders how many hours he has put into his own craft. The number humbles and motivates him.",
+        "Deep skill requires a very large amount of practice. Opportunities to practice matter too.",
+        "Track the hours you spend practicing your main skill this month.",
+      ],
+      [
+        "Opportunity matters",
+        "Two equally talented people, but only one gets a chance to use a computer in the early days. Bill, who gets to practice at a school with a terminal, builds skills that others cannot. Lena recognizes that opportunity often precedes mastery. She works to create and seize opportunities for herself and others.",
+        "Opportunities to practice are decisive. Seek them out for yourself and create them for others.",
+        "Look for one opportunity this month to practice a skill with real stakes.",
+      ],
+      [
+        "Cultural legacies",
+        "Habits and attitudes inherited from our culture can shape behavior in surprising ways. Gladwell discusses how communication norms affect safety in a cockpit. Anil notices how his own family's habits influence how he talks to his boss. Understanding those legacies gives him a choice.",
+        "Cultural habits shape how we communicate and behave. Notice yours and adjust where helpful.",
+        "Notice one habit of communication you inherited and decide if it serves you.",
+      ],
+      [
+        "The ten-year pattern",
+        "Many experts spent about ten years of focused work before reaching world-class level. Kira stops expecting quick breakthroughs in her craft. She commits to a decade of steady effort and measures progress yearly. The long view takes away the pressure of immediate results.",
+        "World-class skill usually takes years of dedicated effort. Take the long view.",
+        "Write where you want your skill to be in ten years and one habit that will get you there.",
+      ],
+      [
+        "Meaningful work motivates",
+        "Gladwell mentions that complex, autonomous, rewarding work motivates people. Tim, a baker, loves that his effort shows in a good loaf. He realizes that his job gives him autonomy and clear outcomes. Seeking those qualities in your work, he sees, matters more than a prestigious title.",
+        "Autonomy, complexity and a clear link between effort and reward make work meaningful. Look for these qualities.",
+        "Rate your current work on autonomy, challenge and visible results from one to five.",
+      ],
+    ],
+  }),
+  book({
+    slug: "so-good-they-cant-ignore-you",
+    title: "So Good They Can't Ignore You",
+    author: "Cal Newport",
+    year: 2012,
+    topics: ["leadership-carriere", "mentalite-developpement"],
+    summary:
+      "Why building rare and valuable skills matters more than following passion, and how to gain control over your career. Six stories about craftsmanship and career capital.",
+    ideas: [
+      [
+        "Passion follows skill",
+        "Telling a young Camila to follow her passion makes her anxious, because she does not have one. Her mentor says to get good at something valuable instead, and passion often follows mastery. She picks data analysis, and as she improves, she begins to love it. Competence breeds enjoyment.",
+        "Passion often grows from getting good at something. Build your skill first and enjoyment may follow.",
+        "Choose a valuable skill and commit to improving at it for the next three months.",
+      ],
+      [
+        "Craftsman mindset",
+        "A craftsman focuses on what he can offer the world, not on what the world offers him. Diego, a carpenter, polishes each joint with care. People commission him because of the quality, not because of marketing. His focus on getting better each day pays back many times.",
+        "Focus on the value you produce and improving your craft. Quality builds reputation.",
+        "Ask yourself what you can offer in your work, and write one way to improve it.",
+      ],
+      [
+        "Deliberate practice at work",
+        "Many professionals plateau because they settle for good enough. Ana pushes herself to do the hardest part of her work and asks her manager for tough feedback. She tracks her progress quarterly. Her skills continue to climb while colleagues stagnate.",
+        "Pushing yourself beyond comfort with feedback keeps you improving. Do not coast at a comfortable level.",
+        "Choose the hardest task in your role and ask for feedback on it.",
+      ],
+      [
+        "Career capital",
+        "Rare and valuable skills are like capital that can be traded for better opportunities, such as flexibility or interesting projects. Neil identifies what is rare in his field and invests in it. After a year, he negotiates a better role. Capital, not wishes, earns him choices.",
+        "Rare and valuable skills give you power to ask for what you want. Invest in them deliberately.",
+        "Identify a skill that is rare and valuable in your field and plan to build it.",
+      ],
+      [
+        "Seek autonomy only after value",
+        "Jess dreams of quitting her job to work for herself, but she has no valuable skills to sell yet. Her mentor tells her that control is earned by skill. She spends a year deepening her expertise and builds a small client base on the side. When she leaves, she lands on her feet.",
+        "Freedom in work is earned by being valuable. Build skills before you ask for more control.",
+        "Ask what you would need to be able to offer in order to work on your own terms.",
+      ],
+      [
+        "Have a mission",
+        "A mission gives focus to a career, like a theme. Ravi decides that his mission is making health data understandable to ordinary people. Every project becomes a small experiment towards it. He tests ideas cheaply, learns and refines.",
+        "A guiding mission focuses your effort. Test it with small experiments before committing fully.",
+        "Write a one-sentence mission for your work and one small experiment to test it.",
+      ],
+    ],
+  }),
+];

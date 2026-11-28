@@ -5,9 +5,9 @@ import { createClient } from "@/lib/supabase/server";
 export async function GET(request: Request) {
   const url = new URL(request.url);
   const code = url.searchParams.get("code");
-  const nextParam = url.searchParams.get("next") ?? "/feed";
+  const nextParam = url.searchParams.get("next") ?? "/home";
   // Only allow relative redirects to avoid open redirects.
-  const next = nextParam.startsWith("/") && !nextParam.startsWith("//") ? nextParam : "/feed";
+  const next = nextParam.startsWith("/") && !nextParam.startsWith("//") ? nextParam : "/home";
 
   if (code) {
     const supabase = await createClient();

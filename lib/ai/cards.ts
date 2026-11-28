@@ -25,6 +25,7 @@ export class ModelOutputError extends Error {
 
 const languageVersion = z.object({
   title: z.string(),
+  story: z.string(),
   body: z.string(),
   action_step: z.string(),
 });

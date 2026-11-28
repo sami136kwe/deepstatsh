@@ -3,33 +3,25 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useT } from "@/lib/i18n/client";
+import { CompassIcon, HomeIcon, LibraryIcon, UserIcon } from "./Icons";
 import { ThemeToggle } from "./ThemeToggle";
 
 type Props = { signedIn: boolean; isAdmin: boolean; hasSession?: boolean };
 
-function useLinks(isAdmin: boolean) {
+function useLinks() {
   const t = useT();
-  const links = [
-    { href: "/feed", label: t.nav.feed, icon: "▤" },
-    { href: "/stash", label: t.nav.stash, icon: "★" },
-    { href: "/review", label: t.nav.review, icon: "↻" },
-    { href: "/challenge", label: t.nav.challenge, icon: "✓" },
-    { href: "/progress", label: t.nav.progress, icon: "▲" },
+  return [
+    { href: "/home", label: t.lib.home, Icon: HomeIcon },
+    { href: "/explore", label: t.lib.explore, Icon: CompassIcon },
+    { href: "/library", label: t.lib.library, Icon: LibraryIcon },
+    { href: "/profile", label: t.lib.profile, Icon: UserIcon },
   ];
-  const secondary = [
-    { href: "/history", label: t.nav.history, icon: "☰" },
-    { href: "/reread", label: t.nav.reread, icon: "⟲" },
-    { href: "/search", label: t.nav.search, icon: "⌕" },
-    { href: "/profile", label: t.nav.profile, icon: "◉" },
-    ...(isAdmin ? [{ href: "/admin", label: t.nav.admin, icon: "⚙" }] : []),
-  ];
-  return { links, secondary };
 }
 
-export function AppHeader({ signedIn, isAdmin, hasSession = signedIn }: Props) {
+export function AppHeader({ signedIn, hasSession = signedIn }: Props) {
   const t = useT();
   const pathname = usePathname();
-  const { links, secondary } = useLinks(isAdmin);
+  const links = useLinks();
   const isActive = (href: string) => pathname === href || pathname.startsWith(`${href}/`);
 
   return (
@@ -38,13 +30,13 @@ export function AppHeader({ signedIn, isAdmin, hasSession = signedIn }: Props) {
         {t.nav.skip}
       </a>
       <div className="mx-auto flex h-14 max-w-5xl items-center gap-3 px-4">
-        <Link href={signedIn ? "/feed" : "/"} className="font-serif text-xl font-bold tracking-tight">
+        <Link href={signedIn ? "/home" : "/"} className="font-serif text-xl font-bold tracking-tight">
           {t.appName}
           <span className="text-accent">.</span>
         </Link>
         {signedIn && (
           <nav aria-label={t.nav.main} className="ml-4 hidden items-center gap-1 md:flex">
-            {[...links, ...secondary].map((l) => (
+            {links.map((l) => (
               <Link
                 key={l.href}
                 href={l.href}
@@ -59,15 +51,10 @@ export function AppHeader({ signedIn, isAdmin, hasSession = signedIn }: Props) {
           </nav>
         )}
         <div className="ml-auto flex items-center gap-1">
-          {signedIn && (
-            <Link href="/search" className="rounded-full p-2 text-muted hover:bg-surface-2 hover:text-ink md:hidden" aria-label={t.nav.search}>
-              <span aria-hidden="true">⌕</span>
-            </Link>
-          )}
           <ThemeToggle />
           {hasSession ? (
             <form action="/auth/signout" method="post">
-              <button type="submit" className={`${signedIn ? "hidden sm:block" : ""} rounded-full px-3 py-1.5 text-sm text-muted hover:text-ink`}>
+              <button type="submit" className={`${signedIn ? "hidden md:block" : ""} rounded-full px-3 py-1.5 text-sm text-muted hover:text-ink`}>
                 {t.nav.signOut}
               </button>
             </form>
@@ -82,12 +69,11 @@ export function AppHeader({ signedIn, isAdmin, hasSession = signedIn }: Props) {
   );
 }
 
-export function BottomNav({ signedIn, isAdmin }: Props) {
+export function BottomNav({ signedIn }: Props) {
   const t = useT();
   const pathname = usePathname();
-  const { links } = useLinks(isAdmin);
+  const items = useLinks();
   if (!signedIn) return null;
-  const items = [...links.slice(0, 4), { href: "/profile", label: t.nav.profile, icon: "◉" }];
   return (
     <nav aria-label={t.nav.main} className="fixed inset-x-0 bottom-0 z-30 border-t border-line bg-bg/95 backdrop-blur md:hidden">
       <ul className="mx-auto flex max-w-md justify-between px-2 pb-[env(safe-area-inset-bottom)]">
@@ -100,9 +86,7 @@ export function BottomNav({ signedIn, isAdmin }: Props) {
                 aria-current={active ? "page" : undefined}
                 className={`flex flex-col items-center gap-0.5 py-2 text-[11px] font-medium ${active ? "text-accent" : "text-muted"}`}
               >
-                <span aria-hidden="true" className="text-lg leading-none">
-                  {l.icon}
-                </span>
+                <l.Icon className="h-6 w-6" />
                 {l.label}
               </Link>
             </li>

@@ -1,0 +1,475 @@
+import { book } from "./helpers";
+
+export const GROWTH_BOOKS_1 = [
+  book({
+    slug: "atomic-habits",
+    title: "Atomic Habits",
+    author: "James Clear",
+    year: 2018,
+    topics: ["autodiscipline-habitudes"],
+    featured: true,
+    summary:
+      "A practical system for building good habits and breaking bad ones through tiny changes that compound. Six stories on cues, identity and making the right choice the easy one.",
+    ideas: [
+      [
+        "One percent a day",
+        "Ilse reads a page a night, which feels laughable next to her friend's plan to finish a book a week. Months later, Ilse has read dozens of books and her friend gave up in week three. Tiny gains look invisible on any single day. Added together over a year, they are anything but small.",
+        "Small improvements compound like interest. Focus on getting a little better each day instead of a dramatic leap.",
+        "Pick one habit and shrink it to something you can do in under two minutes.",
+      ],
+      [
+        "Become the person",
+        "Marek says he is trying to quit smoking, and he keeps failing. His cousin simply says she is not a smoker. That one sentence changes how she treats every offer of a cigarette at parties. Identity does the work.",
+        "Lasting change comes from changing who you believe you are. Each action is a vote for that identity.",
+        "Finish this sentence and say it aloud: I am the kind of person who...",
+      ],
+      [
+        "Make the cue obvious",
+        "Zara wants to drink more water but forgets all day. She puts a full bottle on her desk where she cannot miss it. Within a week, drinking has become automatic. The cue did what willpower never could.",
+        "Habits start with a visible cue. Place reminders where you will see them at the right moment.",
+        "Put a visible cue for one habit in the place where you want to do it.",
+      ],
+      [
+        "Make it easy",
+        "Gym clothes sit folded at the foot of Jin's bed each night. In the morning, getting dressed for a run takes no thought. His roommate keeps his sneakers in a closet across the apartment and rarely goes. Friction decides which habit wins.",
+        "Reduce the steps between you and a good habit and add steps before a bad one. Environment beats motivation.",
+        "Remove one obstacle between you and a habit you want, and add one before a habit you want to drop.",
+      ],
+      [
+        "Never miss twice",
+        "Nell skips a workout because of a cold, and feels her streak is ruined. Her coach tells her that missing once is an accident while missing twice starts a new habit. She returns the next day for a short session. The chain survives because she refuses to let one slip turn into two.",
+        "Everyone slips. The key is getting back on track right away so a miss does not become a pattern.",
+        "Write what you will do the day after you miss a habit, and keep it tiny.",
+      ],
+      [
+        "Track it",
+        "Cal puts an X on a wall calendar each day he writes. After a month he does not want to break the row of marks. The simple chain keeps him going on tired nights. Seeing progress is its own reward.",
+        "Tracking a habit makes your progress visible and motivating. A simple mark each day is enough.",
+        "Start a visual tracker for one habit today, even just a calendar and a pen.",
+      ],
+    ],
+  }),
+  book({
+    slug: "deep-work",
+    title: "Deep Work",
+    author: "Cal Newport",
+    year: 2016,
+    topics: ["productivite-temps"],
+    summary:
+      "Why the ability to focus without distraction is becoming rare and valuable, and how to build routines for it. Six stories about protecting your attention.",
+    ideas: [
+      [
+        "Focus is a superpower",
+        "Two designers have the same skills. One checks messages every few minutes, while the other works in long uninterrupted blocks. By Friday, the second has finished a project the first has barely started. In a noisy world, concentration is a rare advantage.",
+        "The ability to concentrate deeply produces more and better work. It is rare, so it is valuable.",
+        "Block ninety minutes in your calendar this week for a single demanding task.",
+      ],
+      [
+        "Shallow work expands",
+        "Email, chats and quick meetings fill Ruth's day, and she feels busy without finishing anything important. She starts to schedule shallow tasks into set windows. Important work finally gets her best hours. The shallow stuff shrinks to fit.",
+        "Shallow tasks can crowd out meaningful ones. Give them boundaries so your deep work happens first.",
+        "Limit email and messages to two set times today.",
+      ],
+      [
+        "Create a ritual",
+        "Deep work needs a routine, a place, a time and a way to start. Omar always writes at the same desk, after the same coffee, with his phone in another room. His brain learns the signal and slips into focus faster. The ritual removes the debate with himself.",
+        "A consistent ritual lowers the effort of getting started. Decide where, when and how you will focus.",
+        "Define a place, a time and a starting action for your next focus session.",
+      ],
+      [
+        "Embrace boredom",
+        "Whenever Lou gets a spare moment in a queue, he reaches for his phone. His focus has become fragile, even at his desk. He starts to leave the phone in his pocket and let his mind wander. Over weeks, his attention steadies.",
+        "If you fill every gap with stimulation, focus weakens. Practicing boredom trains your attention.",
+        "Spend your next waiting moment without checking your phone.",
+      ],
+      [
+        "Quit social media gently",
+        "Instead of deleting every account, Pia runs a test: she quits a platform for thirty days and sees what she misses. Most of it, she finds, she does not. She returns to only the ones that give her real value. Distractions lose their grip once she questions them.",
+        "Test tools by their real benefits, not by fear of missing out. Keep only those that clearly help your goals.",
+        "Pause one app for a week and note what you really miss.",
+      ],
+      [
+        "Plan every hour",
+        "Dev begins each day by assigning a task to every block of time. The plan changes by noon, and he adjusts it without guilt. Still, the habit makes him aware of where time goes. He stops drifting through the afternoon.",
+        "Planning your day in blocks makes you intentional about time. Revise the plan as needed.",
+        "Write your schedule for tomorrow in time blocks before you go to bed.",
+      ],
+    ],
+  }),
+  book({
+    slug: "thinking-fast-and-slow",
+    title: "Thinking, Fast and Slow",
+    author: "Daniel Kahneman",
+    year: 2011,
+    topics: ["pensee-critique-creativite", "psychologie"],
+    summary:
+      "How the mind runs on a fast, intuitive system and a slow, deliberate one, and the biases that follow. Six stories on anchors, framing and overconfidence.",
+    ideas: [
+      [
+        "Two systems",
+        "Gia answers two plus two instantly and struggles with seventeen times twenty-four. The first uses fast, automatic thinking, the second needs slow effort. Most of her day runs on the fast kind without her noticing. It is efficient but prone to mistakes.",
+        "Your mind uses a fast, intuitive mode and a slow, careful one. Slow down when a decision really matters.",
+        "Before a big decision today, pause and think it through step by step.",
+      ],
+      [
+        "The anchor",
+        "A shop shows a jacket at an inflated price, then a sale price that looks like a bargain. Ned feels delighted and buys. The first number he saw dragged his judgment toward it. Anchors work even when we know they are arbitrary.",
+        "The first number you see pulls your estimates toward it. Make your own estimate before looking at an offer.",
+        "Before your next purchase, decide the price you think is fair before seeing the tag.",
+      ],
+      [
+        "What you see is all there is",
+        "Quick stories feel convincing when they are coherent, even if the evidence is thin. Olu meets a confident candidate and decides on the spot to hire her. He never asks what he has not seen. The mind builds a tale.",
+        "Your mind judges using only the information in front of it. Ask what is missing before you decide.",
+        "When forming a quick judgment, write down one thing you do not know.",
+      ],
+      [
+        "Losses sting more",
+        "Rina feels the pain of losing twenty dollars more than the joy of finding twenty. This asymmetry makes her hold on to losing investments and avoid sensible risks. Understanding it does not remove the feeling. It does help. She asks what she would do if the choice were brand new, and the answer is often different.",
+        "Losses feel bigger than equal gains. Ask whether you would choose the same thing if you started from scratch.",
+        "Review one decision you are holding onto and ask if you would choose it again today.",
+      ],
+      [
+        "Overconfidence",
+        "Hal predicts his project will take three weeks, as he always does. It takes seven. The planning fallacy fools almost everyone. He starts asking how long similar projects took for others, and his estimates improve.",
+        "People underestimate how long tasks take. Look at how similar tasks went in the past before you plan.",
+        "Estimate your next task using how long similar ones actually took.",
+      ],
+      [
+        "Frame matters",
+        "A treatment with a ninety percent survival rate sounds better than one with a ten percent death rate. They describe the same outcome. Sofia learns to restate choices in different ways before reacting. The wording changes the feeling but not the facts.",
+        "The way a choice is framed changes how you feel about it. Rephrase options in several ways to see them clearly.",
+        "Rewrite a decision you face using the opposite framing and see if it changes your view.",
+      ],
+    ],
+  }),
+  book({
+    slug: "mans-search-for-meaning",
+    title: "Man's Search for Meaning",
+    author: "Viktor E. Frankl",
+    year: 1946,
+    topics: ["mentalite-developpement", "psychologie"],
+    summary:
+      "A psychiatrist's account of surviving the camps and his conclusion that people can endure almost anything when they have a reason to live. Six stories on meaning, choice and responsibility. The subject is serious and deserves care.",
+    ideas: [
+      [
+        "The last freedom",
+        "Even when circumstances are beyond your control, you can choose how to respond. Frankl noticed that some prisoners kept their dignity through small acts of kindness. Esi thinks of this when her job disappears through no fault of her own. She cannot change it. She can choose her attitude.",
+        "You cannot always choose what happens, but you can choose how you respond. That choice remains yours.",
+        "Name one situation you cannot change and write how you choose to respond.",
+      ],
+      [
+        "Find a why",
+        "Those with a purpose, a person to return to or work to finish, endured hardship better. Tom has long felt aimless. He asks what he is needed for and who needs him, and begins to answer. Having a why makes the how bearable.",
+        "A sense of purpose helps people endure hardship. Look for what you are needed for.",
+        "Write down one person or task that gives your days meaning.",
+      ],
+      [
+        "Meaning through work and love",
+        "Meaning is not found by searching in the abstract. Lina finds hers in doing meaningful work, in loving someone, and in how she faces unavoidable suffering. None of these asks her to be perfect. They ask her to show up.",
+        "Meaning can be found through what you create, whom you love and how you face suffering. You do not need to wait for a grand discovery.",
+        "Choose one action today that expresses something you care about.",
+      ],
+      [
+        "Don't aim at happiness",
+        "The more Mo chases happiness directly, the more it slips away. When he gets absorbed in a cause, happiness shows up as a side effect. It cannot be pursued, it ensues. He turns his attention to something bigger than his mood.",
+        "Happiness tends to come as a byproduct of meaningful activity. Aim at purpose and it often follows.",
+        "Spend an hour on something that matters to you and notice your mood afterwards.",
+      ],
+      [
+        "Responsibility, too",
+        "Freedom without responsibility, Frankl suggested, is incomplete. Ines imagines a statue of responsibility to balance one of freedom. She asks what life is asking of her today, instead of what she wants from life. The question reorients her days.",
+        "Instead of asking what you want from life, ask what life asks of you. Answer with your actions.",
+        "Ask yourself what is being asked of you today and do one thing in answer.",
+      ],
+      [
+        "Humor as a shield",
+        "Even in terrible conditions, people found moments of humor. Ben, facing a rough week, jokes about it with a friend and feels his shoulders lighten. Humor creates a tiny distance from the pain. It does not deny suffering but lets him breathe.",
+        "Humor can create distance from difficulty and help you cope. It does not erase pain, but it eases it.",
+        "Share a light moment with someone today, even when things are hard.",
+      ],
+    ],
+  }),
+  book({
+    slug: "mindset",
+    title: "Mindset",
+    author: "Carol S. Dweck",
+    year: 2006,
+    topics: ["mentalite-developpement", "psychologie"],
+    summary:
+      "The difference between believing abilities are fixed and believing they can grow, and how it shapes effort, failure and success. Six stories about learning through challenge.",
+    ideas: [
+      [
+        "Fixed or growing",
+        "Two students fail the same test. One thinks, I'm just not smart, and quietly stops trying for the rest of the semester. The other asks what to change next time. She improves. Their beliefs about ability shape their paths.",
+        "Believing abilities can grow makes you persist after setbacks. A fixed belief tends to make you quit.",
+        "Next time you fail, write what you can learn instead of what it says about you.",
+      ],
+      [
+        "The power of yet",
+        "I can't do it becomes I can't do it yet in Marta's mind. The small word changes the story from a verdict to a stage. She feels able to keep trying. Her piano practice becomes lighter.",
+        "Adding the word yet turns a limit into a work in progress. It keeps your door open.",
+        "Add the word yet to one I can't sentence today.",
+      ],
+      [
+        "Praise the effort",
+        "Praising a child for being smart makes them avoid hard tasks, in case they look foolish. Praising effort and strategies makes them seek challenges. Alex, a new father, starts saying you worked hard on that. The child leans into difficulty.",
+        "Praise effort and strategy rather than talent. It encourages people around you to take on challenges.",
+        "Give someone praise today that names their effort or approach, not their talent.",
+      ],
+      [
+        "Challenges as fuel",
+        "Hana used to avoid projects she might fail. She volunteers for a difficult one and learns far more than from easy wins. The struggle gave her new skills. She starts seeking stretch tasks on purpose.",
+        "Hard tasks help you grow because they stretch you. Seek challenges that are slightly beyond your comfort zone.",
+        "Pick one task slightly beyond your current ability and start on it.",
+      ],
+      [
+        "Criticism as data",
+        "When her manager criticizes her report, Dee first feels defensive. Then she reads it as information about what to improve. The feedback becomes a map. She asks for more of it.",
+        "Feedback is useful information, not an attack. Welcoming it speeds up your growth.",
+        "Ask one person for honest feedback on your recent work.",
+      ],
+      [
+        "Others' success inspires",
+        "A colleague's promotion stings Oz at first, as if it proves that he is behind. A growth mindset reframes it. He asks what she did and how he could learn from it. The jealousy turns into curiosity.",
+        "Other people's success can be a source of lessons instead of threats. Ask how they got there.",
+        "Ask someone you admire to tell you how they learned their skill.",
+      ],
+    ],
+  }),
+  book({
+    slug: "grit",
+    title: "Grit",
+    author: "Angela Duckworth",
+    year: 2016,
+    topics: ["mentalite-developpement", "autodiscipline-habitudes"],
+    summary:
+      "Why passion and perseverance over the long term often matter more than raw talent. Six stories on deliberate practice, interest and getting up after failure.",
+    ideas: [
+      [
+        "Effort counts twice",
+        "Talent is what you start with, but effort turns skill into achievement. Gabe's friend is gifted yet quits when work gets hard, while Gabe keeps showing up. Years later, he is the one with results. Effort multiplies whatever talent he had.",
+        "Skill grows with effort, and achievement grows with effort again. Your consistency often beats natural ability.",
+        "Choose one skill and commit a fixed amount of practice time to it this week.",
+      ],
+      [
+        "Find your interest first",
+        "Grit is not gritting your teeth about something you hate. Mira tries several things before settling on one that stirs her curiosity. Because she cares, long effort feels easier. Interest gives perseverance a reason.",
+        "Perseverance works best when you care about the goal. Explore until something truly interests you.",
+        "Try one new activity this month and note how much energy it gives you.",
+      ],
+      [
+        "Deliberate practice",
+        "Hours of mindless repetition do not improve skill. Aldo picks a specific weakness, works on it with full attention and checks his results. Each session targets something just beyond his reach. His progress speeds up.",
+        "Improvement comes from focused practice on specific weaknesses with feedback. Mere repetition will not take you there.",
+        "Identify one weakness and design a thirty-minute practice for it.",
+      ],
+      [
+        "A top-level goal",
+        "Pia's small daily tasks feel meaningless until she links them to a larger goal. Cleaning data becomes part of a project to help patients. The connection gives each task purpose. She no longer feels lost in the details.",
+        "Linking daily tasks to a larger purpose sustains motivation. Know what your small efforts serve.",
+        "Write the larger goal that one of your routine tasks supports.",
+      ],
+      [
+        "Hope is a habit",
+        "After a failure, Ty tells himself he can improve, the way he has before. He treats setbacks as temporary and specific. Pessimists treat them as permanent and personal. The way he explains failure decides whether he tries again.",
+        "How you explain setbacks to yourself affects whether you persist. See them as temporary and changeable.",
+        "When something goes wrong today, describe it as temporary and specific.",
+      ],
+      [
+        "Do hard things",
+        "Many families have a hard-thing rule: everyone practices something difficult and cannot quit before a season ends. Ruth tries it herself with cello lessons. Frustration comes, but so does progress. By finishing, she learns that she can.",
+        "Committing to something difficult and seeing it through builds perseverance. Finish what you start before you decide to quit.",
+        "Pick a hard thing and decide the minimum period you will stick with it.",
+      ],
+    ],
+  }),
+  book({
+    slug: "the-7-habits-of-highly-effective-people",
+    title: "The 7 Habits of Highly Effective People",
+    author: "Stephen R. Covey",
+    year: 1989,
+    topics: ["productivite-temps", "leadership-carriere"],
+    summary:
+      "A principle-centered approach to effectiveness: take initiative, begin with the end in mind, put first things first and seek to understand. Six stories on character and priorities.",
+    ideas: [
+      [
+        "Be proactive",
+        "When something goes wrong, Kay used to blame circumstances. Now she asks what she can influence and acts on that. Her circle of control is small, but within it she moves. Choosing her response gives her power.",
+        "Focus on what you can influence rather than what you cannot. Your response is always your choice.",
+        "List what worries you and circle only the things you can influence.",
+      ],
+      [
+        "Begin with the end in mind",
+        "Imagine your own farewell, and what you would want people to say. Lou does this and realizes his schedule has little to do with it. He starts adjusting his days toward those values. Clarity about the end shapes each step.",
+        "Know what you want your life to stand for and let it guide your choices. Direction makes daily decisions clearer.",
+        "Write three things you want people to say about you in the long run.",
+      ],
+      [
+        "Put first things first",
+        "Urgent tasks scream, but important ones whisper. Sia notices that she spends days on emails and never on her long-term project. She starts scheduling the important work before the urgent. Her results change.",
+        "Important tasks, those that matter to your goals, need scheduling before the merely urgent ones. Protect time for what counts.",
+        "Schedule one important but not urgent task in your calendar today.",
+      ],
+      [
+        "Think win-win",
+        "In negotiations, Bram used to see a winner and a loser. He starts asking how both parties could benefit. Deals take a little longer but last far longer too. Trust grows each time.",
+        "Seek outcomes where both sides benefit. Cooperation tends to produce more lasting results.",
+        "In your next negotiation, ask what a good result looks like for the other side.",
+      ],
+      [
+        "Seek first to understand",
+        "Most people listen while preparing their reply. Ada tries listening only to understand, summarizing what she hears before responding. Her colleagues relax, feeling heard. Conflicts shrink.",
+        "Listen to understand rather than to reply. People open up when they feel understood.",
+        "In your next conversation, repeat back what you heard before you respond.",
+      ],
+      [
+        "Sharpen the saw",
+        "A woodcutter is so busy sawing that he never sharpens the blade. Rex recognizes himself and schedules time for sleep, exercise and learning. His work improves, not suffers. Caring for himself is part of the job.",
+        "Regularly renew your body, mind and relationships. Without upkeep, your effectiveness declines.",
+        "Add one renewing activity to your calendar this week.",
+      ],
+    ],
+  }),
+  book({
+    slug: "essentialism",
+    title: "Essentialism",
+    author: "Greg McKeown",
+    year: 2014,
+    topics: ["productivite-temps", "mentalite-developpement"],
+    summary:
+      "The disciplined pursuit of less but better: say no to the trivial many so you can do the vital few well. Six stories on choosing and cutting.",
+    ideas: [
+      [
+        "Less but better",
+        "Joy's calendar is full, yet little feels important. She asks which few things matter most and cuts the rest. Her workload shrinks and her results improve. Doing more is not the same as doing better.",
+        "Focus on the few things that matter most and drop the rest. More effort on fewer things pays off.",
+        "List your commitments and mark the three that matter most to you.",
+      ],
+      [
+        "If it isn't a clear yes",
+        "When a request arrives, Dan asks if he feels a strong yes. If not, the answer is no. His time opens up for what truly counts. He learns that a lukewarm yes is a hidden no.",
+        "If something is not a clear yes, treat it as a no. Strong standards protect your time.",
+        "Use the rule on the next request you get: only agree if you feel a clear yes.",
+      ],
+      [
+        "Say no gracefully",
+        "Mina fears that refusing will damage relationships. She tries saying no with warmth and a short reason. People mostly respect her more. Trade-offs, she realizes, are part of every choice.",
+        "You can say no politely and clearly. Respectful refusals protect your priorities and relationships.",
+        "Practice a kind but firm no to one request this week.",
+      ],
+      [
+        "Escape to think",
+        "Max blocks time to be alone with a notebook and no devices. In silence, he sees which tasks matter and which do not. Clarity arrives in the quiet. He returns calmer and more decisive.",
+        "Space to think reveals what really matters. Build time away from noise into your routine.",
+        "Take twenty minutes alone with a notebook and no screen today.",
+      ],
+      [
+        "Sunk cost",
+        "Hugo clings to a failing project because he has already invested so much. Asking what he would do if starting fresh, he sees the answer. Giving up the project feels painful and then freeing. Past investment should not control future choices.",
+        "Past effort is gone, so decide based on what is best now. Letting go can free your time for better things.",
+        "Pick a project you keep going out of habit and ask if you would start it again today.",
+      ],
+      [
+        "Remove obstacles",
+        "To finish an important task, Fei removes the biggest blocker instead of pushing harder. A missing permission, a slow tool, a vague request. Small fixes unlock large progress. He asks what the obstacle is before adding more effort.",
+        "Progress often comes from removing what blocks it, not adding more effort. Look for the smallest obstacle in your way.",
+        "Find the biggest obstacle in a project and write one way to remove it.",
+      ],
+    ],
+  }),
+  book({
+    slug: "cant-hurt-me",
+    title: "Can't Hurt Me",
+    author: "David Goggins",
+    year: 2018,
+    topics: ["mentalite-developpement", "corps-sante-performance"],
+    summary:
+      "A former Navy SEAL's story of turning pain into strength and pushing past limits. Six stories on mental toughness. Extreme approaches carry real risks, so adapt the ideas to your own limits and health.",
+    ideas: [
+      [
+        "The 40 percent rule",
+        "When your mind says you are done, you may be only forty percent through your capacity. Ali is on a hard run and wants to stop. He keeps going for another minute and finds there was more in him. Limits are often further away than they feel.",
+        "Your first urge to quit usually comes well before your real limit. Push a little further, safely.",
+        "Next time you want to stop a workout, do one more minute at a safe pace.",
+      ],
+      [
+        "Callous the mind",
+        "Doing hard things regularly makes you tougher. Nora takes cold showers and gets up early, not for the benefit but for the practice. The discipline spills into other parts of her life. Comfort stops running her day.",
+        "Voluntary discomfort trains resilience. Small hard actions build the strength you need for large ones.",
+        "Do one small uncomfortable thing today, such as a cold shower or an early start.",
+      ],
+      [
+        "Own your story",
+        "Hal blames his tough childhood for his struggles. Reading Goggins, he decides to take responsibility for the present. It is not about denying what happened but about owning what comes next. His excuses lose their power.",
+        "Your past may explain you, but you are responsible for what you do next. Taking ownership gives you power.",
+        "Write one excuse you use and what you would do without it.",
+      ],
+      [
+        "The accountability mirror",
+        "Every morning, Dee looks in the mirror and tells herself the truth about what she is avoiding. It stings. By naming the work aloud, she cannot hide from it. She acts on one item each day.",
+        "Facing your own honest assessment each day makes avoidance harder. Name what you are avoiding.",
+        "Write down the one thing you are avoiding and commit to a first step.",
+      ],
+      [
+        "Use the cookie jar",
+        "In dark moments, Kip recalls past wins: finishing a hard course, a difficult race. This cookie jar of memories reminds him of what he can do. He draws strength from it before a tough exam. Proof of past resilience helps him now.",
+        "Remembering your past achievements gives you confidence in hard times. Keep a list of them.",
+        "Write down three hard things you have already done.",
+      ],
+      [
+        "Rest is part of it",
+        "Pushing without rest leads to injury, burnout and bad decisions. Tia learns to separate mental toughness from ignoring her body's signals. She keeps hard efforts and adds proper recovery. Sustainable toughness lasts longer than reckless toughness.",
+        "Toughness includes recovery and listening to your body. Go hard, but rest well and respect real pain.",
+        "Schedule a recovery day this week and keep it.",
+      ],
+    ],
+  }),
+  book({
+    slug: "the-subtle-art-of-not-giving-a-f-ck",
+    title: "The Subtle Art of Not Giving a F*ck",
+    author: "Mark Manson",
+    year: 2016,
+    topics: ["mentalite-developpement", "psychologie"],
+    summary:
+      "A blunt reminder that you have limited attention to care about things, so choose what to care about and accept trade-offs. Six stories on values, responsibility and expectations.",
+    ideas: [
+      [
+        "Care about less",
+        "Lev worries about everything: work, opinions, status. He realizes that caring about everything is like caring about nothing. He picks a few things that matter to him and lets the rest go. His energy finally has a direction.",
+        "Your attention is limited, so choose carefully what you care about. Letting go of the trivial gives space for the meaningful.",
+        "Write three things you care about and three you are wasting energy on.",
+      ],
+      [
+        "Pain is part of it",
+        "Maya wants a great career but avoids the stress it requires. Each good thing comes with its own struggles. She asks herself what pain she is willing to endure for what she wants. The answer clarifies her choices.",
+        "Every goal comes with its own kind of pain. Choose the struggles you are willing to accept.",
+        "Pick a goal and write the difficulty you are willing to face for it.",
+      ],
+      [
+        "You are responsible",
+        "Karl blames his boss, his parents and his luck. Then he sees that while he may not be at fault, the response is his responsibility. Taking that on is uncomfortable and also liberating. He starts changing what he can.",
+        "You may not be to blame for everything that happens, but you are responsible for how you respond.",
+        "Choose one problem and write what part of it you can take responsibility for.",
+      ],
+      [
+        "Choose better values",
+        "Some values lead to unhappiness, like always being right or being liked by all. Others, like honesty and curiosity, hold up. Bea reviews her own and replaces a few. Her goals begin to feel lighter.",
+        "Good values are within your control and based on actions, not on outcomes. Pick values you can live every day.",
+        "Write two values you want to live by and one action that shows each.",
+      ],
+      [
+        "Be wrong more often",
+        "Gabe clings to his opinions as if they were part of him. A friend challenges him to say I might be wrong and see what happens. He learns more in a week than in a year of defending his views. Being less certain makes him more open.",
+        "Admitting you might be wrong opens you to learning. Certainty can block growth.",
+        "In your next disagreement, say I might be wrong about this and ask for the other side.",
+      ],
+      [
+        "Death clarifies",
+        "Thinking about the end of life makes trivial worries shrink. Una imagines looking back from her last day and sees what mattered. It makes her call her sister. Remembering that time is limited sorts her priorities.",
+        "Remembering that life is finite helps you focus on what matters. Use it to guide how you spend your time.",
+        "Ask yourself what you would regret not doing, and do a part of it this week.",
+      ],
+    ],
+  }),
+];

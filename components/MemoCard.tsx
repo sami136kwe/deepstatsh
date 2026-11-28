@@ -32,9 +32,23 @@ export function MemoCard({ card, discovery, variant = "full", hideContent, headi
   const t = useT();
   const Heading = headingLevel;
   const full = variant === "full";
-  const bodySentences = reading !== undefined ? splitSentences(card.body, card.language === "en" ? "en" : "fr") : null;
+  const language = card.language === "en" ? "en" : "fr";
+  const bodySentences = reading !== undefined ? splitSentences(card.body, language) : null;
+  const storySentences = reading !== undefined && card.story ? splitSentences(card.story, language) : null;
   const on = (part: ReadingPosition["part"], index = 0) => reading?.part === part && reading.index === index;
   const mark = "rounded bg-accent-soft";
+  const textSize = full ? "text-lg leading-relaxed" : "text-base leading-relaxed";
+  const story = card.story ? (
+    <p className={`font-serif ${textSize} text-ink/90`}>
+      {storySentences
+        ? storySentences.map((sentence, i) => (
+            <span key={i} className={on("story", i) ? mark : ""}>
+              {sentence}{" "}
+            </span>
+          ))
+        : card.story}
+    </p>
+  ) : null;
   return (
     <article className={`card-surface flex flex-col ${full ? "gap-5 p-6 sm:p-8" : "gap-3 p-5"}`} lang={card.language}>
       <div className="flex flex-wrap items-center gap-2">
@@ -49,15 +63,31 @@ export function MemoCard({ card, discovery, variant = "full", hideContent, headi
 
       {!hideContent && (
         <>
-          <p className={`${full ? "text-lg leading-relaxed" : "text-base leading-relaxed"} text-ink/90`}>
-            {bodySentences
-              ? bodySentences.map((sentence, i) => (
-                  <span key={i} className={on("body", i) ? mark : ""}>
-                    {sentence}{" "}
-                  </span>
-                ))
-              : card.body}
-          </p>
+          {story && full && (
+            <section aria-label={t.common.story} className="flex flex-col gap-1.5 border-l-4 border-line pl-4">
+              <p className="text-xs font-bold uppercase tracking-wider text-muted">{t.common.story}</p>
+              {story}
+            </section>
+          )}
+          {story && !full && (
+            <details className="text-sm">
+              <summary className="cursor-pointer font-medium text-accent">{t.common.readStory}</summary>
+              <div className="mt-2 border-l-4 border-line pl-3">{story}</div>
+            </details>
+          )}
+
+          <section className={`flex flex-col gap-1.5 ${on("lead") ? "rounded ring-2 ring-accent" : ""}`}>
+            <p className="text-xs font-bold uppercase tracking-wider text-muted">{t.common.takeaway}</p>
+            <p className={`${textSize} font-medium text-ink`}>
+              {bodySentences
+                ? bodySentences.map((sentence, i) => (
+                    <span key={i} className={on("body", i) ? mark : ""}>
+                      {sentence}{" "}
+                    </span>
+                  ))
+                : card.body}
+            </p>
+          </section>
 
           {card.quote && (
             <blockquote className="border-l-4 border-accent pl-4 font-serif text-lg italic text-muted">
@@ -67,7 +97,9 @@ export function MemoCard({ card, discovery, variant = "full", hideContent, headi
 
           <div className={`rounded-2xl bg-accent-soft p-4 ${on("label") || on("action") ? "ring-2 ring-accent" : ""}`}>
             <p className="text-xs font-bold uppercase tracking-wider text-accent">{t.common.actionToday}</p>
-            <p className="mt-1 font-medium">{card.action_step}</p>
+            <p className="mt-1 font-medium">
+              {card.action_step}
+            </p>
           </div>
         </>
       )}

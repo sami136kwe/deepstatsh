@@ -36,12 +36,14 @@ function stubExternalFetch(handler: (url: string) => Response) {
 const GOOD: { fr: LanguageVersion; en: LanguageVersion } = {
   fr: {
     title: `L'effet projecteur ${tag}`,
-    body: "Tu as renversé ton café en réunion et tu y penses encore le soir ? Les autres ont oublié au bout de cinq minutes. On surestime beaucoup à quel point les gens remarquent nos petits ratés, parce que chacun est occupé à se regarder lui-même. Ça devrait te rendre un peu plus léger.",
+    story: "Dora renverse son café sur la table pendant la réunion. Elle rougit, éponge à la hâte, s'excuse trois fois. Toute la soirée, la scène tourne en boucle dans sa tête. Le lendemain, elle en parle à un collègue, qui répond, perplexe : « Quel café ? »",
+    body: "Les autres ont oublié ton petit raté bien avant toi. On surestime beaucoup à quel point les gens nous remarquent, parce que chacun est occupé à se regarder lui-même. Ça devrait te rendre un peu plus léger.",
     action_step: "La prochaine fois que tu rumines une gaffe, demande à un proche s'il s'en souvient. Tu verras.",
   },
   en: {
     title: `The spotlight effect ${tag}`,
-    body: "Spilled coffee in a meeting and still thinking about it at night? Everyone else forgot within five minutes. We hugely overestimate how much people notice our small slips, because everyone is busy watching themselves. That should make you feel a bit lighter.",
+    story: "Dora spills her coffee across the table during the meeting. She blushes, mops it up in a hurry, apologizes three times. All evening the scene replays in her head. The next day she mentions it to a coworker, who asks, puzzled: \"What coffee?\"",
+    body: "Everyone else forgot your small slip long before you did. We hugely overestimate how much people notice us, because everyone is busy watching themselves. That should make you feel a bit lighter.",
     action_step: "Next time you replay a blunder in your head, ask a friend if they even remember it.",
   },
 };
@@ -49,11 +51,13 @@ const GOOD: { fr: LanguageVersion; en: LanguageVersion } = {
 const BAD: { fr: LanguageVersion; en: LanguageVersion } = {
   fr: {
     title: `La gestion des émotions ${tag}`,
+    story: "Paul parle à sa collègue pendant une réunion importante. Elle regarde son téléphone et hoche la tête de temps en temps. Paul continue de parler pendant vingt minutes sans s'apercevoir qu'elle ne l'écoute plus.",
     body: "La gestion des émotions est une compétence essentielle. Il est important de noter que les émotions influencent nos décisions au quotidien de manière significative.",
     action_step: "Prenez conscience de vos émotions.",
   },
   en: {
     title: `Managing emotions ${tag}`,
+    story: "Paul talks to his colleague during an important meeting. She looks at her phone and nods now and then. Paul keeps talking for twenty minutes without noticing that she has stopped listening.",
     body: "Managing emotions is an essential skill. Moreover, it is important to note that emotions influence our daily decisions in significant ways.",
     action_step: "Become aware of your emotions.",
   },

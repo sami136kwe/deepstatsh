@@ -1,0 +1,568 @@
+import { book } from "./helpers";
+
+export const GROWTH_BOOKS_3B = [
+  book({
+    slug: "ego-is-the-enemy",
+    title: "Ego Is the Enemy",
+    author: "Ryan Holiday",
+    year: 2016,
+    topics: ["mentalite-developpement", "leadership-carriere"],
+    summary:
+      "How pride, entitlement and self-importance get in the way of learning, working and recovering, at every stage of a career. Six stories about staying humble and focused on the work.",
+    ideas: [
+      [
+        "Be a student",
+        "On her first day at a design studio, Priya already has opinions about everything and says them loudly. Her mentor, a quiet senior, simply watches and takes notes. Months later, he has quietly mastered three new tools while Priya is still defending her habits. She decides to become a student again: she asks questions, listens and tries things the studio's way first.",
+        "Staying a student keeps you learning at any level. Curiosity grows faster than certainty.",
+        "Ask one person more experienced than you to show you how they do something.",
+      ],
+      [
+        "Do the work, skip the talk",
+        "Before launching, Marcus tells everyone about the amazing company he will build, and the praise feels like progress. Months pass and little is done. His friend never announces anything and simply ships a small version each week. Marcus realizes that talking about the work satisfies the ego, while doing the work satisfies the customer.",
+        "Talking about your plans can feel like progress without being any. Do the work first and let results speak.",
+        "Keep one goal to yourself this week and focus on doing it.",
+      ],
+      [
+        "Resist entitlement",
+        "After a few early wins, Dara starts to feel that big opportunities are owed to her. She skips the humble jobs and misses chances to learn. A friend reminds her that every craftsperson started with unglamorous tasks. Dara returns to the details, and her work gets better again.",
+        "Success can breed a sense of entitlement that blocks growth. Keep doing the humble tasks well, whatever your title.",
+        "Volunteer for one small, unglamorous task and do it carefully.",
+      ],
+      [
+        "Hold on to purpose",
+        "When a big job comes, Leon is tempted to chase status, titles and attention. He asks himself what he is really trying to achieve and writes it down. When a flashy but irrelevant offer arrives, the note helps him say no. Purpose keeps him from drifting after shiny things.",
+        "A clear purpose helps you ignore distractions that flatter your ego. Write down what you are really after.",
+        "Write your purpose in one sentence and read it before big decisions.",
+      ],
+      [
+        "Don't take the bait of praise",
+        "Praise from others feels wonderful, and it can also make you stop improving. Nell, after a viral post, feels pulled to repeat what pleased the crowd. She reminds herself to judge her work by her own standards. She keeps experimenting and gets better.",
+        "Praise and criticism can both distort your view. Use your own standards to judge your work.",
+        "Write two standards by which you judge your own work, regardless of applause.",
+      ],
+      [
+        "Handle failure with grace",
+        "After a failed launch, Idris feels humiliated and wants to blame the market, the team, bad luck. Instead he writes what he can learn and what he can do next. The sting does not vanish at once, but he starts again within a month. Humility turns the failure into a lesson.",
+        "Failure is a chance to learn when you drop blame and ego. Ask what you can do next.",
+        "Write what a recent failure taught you and one step you will take because of it.",
+      ],
+    ],
+  }),
+  book({
+    slug: "the-war-of-art",
+    title: "The War of Art",
+    author: "Steven Pressfield",
+    year: 2002,
+    topics: ["pensee-critique-creativite", "autodiscipline-habitudes"],
+    summary:
+      "Resistance, the inner force that stops creative work, and how professionals sit down and do the work anyway. Six stories on showing up every day.",
+    ideas: [
+      [
+        "Name the resistance",
+        "Every morning, Ellie plans to write, and every morning something else seems more urgent: laundry, email, a sudden need to reorganize her shelves. She starts to treat the pull as a character: Resistance. Naming it makes it less personal. It shows up daily, which means it is simply a part of the job.",
+        "Resistance is the force that stops creative work. Naming it helps you see it as familiar and not as a verdict on your ability.",
+        "Next time you avoid an important task, say aloud: this is resistance.",
+      ],
+      [
+        "Sit down and start",
+        "The hardest part of Ben's morning run is lacing his shoes. Once outside, the rest is easy. He realizes that starting is where resistance fights hardest. He commits to starting for just five minutes and finds that momentum takes over.",
+        "The hardest moment is often the start. Commit to beginning, and the rest becomes easier.",
+        "Start your most important task for just five minutes today.",
+      ],
+      [
+        "Be a professional",
+        "An amateur waits for inspiration, a professional shows up every day, at the same time, whatever the mood. Rhea sets a fixed work window and treats it like a job. Some sessions are poor, others are good, but the pages accumulate. After a year, she has a book. She never looks back.",
+        "Professionals show up on a schedule, regardless of mood. Consistency produces more than inspiration does.",
+        "Set a fixed time for your creative work and keep it for a week.",
+      ],
+      [
+        "Resistance grows with importance",
+        "The more a project matters to Omar, the more resistance he feels. His dream project provokes stronger excuses than his routine tasks. He learns to read the intensity of resistance as a sign of importance. The strongest pull, he decides, points to the work he most needs to do. He listens.",
+        "The strength of your resistance often points to what matters most. Treat it as a sign.",
+        "Name the project you feel the strongest resistance toward and work on it first.",
+      ],
+      [
+        "Don't wait for permission",
+        "Joy waits for someone to tell her she is ready to start her business, and no one does. She realizes that no one will hand over that permission. She begins quietly, with small steps. The calm certainty she wanted never arrives before she begins, only after.",
+        "Nobody will grant you permission to begin. Start on your own authority.",
+        "Take one step on a project you have been waiting for approval to start.",
+      ],
+      [
+        "Create for the work",
+        "Fame, praise and money tempt Hugo to chase outcomes while writing. Professionals focus on doing the work well and let the results be. He decides to judge success by showing up and finishing. The pressure drops, and his writing improves.",
+        "Focusing on the work rather than the reward frees you from pressure. Judge yourself by showing up.",
+        "Define success today as simply finishing your planned work session.",
+      ],
+    ],
+  }),
+  book({
+    slug: "steal-like-an-artist",
+    title: "Steal Like an Artist",
+    author: "Austin Kleon",
+    year: 2012,
+    topics: ["pensee-critique-creativite"],
+    summary:
+      "Ten short principles for creative work: collect influences, remix them and share your process. Six stories about creating without waiting for pure originality.",
+    ideas: [
+      [
+        "Nothing is entirely original",
+        "A young illustrator, Zoe, worries that everything has already been done. Her teacher tells her that all artists build on what came before. Every style she loves is a remix of earlier styles. She stops fretting about originality and starts studying her heroes closely. Relief.",
+        "Creative work builds on what came before. Study your influences to find your own voice.",
+        "List three creators you admire and what you could learn from each.",
+      ],
+      [
+        "Copy, then transform",
+        "To learn, Ali copies a painter's brushwork stroke by stroke. Later he adds his own subjects and colors, and the copy becomes something else. Copying teaches him the craft, and transforming makes it his. He never plagiarizes, he reworks.",
+        "Copying a master teaches technique, and adding your own twist makes it yours. Never present a copy as your own.",
+        "Pick a piece you admire and recreate part of it, then change it in one way.",
+      ],
+      [
+        "Collect good ideas",
+        "Kleon recommends keeping a swipe file of things that inspire you. Mina saves photos, quotes and sketches in a notebook. When she is stuck, she browses it and finds the spark she needs. A good collection feeds her future work.",
+        "Keep a collection of things that inspire you. It becomes a source when you are stuck.",
+        "Start a swipe file and add three items today.",
+      ],
+      [
+        "Do good work, share the process",
+        "Instead of waiting to share a perfect finished piece, Theo posts sketches and notes as he goes. People respond, offer encouragement and sometimes ideas. His audience grows without a big launch. Sharing his process invites others in.",
+        "Sharing your work in progress builds an audience and feedback. Show your process, as well as the result.",
+        "Share a small piece of your work in progress with someone today.",
+      ],
+      [
+        "Use constraints",
+        "With unlimited time and materials, Paula struggles to begin. A strict limit, five colors and one page, sparks inventive solutions. Limitations force her to make choices. Her best work comes from the tightest rules.",
+        "Limits can boost creativity by forcing choices. Add constraints to your next project.",
+        "Set a strict limit on time or materials for your next creative task.",
+      ],
+      [
+        "Keep a day job",
+        "Many artists keep stable jobs to fund their art. Sam stops expecting his creative work to pay the bills and removes that pressure. His job gives him income, structure and ideas, and the art stays pure. He creates more freely than before.",
+        "A stable income can free your creative work from financial pressure. Support your art with steady foundations.",
+        "Think of how a steady source of income could ease the pressure on your creative project.",
+      ],
+    ],
+  }),
+  book({
+    slug: "creativity-inc",
+    title: "Creativity, Inc.",
+    author: "Ed Catmull",
+    year: 2014,
+    topics: ["leadership-carriere", "pensee-critique-creativite"],
+    summary:
+      "Lessons from building a creative studio: candor, protecting early ideas and keeping fear out of the work. Six stories on leading creative teams.",
+    ideas: [
+      [
+        "Early drafts are ugly",
+        "Every film in the studio begins as a rough sketch that looks awful. Catmull insists that this is normal and even necessary. Nina, new on the team, hides her first drafts for fear of judgment. Her mentor encourages her to show them early, so they can be improved together.",
+        "Early versions of creative work are often rough. Share them early to improve them with others.",
+        "Show an early draft of something you are working on to a trusted person.",
+      ],
+      [
+        "Candor, with kindness",
+        "In the studio, a group of colleagues meets regularly to speak frankly about works in progress. Criticism targets the work, not the person, and everyone is expected to take part. Omar learns to say what is not working without sugarcoating it. The film gets better, and so do the relationships.",
+        "Honest feedback about the work, given kindly, improves it. Keep your criticism about the work, not the person.",
+        "Give one piece of frank, constructive feedback to a colleague this week.",
+      ],
+      [
+        "Protect the new",
+        "New ideas look fragile, even silly. Leaders must protect them from early judgment until they can grow. Laila resists the urge to kill a strange pitch in the first meeting. She lets the team explore it for a week, and the idea turns into a favorite.",
+        "Fragile new ideas need protection before they mature. Give them time before you judge.",
+        "Hold back from judging the next strange idea for a day and ask a question instead.",
+      ],
+      [
+        "Fail early, fail fast",
+        "A failure at the studio is treated as part of the process. A mistake in early production costs little, while one discovered late costs a fortune. Ravi encourages his team to try rough prototypes and learn quickly. People stop hiding problems.",
+        "Failing early costs less than failing late. Make it safe for people to share problems.",
+        "Praise someone on your team for reporting a problem early.",
+      ],
+      [
+        "Hire people better than you",
+        "Leaders often fear hiring someone who might outshine them. Catmull argues that a team's talent matters more than any one idea. Marta hires a designer who is stronger than she is and learns a great deal. The team's results improve far beyond what she could have done alone.",
+        "Strong teams are built by hiring people who are better than you in some way. Talent beats ego.",
+        "Look for someone more skilled than you in a particular area and learn from them.",
+      ],
+      [
+        "Stay open to change",
+        "After a success, many companies stick to the formula. The studio keeps shaking things up, rotating teams and inviting outside views. Paul notices that comfort can hide risks. He asks himself every quarter what assumption deserves a challenge.",
+        "Success can make teams rigid. Regularly question what you take for granted.",
+        "Choose one assumption in your work and ask what would happen if it were wrong.",
+      ],
+    ],
+  }),
+  book({
+    slug: "eat-that-frog",
+    title: "Eat That Frog!",
+    author: "Brian Tracy",
+    year: 2001,
+    topics: ["productivite-temps"],
+    summary:
+      "A set of practical rules for doing your most important and most dreaded task first. Six stories on prioritizing, planning and stopping procrastination.",
+    ideas: [
+      [
+        "Start with the hardest task",
+        "If you must eat a live frog, do it first thing in the morning, and the rest of the day will feel easy. Maya applies the idea to her toughest task, a difficult phone call. She makes it at nine, and the dread vanishes. The rest of her day flows with a lighter mind.",
+        "Do your hardest, most important task first. The day feels lighter once it is done.",
+        "Identify your biggest task for tomorrow and do it first.",
+      ],
+      [
+        "Plan every day",
+        "Before bed, Greg writes the list of tasks for the next day. In the morning, he already knows where to start. Ten minutes of planning save him an hour of wandering. His days feel purposeful.",
+        "Planning ahead helps you start fast and stay focused. Ten minutes of planning saves much more time.",
+        "Write tomorrow's task list tonight, marking the top three.",
+      ],
+      [
+        "Apply the 80/20 rule",
+        "Roughly twenty percent of Sara's tasks produce eighty percent of her results. She stops treating all items on her list as equal. She marks the few that matter and does them first. Her output grows without longer hours.",
+        "A small share of tasks yields most of your results. Identify and prioritize them.",
+        "Mark the top two tasks on your list that would make the biggest difference.",
+      ],
+      [
+        "Consider the consequences",
+        "Tasks with the greatest consequences deserve the first hours. Omar asks, what happens if I do this, and what happens if I don't? That question shows him that a report matters more than a dozen small emails. He starts with the report.",
+        "The tasks with the biggest consequences should come first. Ask what happens if you do or do not do it.",
+        "For each task on your list, write the consequence of leaving it undone.",
+      ],
+      [
+        "Break it into slices",
+        "A huge project looks impossible to Ana, so she keeps putting it off. She cuts it into small slices, a phone call, an outline, a first paragraph. Each slice takes a short time, and soon she has momentum. Eating the frog bite by bite makes it manageable.",
+        "Big tasks feel less daunting when you slice them into small steps. Start with the smallest one.",
+        "Break one big task into five small steps and do the first today.",
+      ],
+      [
+        "Set a deadline",
+        "Tasks without deadlines drift. Leo gives each of his projects a date and tells someone about it. The social pressure helps him follow through. His to-do list shrinks.",
+        "A clear deadline, shared with someone, makes it more likely that you will finish. Set one for each key task.",
+        "Choose a deadline for a task you have postponed and tell a friend.",
+      ],
+    ],
+  }),
+  book({
+    slug: "make-time",
+    title: "Make Time",
+    author: "Jake Knapp and John Zeratsky",
+    year: 2018,
+    topics: ["productivite-temps"],
+    summary:
+      "A menu of small tactics to choose a daily highlight, cut distractions, keep energy up and reflect. Six stories about spending time on what matters.",
+    ideas: [
+      [
+        "Pick a daily highlight",
+        "Every morning, Rosa asks herself what she wants to be the highlight of her day. It might be a project, a family dinner or a long walk. Having a single highlight gives her days a shape. At bedtime, she feels good about the day.",
+        "Choosing one highlight each day gives your time a focus. It helps you feel the day was well spent.",
+        "Choose tomorrow's highlight tonight and protect time for it.",
+      ],
+      [
+        "Make it laser-focused",
+        "Instead of a vague goal like work on the presentation, Tim schedules ninety minutes to write the first five slides. He tells his team he will be offline. The focus makes the task much faster than the vague version. He finishes before lunch.",
+        "Turn your highlight into a specific, time-boxed block. It reduces wandering and delays.",
+        "Schedule a block for your highlight in your calendar, with a clear target.",
+      ],
+      [
+        "Delete the infinity pools",
+        "Apps that never end, such as feeds and news, are infinity pools that drain hours. Lena deletes a few from her phone and logs out of the rest. The first days feel strange, then freeing. She finds herself with an extra hour.",
+        "Endless feeds steal time. Remove them from your phone to protect your attention.",
+        "Delete one app from your phone that you often scroll mindlessly.",
+      ],
+      [
+        "Be a slow reader of email",
+        "Checking messages constantly makes Alex's day reactive. He starts reading and answering email only at set times, once or twice a day. Nothing terrible happens. Reaction time was rarely the problem, he sees.",
+        "Checking messages less often protects your focus. Few messages are truly urgent.",
+        "Pick two times a day to check your messages and stick to them this week.",
+      ],
+      [
+        "Energize your body",
+        "Without sleep, food and movement, even great plans fail. Jun adds a walk after lunch, goes to bed thirty minutes earlier and eats breakfast. His energy and mood improve. Time is less useful without energy to use it.",
+        "Sleep, movement and food shape your energy for the day. Look after them to use time well.",
+        "Add a short walk to your day and go to bed a little earlier tonight.",
+      ],
+      [
+        "Reflect and adjust",
+        "At the end of each day, Mia jots down what worked and what did not. After a week, patterns emerge: mornings are best for deep work, and afternoons for meetings. She adjusts her schedule. Small tweaks compound into a better routine.",
+        "A quick daily reflection shows what helps you and what hurts. Adjust one thing at a time.",
+        "Write down one thing that worked and one to change at the end of today.",
+      ],
+    ],
+  }),
+  book({
+    slug: "the-one-thing",
+    title: "The ONE Thing",
+    author: "Gary Keller and Jay Papasan",
+    year: 2013,
+    topics: ["productivite-temps", "leadership-carriere"],
+    summary:
+      "Using a single focusing question to choose the most important task: what is the one thing that makes everything else easier or unnecessary? Six stories on focus and momentum.",
+    ideas: [
+      [
+        "The focusing question",
+        "Faced with twenty tasks, Dina stops and asks herself: what is the one thing I can do such that by doing it everything else will be easier or unnecessary? The answer is clear: call the client who is waiting. When that is done, three other tasks fall away. A single question turns her chaos into direction.",
+        "Ask what the one thing is that makes everything else easier or unnecessary. It cuts through long lists.",
+        "Use the focusing question on your task list right now and start with the answer.",
+      ],
+      [
+        "Go small",
+        "A huge goal like writing a book feels overwhelming to Henry. He asks what is the one thing he can do today, and the answer is to write two hundred words. Small actions compound. After a few months, he has a draft.",
+        "Big goals become real through small daily actions. Ask what the smallest useful step is today.",
+        "Write the one small action that would move your biggest goal forward today.",
+      ],
+      [
+        "Time-block your one thing",
+        "Keller advises protecting a block of time each day for the most important task. Lea blocks the first three hours of her morning and tells colleagues she will be unavailable. Her output rises sharply. A defended time block is her strongest tool.",
+        "Block time on your calendar for your most important task and guard it.",
+        "Block two hours tomorrow morning for your one thing.",
+      ],
+      [
+        "Say no to the good",
+        "Many tasks look worthwhile, but they steal time from the one that matters. Ravi turns down a good opportunity to protect his focus. It stings briefly, then feels right. Saying no to good things makes room for great ones.",
+        "Good opportunities can crowd out the great one. Decline some to protect your focus.",
+        "Decline one good but unimportant request this week.",
+      ],
+      [
+        "Don't expect balance every day",
+        "Perfect balance each day is a myth. Mari accepts that some days work will dominate and others will belong to family. Over weeks, she aims for counterbalance. The pressure to be perfect each day fades.",
+        "Balance is built over time, not each day. Let different priorities lead your different days.",
+        "Plan a week with some days for work focus and others for rest and family.",
+      ],
+      [
+        "Momentum builds",
+        "Like a train starting from a standstill, early effort is the hardest. Tom commits to his one thing every day for a month. After the first weeks, the work takes less effort. Consistency creates momentum that carries him forward.",
+        "Early effort is the hardest. Consistent action builds momentum that carries you.",
+        "Do your one thing every day for the next seven days and mark each on a calendar.",
+      ],
+    ],
+  }),
+  book({
+    slug: "digital-minimalism",
+    title: "Digital Minimalism",
+    author: "Cal Newport",
+    year: 2019,
+    topics: ["productivite-temps", "corps-sante-performance"],
+    summary:
+      "A philosophy of using technology intentionally: declutter, choose tools by value and rebuild time for deep activities. Six stories about reclaiming attention.",
+    ideas: [
+      [
+        "Do a digital declutter",
+        "For thirty days, Alma removes optional apps from her phone and rediscovers what she enjoys offline. She reads, calls friends and cooks. At the end, she adds back only what clearly adds value. The pause lets her choose rather than drift.",
+        "A short break from optional technology helps you see what you truly miss. Add back only what helps.",
+        "Remove one optional app for a week and note how you feel.",
+      ],
+      [
+        "Apply the value test",
+        "Before using any tool, Ben asks whether it strongly supports something he deeply values. Many apps fail the test, since they offer small benefits and large costs. He keeps a few that pass. His phone becomes a tool and not a trap.",
+        "Judge each technology by how strongly it supports what you value. Drop the ones that give small benefits at large costs.",
+        "Pick one app and write whether it supports a core value of yours.",
+      ],
+      [
+        "Spend time alone",
+        "Solitude, in the sense of time free from other minds' input, lets thoughts settle. Emma takes a daily walk without her phone and finds ideas come easier. At first she feels uneasy without a screen. After a week, she looks forward to it.",
+        "Time alone with your thoughts helps clarity and creativity. Leave your phone behind for a walk.",
+        "Take a twenty-minute walk without your phone today.",
+      ],
+      [
+        "Don't click like",
+        "A like takes a second but gives little connection. Leo replaces tapping like with sending a short personal message to friends. Conversations become real. He feels closer to fewer people.",
+        "Low-effort social signals give you little connection. Choose real conversations over quick reactions.",
+        "Send a personal message to one friend instead of liking their post.",
+      ],
+      [
+        "Reclaim leisure",
+        "Instead of scrolling in the evening, Dina takes up woodworking. The activity requires skill and gives her a sense of accomplishment. Tired evenings turn into creative ones. High-quality leisure restores her more than passive screens.",
+        "Skillful, hands-on leisure restores you more than passive scrolling. Choose an activity that takes effort and gives satisfaction.",
+        "Choose one hands-on hobby and schedule time for it this week.",
+      ],
+      [
+        "Join the attention resistance",
+        "Practices that protect attention, like phone-free dinners and single-tasking, are small acts of resistance. Karl and his family leave phones in a basket during meals. Conversation returns to the table. The habit becomes a family tradition.",
+        "Small rules about technology protect attention and relationships. Make them visible and shared.",
+        "Propose a phone-free meal this week with the people you live with.",
+      ],
+    ],
+  }),
+  book({
+    slug: "ultralearning",
+    title: "Ultralearning",
+    author: "Scott H. Young",
+    year: 2019,
+    topics: ["pensee-critique-creativite", "productivite-temps"],
+    summary:
+      "A strategy for learning hard skills fast through intense, self-directed projects: metalearning, focus, directness, drill, retrieval and feedback. Six stories about learning intensely.",
+    ideas: [
+      [
+        "Plan your learning",
+        "Before learning Spanish, Elise spends a week researching: which resources work best, how long it takes and how people practice. This metalearning plan saves her months of wasted effort. She maps the skill into parts and picks a schedule. Time spent on planning pays back many times.",
+        "Spending time to research how to learn something saves effort later. Map the skill and pick resources deliberately.",
+        "Spend an hour planning how you will learn your next skill.",
+      ],
+      [
+        "Learn directly",
+        "Learning to speak a language by studying grammar books alone does not prepare you for conversations. Joaquin starts talking with native speakers in his first week, however badly. His progress speeds up. Practicing the skill you want, directly, is the fastest route.",
+        "Practice the real thing you want to be able to do, not just something related. Direct practice transfers best.",
+        "Do a real task using your new skill within the next three days.",
+      ],
+      [
+        "Drill your weakest part",
+        "When learning piano, Mei notices that a single difficult passage causes most mistakes. She isolates it and practices it slowly, again and again. After a week, the problem disappears. Attacking the weakest link yields large gains.",
+        "Find the weakest component of a skill and drill it in isolation. Small targeted practice has big effects.",
+        "Identify your biggest weakness in a skill and drill it for ten minutes.",
+      ],
+      [
+        "Test before you feel ready",
+        "Retrieval beats review. Ivan tries to recall a chapter's key points before checking his notes and finds gaps right away. The gaps tell him what to study. Testing himself early makes his learning efficient.",
+        "Trying to recall information strengthens memory and shows gaps. Test yourself before you feel ready.",
+        "Quiz yourself on what you studied today without looking at notes.",
+      ],
+      [
+        "Seek harsh feedback",
+        "Gentle praise makes Nia feel good and teaches her little. She asks a tough mentor for brutal honesty on her presentation skills. The feedback stings, and she improves faster in a month than in a year. Information is more useful than comfort.",
+        "Honest, specific feedback accelerates learning. Seek it even when it stings.",
+        "Ask someone you trust for the three biggest improvements you could make.",
+      ],
+      [
+        "Push your limits",
+        "Intense effort in short bursts gets results. Hal sets a thirty-day challenge to learn the basics of programming, studying two hours daily. He builds a small app and feels proud. Setting a firm, ambitious deadline helps him stay committed.",
+        "A time-limited, intense learning project drives your focus. Set a clear deadline and a concrete output.",
+        "Design a thirty-day learning project with a clear final deliverable.",
+      ],
+    ],
+  }),
+  book({
+    slug: "spark",
+    title: "Spark",
+    author: "John J. Ratey",
+    year: 2008,
+    topics: ["corps-sante-performance", "psychologie"],
+    summary:
+      "The link between exercise and brain function: mood, learning, focus and stress. Six stories on moving to think better. It is general information, not medical advice.",
+    ideas: [
+      [
+        "Move to learn",
+        "Before a hard study session, Ines goes for a brisk twenty-minute walk. Afterwards, she focuses better and remembers more. The author describes how exercise boosts brain chemicals that help learning. She starts to schedule movement before mental work.",
+        "Exercise can improve focus and learning. A short walk before a mentally hard task may help.",
+        "Take a brisk ten-minute walk before your next demanding task.",
+      ],
+      [
+        "Exercise lifts mood",
+        "On a gloomy day, Marc feels low and unmotivated. A forty-minute jog changes his mood noticeably. Regular activity is linked to better mood and lower stress. He keeps a few shoes at the door as a reminder to move.",
+        "Regular exercise supports mood and reduces stress. Use movement as a tool on low days.",
+        "Next time you feel low, do ten minutes of gentle movement and notice any change.",
+      ],
+      [
+        "Keep it regular",
+        "Occasional big workouts help less than steady moderate ones. Tanya settles on thirty minutes four times a week and sticks with it. Her energy levels rise, and she sleeps better. Consistency beats intensity for her brain and body.",
+        "Regular, moderate exercise helps more than rare extreme efforts. Choose a pace you can sustain.",
+        "Schedule four short exercise sessions this week and keep them realistic.",
+      ],
+      [
+        "Anxiety and movement",
+        "Before speaking in public, Jon used to feel his heart pounding and his mind racing. A run the same morning helps burn off nervous energy. He feels calmer on stage. Exercise gives his body a useful outlet for stress.",
+        "Physical activity can ease anxious energy. Move before stressful events.",
+        "Do some movement before your next stressful event and see how you feel.",
+      ],
+      [
+        "Vary the activity",
+        "Combining different activities, running, balance and learning a new skill, works the brain in different ways. Alice joins a dance class, which demands coordination and memory. She enjoys it and feels sharper. A new physical skill challenges her mind and body together.",
+        "Activities that mix movement with learning keep your brain busy in new ways. Try something new that asks for coordination.",
+        "Try one new physical activity this month that requires learning a sequence.",
+      ],
+      [
+        "Check with a professional",
+        "Before starting a big change in exercise, Amir talks with his doctor about his health history. The advice helps him start safely. General information is no substitute for individual guidance. He builds up slowly and listens to his body.",
+        "Check with a health professional before big changes, especially with medical conditions. Start gently and build up.",
+        "If you are planning a big change, book a short check-in with a health professional.",
+      ],
+    ],
+  }),
+  book({
+    slug: "breath",
+    title: "Breath",
+    author: "James Nestor",
+    year: 2020,
+    topics: ["corps-sante-performance"],
+    summary:
+      "A look at how we breathe and why nose breathing, slower rhythms and mindful practices might improve well-being. Six stories on breathing better. It is general information, not medical advice.",
+    ideas: [
+      [
+        "Breathe through the nose",
+        "Many people breathe through the mouth without noticing, especially asleep or while concentrating. Leila starts to practice nasal breathing during the day. After a few weeks, she feels calmer and wakes up less dry-mouthed. The nose filters, warms and moistens air in ways the mouth cannot. Quietly.",
+        "Nose breathing filters and conditions the air. Notice whether you breathe through your mouth during the day.",
+        "Spend five minutes of your day consciously breathing through your nose.",
+      ],
+      [
+        "Slow it down",
+        "A normal breathing rate is often faster than needed. Hector tries breathing in for five seconds and out for five, about six breaths a minute. His heart rate settles and his mind quiets. Slow breathing, he finds, is a handy way to calm himself.",
+        "Slow, even breathing can calm your body and mind. Try about five seconds in and five out.",
+        "Practice five minutes of slow breathing, five seconds in and five out.",
+      ],
+      [
+        "Exhale fully",
+        "People often focus on inhaling and neglect the exhale. Nora emphasizes a long, gentle exhale and feels her shoulders drop. Extending the exhale helps trigger relaxation. She uses it before difficult meetings.",
+        "A longer exhale tends to help relaxation. Use it when you feel tense.",
+        "Try breathing out twice as long as you breathe in for one minute.",
+      ],
+      [
+        "Hold your breath gently",
+        "Brief, comfortable breath holds can improve tolerance for carbon dioxide and calm the nervous system. Sam practices gentle pauses after exhaling, never pushing to discomfort. He treats it with caution. He avoids any practice that makes him dizzy and stops immediately if it does.",
+        "Gentle breath practices should always be comfortable. Stop if you feel dizzy and ask a professional if you have conditions.",
+        "Learn about breath practices from a trusted source before trying holds.",
+      ],
+      [
+        "Chew more, breathe better",
+        "Facial structure and chewing influence airways, according to the author. Kim's dentist suggests that harder foods and good posture might support nasal breathing for children. These ideas are still being debated. Kim takes them as prompts to ask questions of professionals.",
+        "Ideas about jaw and airway development are debated. Use them as prompts to talk with a professional, not as conclusions about you.",
+        "Note one question about breathing or sleep to ask a health professional.",
+      ],
+      [
+        "Use breath in daily life",
+        "Between tasks, Jade takes three slow breaths to reset her focus. Before bed, she lengthens her exhale to help her wind down. These tiny habits cost nothing and fit anywhere. Over time, she notices fewer spikes of tension in her day. Simple.",
+        "Tiny breathing breaks between tasks can reset your focus and mood. Attach them to existing routines.",
+        "Take three slow breaths before each meeting or call today.",
+      ],
+    ],
+  }),
+  book({
+    slug: "the-four-agreements",
+    title: "The Four Agreements",
+    author: "Don Miguel Ruiz",
+    year: 1997,
+    topics: ["mentalite-developpement", "relations-vie-sociale"],
+    summary:
+      "Four simple personal codes: be impeccable with your word, don't take things personally, don't make assumptions and always do your best. Six stories on living with clarity.",
+    ideas: [
+      [
+        "Be impeccable with your word",
+        "Words can lift or harm. Aïda catches herself gossiping about a coworker over lunch and feels uneasy afterward. She decides to speak only about people as she would in front of them. Her relationships grow warmer, and her own inner voice becomes kinder.",
+        "Use your words to speak truthfully and kindly. They shape your relationships and your inner voice.",
+        "Go one day without gossip or harsh self-talk and notice how it feels.",
+      ],
+      [
+        "Don't take it personally",
+        "When a stranger snaps at her at the bus stop, Elise feels hurt, then realizes it has little to do with her. His mood belongs to him. She lets it pass like weather. Not taking things personally frees her from many small wounds.",
+        "What others say and do reflects their own state more than your worth. Let it pass without making it about you.",
+        "Next time someone is rude, tell yourself, this is about them, and let it go.",
+      ],
+      [
+        "Don't make assumptions",
+        "Ravi assumes his friend is angry because she has not replied. In fact, she is traveling and has no signal. He decides to ask instead of imagining. Clear questions prevent many unnecessary dramas.",
+        "Assumptions create conflict. Ask questions and say what you need clearly.",
+        "Ask one clarifying question today instead of guessing someone's meaning.",
+      ],
+      [
+        "Always do your best",
+        "Your best changes with health, mood and circumstance. On a day when Cole is exhausted, his best is smaller than usual, and he accepts that. He does what he can without judging himself. Because he stops pushing beyond his limits, he avoids regret.",
+        "Your best varies from day to day. Do what you can without self-judgment and you will avoid regret.",
+        "Do your honest best today with the energy you have, and drop self-criticism.",
+      ],
+      [
+        "Break old agreements",
+        "Many beliefs were absorbed in childhood without question, like I am not good at math. Lina notices one such belief and examines where it came from. She tests it by trying a simple math course. The old agreement begins to loosen.",
+        "Some beliefs about yourself were adopted long ago and can be questioned. Examine and test them.",
+        "Write one limiting belief about yourself and one small test that could challenge it.",
+      ],
+      [
+        "Practice patiently",
+        "Mastering these agreements takes practice, and Jo accepts that she will slip often. Each time she notices a slip, she starts again without drama. Small improvements add up. After a year, her interactions feel noticeably calmer.",
+        "Change takes repeated practice, and slips are normal. Start again each time without self-blame.",
+        "Choose one agreement to practice for the next seven days and note your slips kindly.",
+      ],
+    ],
+  }),
+];

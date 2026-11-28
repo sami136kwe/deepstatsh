@@ -5,7 +5,7 @@ import { getViewer } from "@/lib/session";
 
 export default async function LandingPage() {
   const { user, profile, locale } = await getViewer();
-  if (user) redirect(profile?.onboarded ? "/feed" : "/onboarding");
+  if (user) redirect(profile?.onboarded ? "/home" : "/onboarding");
   const t = messagesFor(locale);
 
   return (

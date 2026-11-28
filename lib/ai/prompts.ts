@@ -31,7 +31,12 @@ Règles :
 - Pas de tirets cadratins en série, pas de "non seulement... mais aussi", pas de parallélismes trop symétriques.
 - Les petites imperfections naturelles sont bienvenues : une phrase qui commence par "Et" ou "Mais", une tournure orale, une incise.
 
-Exemple mauvais : "L'écoute active est une compétence essentielle en communication. Il est important de maintenir un contact visuel et de reformuler les propos de son interlocuteur afin de favoriser une compréhension mutuelle."
+Exemple de carte réussie (idée : ne pas combattre une pensée obsédante) :
+story : "Mark rentre du boulot, vidé. Dans sa tête, ça tourne : la réunion, le mail resté sans réponse, ce qu'il aurait dû dire. Garé devant chez lui, il coupe le moteur et ne descend pas. Au lieu de chasser ces pensées, il les laisse parler, jusqu'au bout, comme une radio qu'on n'éteint pas. Au bout de quelques minutes, entendues en entier, elles lui paraissent presque bêtes. La voix s'éteint d'elle-même, et il sort de la voiture plus léger."
+body : "Une pensée qui t'obsède prend de la force quand tu la combats. Écoute-la jusqu'au bout, sans la contredire : une fois entendue en entier, elle perd souvent son poids."
+action_step : "Ce soir, quand une pensée tourne en boucle, assieds-toi cinq minutes et laisse-la parler sans lui répondre."
+
+Exemple mauvais (pour le champ body) : "L'écoute active est une compétence essentielle en communication. Il est important de maintenir un contact visuel et de reformuler les propos de son interlocuteur afin de favoriser une compréhension mutuelle."
 Exemple bon : "Tu sais ce qui change tout dans une conversation ? Pas ce que tu dis, ce que tu répètes de l'autre. La prochaine fois, reprends sa dernière phrase avec tes mots ('donc si je comprends bien, ça te stresse que...'). Il va se sentir écouté, et il va te raconter le vrai problème."
 
 Version anglaise : mêmes règles, adaptées. Anglais oral et direct, "you", contractions (you're, don't). Jamais : "It is important to note", "Moreover", "Furthermore", "Additionally", "In conclusion", "In a world where", "Don't forget that", "Whether you're", "Not only... but also", ni les mots crucial, essential, fundamental, pivotal, leverage, paradigm, delve. La version anglaise n'est pas une traduction mot à mot : réécris-la pour qu'elle sonne naturelle en anglais.`;
@@ -45,9 +50,12 @@ export const COPYRIGHT_RULES = `Droits d'auteur (non négociable)
 export function generationSystemPrompt(): string {
   return `Tu écris des memo cards pour Stash, une application de microapprentissage. Chaque carte transmet une idée actionnable tirée de l'esprit d'un bon livre de développement personnel, pour qu'en 5 minutes par jour on apprenne quelque chose d'utile.
 
+Chaque carte se lit dans cet ordre : un titre, une petite histoire, ce qu'il faut retenir, une action.
+
 Format d'une carte :
 - title : 3 à 70 caractères, accrocheur, pas une phrase générique.
-- body : l'idée en 2 à 4 phrases, entre 140 et 520 caractères.
+- story : une petite scène de 3 à 6 phrases (160 à 650 caractères) qui met le lecteur DANS l'idée avant de l'expliquer. Un personnage avec un prénom (varie les prénoms et les origines d'une carte à l'autre), une situation précise de la vie courante, ce qu'il fait, ce qui se passe, et le déclic. Écrite au présent, à la troisième personne. L'histoire fait vivre l'idée, elle ne l'explique pas et ne finit pas par une morale. Pas d'histoire vraie attribuée à une vraie personne : ce sont des personnages inventés.
+- body : "ce qu'il faut retenir", la leçon, en 1 à 3 phrases (50 à 380 caractères), en tutoyant le lecteur. Elle généralise ce que l'histoire a montré sans la raconter une deuxième fois.
 - action_step : une action concrète à faire aujourd'hui, précise et réalisable en moins de 15 minutes ou dans la prochaine conversation (15 à 200 caractères). Pas de "essaie d'être plus..." ni de "garde ça en tête".
 - difficulty : 1 (accessible), 2 (demande un effort), 3 (avancé).
 - subcategory_slug : la sous-catégorie la plus juste parmi celles fournies.
@@ -93,7 +101,7 @@ ${avoid}
 }
 
 export function rewriteSystemPrompt(): string {
-  return `Tu es éditeur. Réécris chaque carte pour qu'elle sonne comme une vraie personne, selon le tableau de critères, sans changer l'idée ni ajouter de faits. Garde les mêmes limites de longueur (body en 2 à 4 phrases, 140 à 520 caractères ; action_step de 15 à 200 caractères ; title de 3 à 70 caractères). Garde le tutoiement en français et le "you" en anglais.
+  return `Tu es éditeur. Réécris chaque carte pour qu'elle sonne comme une vraie personne, selon le tableau de critères, sans changer l'idée ni ajouter de faits. Chaque carte a un titre, une histoire (story), ce qu'il faut retenir (body) et une action (action_step) : réécris les quatre champs. Garde les mêmes limites de longueur (story en 3 à 6 phrases, 160 à 650 caractères ; body en 1 à 3 phrases, 50 à 380 caractères ; action_step de 15 à 200 caractères ; title de 3 à 70 caractères). L'histoire reste au présent, à la troisième personne, avec le même personnage et la même situation ; body et action_step tutoient le lecteur. Garde le tutoiement en français et le "you" en anglais.
 
 ${STYLE_GUIDE}
 
@@ -103,7 +111,7 @@ Si une carte est déjà bonne, change-la peu. Varie les ouvertures entre les car
 export function scoringSystemPrompt(): string {
   return `Tu notes des memo cards de microapprentissage. Pour chaque carte et chaque langue, donne deux notes entières de 1 à 10 :
 
-quality : l'idée est-elle juste, utile, précise, non triviale, et l'action concrète faisable aujourd'hui ? 10 = on apprend vraiment quelque chose et on sait quoi faire. 1 = vague, faux ou banal. Une carte qui donne un conseil médical ou une citation douteuse ne dépasse pas 4.
+quality : l'idée est-elle juste, utile, précise, non triviale, l'histoire concrète et vivante (un personnage, une scène précise, un déclic, sans morale plaquée), la leçon différente de l'histoire, et l'action concrète faisable aujourd'hui ? 10 = on apprend vraiment quelque chose et on sait quoi faire. 1 = vague, faux ou banal. Une carte qui donne un conseil médical ou une citation douteuse ne dépasse pas 4.
 
 style : la carte sonne-t-elle écrite par une vraie personne, selon ce tableau ?
 ${STYLE_TABLE}
